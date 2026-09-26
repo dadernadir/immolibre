@@ -109,4 +109,9 @@
     <priority>0.8</priority>
     <lastmod>2026-09-03</lastmod>
   </url>
+  <url>
+    <loc>https://immolibre.be/confidentialite</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

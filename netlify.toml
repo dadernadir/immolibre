@@ -1,0 +1,122 @@
+# ─── En-têtes de sécurité (défense en profondeur) ───
+# Remarque CSP : le site utilise massivement des attributs onclick="" et des
+# <script>/<style> inline, ce qui impose 'unsafe-inline' pour script-src et
+# style-src (refactoriser vers des nonces/addEventListener sortirait du cadre
+# de ce correctif). La CSP reste néanmoins utile : elle empêche le chargement
+# de scripts depuis un domaine tiers non listé et, surtout, verrouille
+# connect-src pour qu'un éventuel payload XSS ne puisse pas exfiltrer des
+# données (fetch/XHR/WebSocket) vers un serveur arbitraire.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://svjkpexgckghrtrfowtq.supabase.co wss://svjkpexgckghrtrfowtq.supabase.co https://nominatim.openstreetmap.org; form-action 'self'"
+
+# ─── Canonicalisation domaine : www → apex (immolibre.be) ───
+[[redirects]]
+  from = "https://www.immolibre.be/*"
+  to = "https://immolibre.be/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.immolibre.be/*"
+  to = "https://immolibre.be/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://immolibre.be/*"
+  to = "https://immolibre.be/:splat"
+  status = 301
+  force = true
+
+# ─── Canonicalisation URLs : .html → version sans extension ───
+[[redirects]]
+  from = "/blog/vendre-sa-maison-sans-agence-belgique.html"
+  to = "/blog/vendre-sa-maison-sans-agence-belgique"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/home-staging-photos-immobilieres.html"
+  to = "/blog/home-staging-photos-immobilieres"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/kot-etudiant-louvain-la-neuve.html"
+  to = "/blog/kot-etudiant-louvain-la-neuve"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/kot-etudiant-bruxelles.html"
+  to = "/blog/kot-etudiant-bruxelles"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/vendre-rapidement-maison-belgique.html"
+  to = "/blog/vendre-rapidement-maison-belgique"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/kot-etudiant-liege.html"
+  to = "/blog/kot-etudiant-liege"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/kot-etudiant-mons.html"
+  to = "/blog/kot-etudiant-mons"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/frais-notaire-belgique-2026.html"
+  to = "/blog/frais-notaire-belgique-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/estimer-prix-maison-belgique.html"
+  to = "/blog/estimer-prix-maison-belgique"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/peb-belgique-guide-complet.html"
+  to = "/blog/peb-belgique-guide-complet"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/kot-etudiant-namur.html"
+  to = "/blog/kot-etudiant-namur"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/kot-etudiant-belgique.html"
+  to = "/blog/kot-etudiant-belgique"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/calculateur-frais-notaire-belgique.html"
+  to = "/calculateur-frais-notaire-belgique"
+  status = 301
+  force = true
+
+# ─── Existant : sitemap dynamique des annonces ───
+[[redirects]]
+  from = "/sitemap-annonces.xml"
+  to = "https://svjkpexgckghrtrfowtq.supabase.co/functions/v1/sitemap-annonces"
+  status = 200
+  force = true

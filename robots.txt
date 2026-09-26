@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquer les zones privées (si existent)
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://immolibre.be/sitemap.xml
+Sitemap: https://immolibre.be/sitemap-annonces.xml

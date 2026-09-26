@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog ImmoLibre — Conseils immobiliers en Belgique | Vendre, acheter, louer sans agence</title>
+<meta name="description" content="Conseils gratuits pour vendre, acheter ou louer un bien immobilier en Belgique sans agence. Estimation, frais de notaire, vente entre particuliers, PEB. Guides experts par ImmoLibre.">
+<meta name="keywords" content="blog immobilier Belgique, vendre sans agence Belgique, estimation prix maison, conseils immobilier, frais notaire Belgique, ImmoLibre">
+<meta name="author" content="ImmoLibre.be">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://immolibre.be/blog/">
+
+<!-- Open Graph (Facebook, LinkedIn) -->
+<meta property="og:title" content="Blog ImmoLibre — Conseils immobiliers en Belgique">
+<meta property="og:description" content="Tous les conseils pour vendre, acheter ou louer un bien en Belgique sans agence et sans commission.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://immolibre.be/blog/">
+<meta property="og:locale" content="fr_BE">
+<meta property="og:site_name" content="ImmoLibre.be">
+
+<!-- Schema.org Blog -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog ImmoLibre",
+  "description": "Conseils gratuits pour l'immobilier en Belgique sans agence",
+  "url": "https://immolibre.be/blog/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ImmoLibre.be",
+    "url": "https://immolibre.be"
+  },
+  "inLanguage": "fr-BE"
+}
+</script>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.6; background: #fafaf8; }
+.header { background: #fff; padding: 18px 20px; border-bottom: 1px solid #e8f5e9; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 22px; font-weight: 900; color: #1b5e20; text-decoration: none; }
+.logo .libre { color: #f57f17; }
+.back { color: #1b5e20; text-decoration: none; font-weight: 700; font-size: 14px; }
+.container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+.hero { text-align: center; margin-bottom: 36px; }
+.hero h1 { font-size: 32px; color: #1b5e20; margin-bottom: 12px; line-height: 1.2; }
+.hero p { font-size: 17px; color: #555; max-width: 600px; margin: 0 auto; }
+.intro { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 32px; border-left: 5px solid #1b5e20; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+.intro h2 { color: #1b5e20; font-size: 20px; margin-bottom: 14px; }
+.intro p { margin-bottom: 12px; color: #2c2c2c; }
+.intro strong { color: #1b5e20; }
+.articles { display: grid; gap: 20px; margin-bottom: 36px; }
+.article-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,.05); transition: transform .2s, box-shadow .2s; border: 1px solid #e8f5e9; }
+.article-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+.article-card h3 { font-size: 22px; color: #1b5e20; margin-bottom: 10px; line-height: 1.3; }
+.article-card .meta { font-size: 12px; color: #888; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.article-card .excerpt { color: #444; margin-bottom: 16px; }
+.article-card .read-more { display: inline-block; padding: 10px 20px; background: #1b5e20; color: #fff; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 14px; transition: background .2s; }
+.article-card .read-more:hover { background: #2e7d32; }
+.tools { background: linear-gradient(135deg, #fff8e1, #ffecb3); border-radius: 16px; padding: 24px; margin-bottom: 36px; }
+.tools h2 { color: #5d4037; font-size: 20px; margin-bottom: 14px; }
+.tools p { color: #5d4037; margin-bottom: 14px; }
+.tools .btn { display: inline-block; padding: 12px 22px; background: #f57f17; color: #fff; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 14px; }
+.why { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 32px; border: 1px solid #e8f5e9; }
+.why h2 { color: #1b5e20; font-size: 20px; margin-bottom: 16px; }
+.why ul { list-style: none; }
+.why li { padding: 8px 0; padding-left: 30px; position: relative; color: #2c2c2c; }
+.why li::before { content: "✅"; position: absolute; left: 0; }
+.cta { text-align: center; background: linear-gradient(135deg, #1b5e20, #2e7d32); border-radius: 16px; padding: 36px 24px; color: #fff; margin-bottom: 32px; }
+.cta h2 { font-size: 24px; margin-bottom: 10px; }
+.cta p { margin-bottom: 20px; opacity: .95; }
+.cta .btn { display: inline-block; padding: 14px 28px; background: #fff; color: #1b5e20; text-decoration: none; border-radius: 12px; font-weight: 800; font-size: 15px; }
+.footer { text-align: center; padding: 30px 20px; color: #888; font-size: 13px; }
+.footer a { color: #1b5e20; text-decoration: none; font-weight: 600; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 24px; }
+  .article-card h3 { font-size: 18px; }
+  .intro, .why, .article-card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="https://immolibre.be" class="logo">immo<span class="libre">libre</span>.be</a>
+  <a href="https://immolibre.be" class="back">← Retour au site</a>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>📚 Le Blog ImmoLibre</h1>
+    <p>Tous les conseils pour réussir votre projet immobilier en Belgique, sans agence et sans commission.</p>
+  </section>
+
+  <section class="intro">
+    <h2>🇧🇪 Bienvenue sur le blog de l'immobilier libre</h2>
+    <p><strong>Vendre, acheter ou louer un bien immobilier en Belgique</strong> peut vite devenir un casse-tête : commissions d'agence élevées (souvent 3 à 5% du prix de vente), démarches administratives complexes, certificats PEB, frais de notaire, fiscalité... Chaque étape soulève des questions, et les mauvaises décisions peuvent coûter des milliers d'euros.</p>
+    <p>C'est pourquoi nous avons créé <strong>ImmoLibre</strong> : une plateforme 100% gratuite pour les particuliers belges qui veulent vendre ou louer leur bien sans intermédiaire. Et avec ce blog, nous voulons aller plus loin en partageant gratuitement nos <strong>guides pratiques</strong>, nos <strong>conseils d'experts</strong> et nos <strong>outils gratuits</strong> pour vous aider à prendre les bonnes décisions.</p>
+    <p>Que vous soyez à Bruxelles, Liège, Charleroi, Namur, Mons, Anvers ou ailleurs en Belgique, nos articles sont pensés pour <strong>la réalité du marché belge</strong> — pas pour une généralité européenne floue.</p>
+  </section>
+
+  <section class="articles">
+    <h2 style="color:#1b5e20;font-size:22px;margin-bottom:6px;">📖 Nos derniers articles</h2>
+
+    <article class="article-card">
+      <div class="meta">🏠 Vendre son bien · 14 min de lecture · NOUVEAU</div>
+      <h3><a href="vendre-rapidement-maison-belgique.html" style="color:#1b5e20;text-decoration:none;">Comment vendre rapidement sa maison en Belgique en 2026 ? Guide complet</a></h3>
+      <p class="excerpt">Combien de temps faut-il vraiment pour vendre en Belgique ? Notre guide 2026 vous donne les délais moyens par région (Bruxelles, Liège, Anvers, Wallonie), les 3 leviers pour vendre vite (prix, photos, annonce), la checklist des documents indispensables (PEB en tête), les 7 erreurs qui ralentissent une vente, et un plan d'action concret en 7 jours pour mettre votre bien sur le marché dans les meilleures conditions.</p>
+      <a href="vendre-rapidement-maison-belgique.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">💼 Frais d'achat · 15 min de lecture</div>
+      <h3><a href="frais-notaire-belgique-2026.html" style="color:#1b5e20;text-decoration:none;">Frais de notaire en Belgique 2026 : guide complet avec exemples chiffrés</a></h3>
+      <p class="excerpt">Combien coûtent vraiment les frais de notaire en Belgique ? Notre guide 2026 décompose en détail chaque poste : droits d'enregistrement (12,5% en Wallonie/Bruxelles, 2% en Flandre pour habitation unique), honoraires du notaire selon le barème officiel, TVA, frais administratifs. Avec 3 exemples chiffrés concrets (Wallonie, Bruxelles, Flandre) et tous les abattements possibles pour économiser des milliers d'euros.</p>
+      <a href="frais-notaire-belgique-2026.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🎓 Logement étudiant · 18 min de lecture</div>
+      <h3><a href="kot-etudiant-belgique.html" style="color:#1b5e20;text-decoration:none;">Kot étudiant en Belgique : prix, quartiers, bail — Guide complet 2026</a></h3>
+      <p class="excerpt">Vous cherchez un kot étudiant en Belgique pour la rentrée ? Notre guide complet couvre Bruxelles, Liège, Louvain, Namur et Mons : prix moyens par ville (350-650€/mois), meilleurs quartiers étudiants, calendrier idéal pour chercher, bail étudiant, garanties locatives, erreurs à éviter et aides financières. Tout pour trouver le bon kot sans stress.</p>
+      <a href="kot-etudiant-belgique.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🎓 Logement étudiant · Bruxelles · 6 min de lecture · NOUVEAU</div>
+      <h3><a href="kot-etudiant-bruxelles.html" style="color:#1b5e20;text-decoration:none;">Kot à Bruxelles : prix, quartiers et annonces 2026</a></h3>
+      <p class="excerpt">Loyer médian, meilleurs quartiers près de l'ULB et la VUB (Ixelles, Etterbeek, Cimetière d'Ixelles) et annonces de kots disponibles en direct sur ImmoLibre.</p>
+      <a href="kot-etudiant-bruxelles.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🎓 Logement étudiant · Louvain-la-Neuve · 6 min de lecture · NOUVEAU</div>
+      <h3><a href="kot-etudiant-louvain-la-neuve.html" style="color:#1b5e20;text-decoration:none;">Kot à Louvain-la-Neuve : prix, quartiers et annonces 2026</a></h3>
+      <p class="excerpt">Loyer médian, quartiers étudiants (Biéreau, Bruyères, Hocaille, Blocry) et annonces de kots disponibles en direct sur ImmoLibre, sans commission.</p>
+      <a href="kot-etudiant-louvain-la-neuve.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🎓 Logement étudiant · Liège · 6 min de lecture · NOUVEAU</div>
+      <h3><a href="kot-etudiant-liege.html" style="color:#1b5e20;text-decoration:none;">Kot à Liège : prix, quartiers et annonces 2026</a></h3>
+      <p class="excerpt">Loyer médian, quartiers étudiants (Outremeuse, Carré, Sart-Tilman) et annonces de kots et studios disponibles en direct sur ImmoLibre.</p>
+      <a href="kot-etudiant-liege.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🎓 Logement étudiant · Namur · 6 min de lecture · NOUVEAU</div>
+      <h3><a href="kot-etudiant-namur.html" style="color:#1b5e20;text-decoration:none;">Kot à Namur : prix, quartiers et annonces 2026</a></h3>
+      <p class="excerpt">Loyer médian, quartiers étudiants (centre historique, Salzinnes, Jambes) et annonces de kots disponibles en direct sur ImmoLibre.</p>
+      <a href="kot-etudiant-namur.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🎓 Logement étudiant · Mons · 5 min de lecture · NOUVEAU</div>
+      <h3><a href="kot-etudiant-mons.html" style="color:#1b5e20;text-decoration:none;">Kot à Mons : prix, quartiers et annonces 2026</a></h3>
+      <p class="excerpt">Loyer médian, quartiers étudiants et annonces de kots et studios disponibles en direct sur ImmoLibre, sans commission ni frais d'agence.</p>
+      <a href="kot-etudiant-mons.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">⚡ Réglementation · 15 min de lecture</div>
+      <h3><a href="peb-belgique-guide-complet.html" style="color:#1b5e20;text-decoration:none;">Certificat PEB en Belgique : obligation, prix, validité — Guide complet 2026</a></h3>
+      <p class="excerpt">Le certificat PEB est obligatoire pour toute vente ou location en Belgique. Mais combien ça coûte ? Quelle est sa validité ? Quelles sont les différences entre Wallonie, Bruxelles et Flandre ? Notre guide complet 2026 répond à toutes vos questions, avec les prix moyens, les sanctions, l'impact sur le prix de vente et les travaux pour améliorer sa classe énergétique.</p>
+      <a href="peb-belgique-guide-complet.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">🏠 Guide complet · 12 min de lecture</div>
+      <h3><a href="estimer-prix-maison-belgique.html" style="color:#1b5e20;text-decoration:none;">Comment estimer le prix de sa maison en Belgique ?</a></h3>
+      <p class="excerpt">Découvrez les 5 méthodes pour estimer correctement le prix de votre bien immobilier en Belgique : prix au m², comparatif de marché, capitalisation des loyers, expertise notariale, outils gratuits en ligne. Avec les vraies fourchettes de prix par région (Bruxelles, Wallonie, Flandre) et les erreurs à éviter pour ne pas perdre des milliers d'euros à la vente.</p>
+      <a href="estimer-prix-maison-belgique.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">💰 Conseil · 10 min de lecture</div>
+      <h3><a href="vendre-sa-maison-sans-agence-belgique.html" style="color:#1b5e20;text-decoration:none;">Vendre sa maison sans agence en Belgique : guide complet</a></h3>
+      <p class="excerpt">Vendre sa maison sans agence permet d'économiser entre 3 000 € et 15 000 € de commissions. Mais comment s'y prendre sans se tromper ? Notre guide vous explique toutes les étapes : préparation du bien, prix, photos professionnelles, annonces, visites, négociation, compromis de vente et acte notarié. Avec les obligations légales belges expliquées simplement.</p>
+      <a href="vendre-sa-maison-sans-agence-belgique.html" class="read-more">Lire l'article complet →</a>
+    </article>
+
+    <article class="article-card">
+      <div class="meta">📸 Conseil · 7 min de lecture</div>
+      <h3><a href="home-staging-photos-immobilieres.html" style="color:#1b5e20;text-decoration:none;">Home staging et photos immobilières : donnez plus de valeur à votre bien</a></h3>
+      <p class="excerpt">Des photos lumineuses et un bien bien présenté se vendent plus vite, sans gros travaux. Techniques photo, home staging léger, petits investissements rentables (et ceux à éviter) : notre guide vous montre comment valoriser votre maison ou appartement avant de publier votre annonce.</p>
+      <a href="home-staging-photos-immobilieres.html" class="read-more">Lire l'article complet →</a>
+    </article>
+  </section>
+
+  <section class="tools">
+    <h2>🧮 Notre outil gratuit le plus utilisé</h2>
+    <p>Vous prévoyez d'acheter un bien en Belgique ? <strong>Les frais de notaire représentent généralement 12 à 15% du prix d'achat</strong>. Notre calculateur gratuit vous donne une estimation précise en quelques secondes.</p>
+    <a href="../calculateur-frais-notaire-belgique.html" class="btn">⚡ Calculer mes frais de notaire</a>
+  </section>
+
+  <section class="why">
+    <h2>💡 Pourquoi suivre notre blog ?</h2>
+    <ul>
+      <li><strong>100% gratuit</strong> — Tous nos articles, guides et outils sont accessibles sans inscription</li>
+      <li><strong>Spécifique à la Belgique</strong> — Lois, fiscalité et marché belges, pas du contenu généraliste</li>
+      <li><strong>Mise à jour régulière</strong> — Nous suivons les évolutions du marché immobilier belge</li>
+      <li><strong>Conseils concrets</strong> — Pas de blabla, des informations actionnables</li>
+      <li><strong>Indépendant</strong> — Aucune commission d'agence, aucun conflit d'intérêt</li>
+      <li><strong>Communauté</strong> — Plus de 90 annonces de particuliers sur ImmoLibre.be</li>
+    </ul>
+  </section>
+
+  <section class="cta">
+    <h2>🏡 Prêt à vendre votre bien ?</h2>
+    <p>Publiez gratuitement votre annonce sur ImmoLibre.be — sans commission, sans engagement.</p>
+    <a href="https://immolibre.be" class="btn">Publier mon annonce gratuitement →</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2026 <a href="https://immolibre.be">ImmoLibre.be</a> — La plateforme immobilière belge gratuite 🇧🇪</p>
+  <p style="margin-top:8px;"><a href="https://immolibre.be">Accueil</a> · <a href="https://immolibre.be/calculateur-frais-notaire-belgique.html">Calculateur frais notaire</a> · <a href="https://immolibre.be?route=apropos">À propos</a></p>
+</footer>
+
+</body>
+</html>

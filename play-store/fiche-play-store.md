@@ -92,9 +92,14 @@ Réponses correspondant au fonctionnement actuel du site (à revérifier si le s
 - **Annonces publicitaires** : Non, l'application ne contient pas de publicité.
 - **Accès à l'application** : fournir à Google un compte de test (e-mail + mot de passe) pour qu'il puisse vérifier la messagerie et la publication d'annonces.
 
-# ⚠️ Point bloquant à régler avant l'envoi : les paiements
+# 💳 Paiements : options payantes masquées dans l'app Android
 
-Les boosts et options Premium sont payés par Stripe. Dans une application du Play Store, Google impose son propre système de paiement (« Google Play Billing ») pour les services numériques, et une option de visibilité en est un. Deux solutions :
+Google impose son propre système de paiement (Google Play Billing, 15 % de commission) pour les services numériques vendus dans une app, et les boosts ou formules agences en font partie. Pour garder Stripe, **les options payantes sont masquées dans l'app Android** et restent disponibles sur le site web :
 
-1. **Masquer les options payantes dans l'application Android** : elles restent disponibles sur le site web. C'est la solution la plus simple et la plus courante.
-2. Brancher Google Play Billing : plus complexe, et Google prélève 15 % sur chaque paiement.
+- bannières et boutons « Booster », fenêtre des offres, prix affichés dans le formulaire de publication ;
+- étape « Voulez-vous booster ? » après la publication (l'app passe directement à la confirmation) ;
+- formules agences Starter / Pro / Premium (le contact WhatsApp reste visible).
+
+Le site reconnaît l'app grâce à son adresse de démarrage. **Dans PWABuilder, au moment de générer l'app Android, mets `/?app=android` dans le champ « Start URL »** (options Android). Le site reconnaît aussi le « referrer » android-app:// qu'envoie Android, mais le paramètre `?app=android` est le plus fiable.
+
+Pour vérifier depuis un navigateur, ouvre https://immolibre.be/?app=android : aucune offre payante ne doit apparaître.

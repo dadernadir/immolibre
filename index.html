@@ -26,6 +26,31 @@
 
 <!-- Icônes PWA -->
 <link rel="manifest" href="manifest.json"/>
+<script>
+// 📱 Application Android (Play Store) : Google impose son propre système de paiement
+// pour les services numériques. Dans l'app, on masque donc les options payantes
+// (boosts, formules agences) : elles restent disponibles sur le site web.
+// L'app s'ouvre sur /?app=android et Android fournit un referrer android-app://.
+// On mémorise l'info pour la session, car l'URL change ensuite au fil de la navigation.
+(function(){
+  var app = false;
+  try {
+    app = /[?&]app=android(&|$)/.test(location.search)
+       || document.referrer.indexOf('android-app://') === 0
+       || sessionStorage.getItem('immo_android_app') === '1';
+    if(app) sessionStorage.setItem('immo_android_app','1');
+  } catch(e){}
+  window.IMMO_ANDROID_APP = app;
+  if(app) document.documentElement.classList.add('android-app');
+})();
+</script>
+<style>
+  html.android-app .paid-only,
+  html.android-app [onclick*="openBoostModal"],
+  html.android-app [onclick*="boostFromModal"],
+  html.android-app [onclick*="subscribeAgence"],
+  html.android-app [onclick*="confirmBoost"] { display:none !important; }
+</style>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"/>
@@ -510,7 +535,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     </div>
 
     <!-- CTA BOOST BANNER -->
-    <div style="margin:0 16px 16px;max-width:1068px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#f57f17,#ff9800);border-radius:20px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 8px 32px rgba(245,127,23,.25);">
+    <div class="paid-only" style="margin:0 16px 16px;max-width:1068px;margin-left:auto;margin-right:auto;background:linear-gradient(135deg,#f57f17,#ff9800);border-radius:20px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 8px 32px rgba(245,127,23,.25);">
       <div>
         <div style="color:#fff;font-weight:900;font-size:18px;font-family:'Playfair Display',serif;margin-bottom:4px;">⚡ Boostez votre annonce !</div>
         <div style="color:rgba(255,255,255,.85);font-size:13px;">Soyez vu en premier par des milliers d'acheteurs belges</div>
@@ -816,12 +841,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <p style="font-size:14px;color:#555;line-height:1.7;max-width:600px;margin:0 auto;">Donnez à vos biens une visibilité supplémentaire sur ImmoLibre.be. Rejoignez Inforim, Godin Immobilier, IGG Immo, La Marquise et MCA Immobilier.</p>
     </div>
 
-    <div style="background:linear-gradient(135deg,#1b5e20,#2e7d32);border-radius:16px;padding:18px;text-align:center;color:#fff;margin-bottom:26px;">
+    <div class="paid-only" style="background:linear-gradient(135deg,#1b5e20,#2e7d32);border-radius:16px;padding:18px;text-align:center;color:#fff;margin-bottom:26px;">
       <div style="font-size:15px;font-weight:900;margin-bottom:4px;">🎁 Offre de lancement : 3 mois offerts</div>
       <div style="font-size:12.5px;opacity:.95;line-height:1.6;">Testez ImmoLibre gratuitement pendant 3 mois, sans engagement. Vous ne payez qu'ensuite, et seulement si vous décidez de continuer.</div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:26px;">
+    <div class="paid-only" style="display:flex;flex-direction:column;gap:18px;margin-bottom:26px;">
 
       <!-- STARTER -->
       <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid #e8f5e9;box-shadow:0 2px 10px rgba(0,0,0,.04);">
@@ -870,7 +895,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 
     </div>
 
-    <div style="background:#f1f8e9;border-radius:12px;padding:16px;border:1px solid #c8e6c9;margin-bottom:22px;">
+    <div class="paid-only" style="background:#f1f8e9;border-radius:12px;padding:16px;border:1px solid #c8e6c9;margin-bottom:22px;">
       <div style="font-size:13px;color:#444;line-height:1.7;">💡 <strong>Comment ça marche ?</strong><br/>Choisissez une formule, profitez de vos 3 mois offerts, et donnez de la visibilité à vos biens. Sans engagement : vous pouvez arrêter à tout moment. Une question ? <span style="color:#1b5e20;font-weight:700;cursor:pointer;text-decoration:underline;" onclick="openContactModal()">Contactez-nous</span>.</div>
     </div>
 
@@ -1409,7 +1434,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
             📷 Ajouter des photos (jusqu'à 10 gratuites)
           </label>
           <input id="photoInput" type="file" accept="image/*" multiple style="display:none;" onchange="previewPhotos(this)"/>
-          <p style="font-size:10px;color:#aaa;margin-top:4px;">JPG, PNG — 10 photos gratuites · 15 avec Starter (5€/mois)</p>
+          <p style="font-size:10px;color:#aaa;margin-top:4px;">JPG, PNG — 10 photos gratuites<span class="paid-only"> · 15 avec Starter (5€/mois)</span></p>
         </div>
         <div id="videoUploadSection" class="hidden">
           <label style="font-size:11px;color:#888;font-weight:600;">🎥 VIDÉOS — Agence Pro <span style="background:#f57f17;color:#fff;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;">EXCLUSIF</span></label>
@@ -1451,7 +1476,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         </label>
       </div>
       <!-- 💡 Info boost — Pour que le vendeur connaisse les prix à l'avance -->
-      <details style="margin-top:14px;background:#fff8e1;border-radius:10px;padding:10px 14px;border:1px solid #ffcc02;">
+      <details class="paid-only" style="margin-top:14px;background:#fff8e1;border-radius:10px;padding:10px 14px;border:1px solid #ffcc02;">
         <summary style="cursor:pointer;font-size:12px;font-weight:700;color:#5d4037;list-style:none;">
           ⚡ <span style="text-decoration:underline;">Voir les options pour booster mon annonce</span> (optionnel, après publication)
         </summary>
@@ -5670,7 +5695,7 @@ async function loadMyAnnonces(){
   const hasNonBoosted = data.some(a => !a.boosted);
   const boostedCount = data.filter(a => a.boosted).length;
   const promoBanner = hasNonBoosted ? `
-    <div style="background:linear-gradient(135deg,#f57f17,#ff9800);border-radius:16px;padding:16px 18px;margin-bottom:14px;color:#fff;box-shadow:0 4px 16px rgba(245,127,23,.25);">
+    <div class="paid-only" style="background:linear-gradient(135deg,#f57f17,#ff9800);border-radius:16px;padding:16px 18px;margin-bottom:14px;color:#fff;box-shadow:0 4px 16px rgba(245,127,23,.25);">
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="font-size:32px;">⚡</div>
         <div style="flex:1;">
@@ -8445,6 +8470,18 @@ async function trackVisit(){
   sessionStorage.setItem('visited', '1');
 }
 trackVisit();
+</script>
+<script>
+// 📱 App Android : garde-fou final. Installé après toutes les autres surcharges
+// (ex. window.openBoostModal enveloppé pour le bouton retour) pour passer en dernier.
+if(window.IMMO_ANDROID_APP){
+  ['openBoostModal','boostFromModal','confirmBoost','subscribeAgence'].forEach(function(name){
+    window[name] = function(){};
+  });
+  // Après publication, on saute l'étape « Voulez-vous booster ? » (étape 3).
+  var _postStepApp = window.postStep;
+  window.postStep = function(n){ return _postStepApp(n === 3 ? 4 : n); };
+}
 </script>
 </body>
 </html>

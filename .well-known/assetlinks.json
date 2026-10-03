@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "be.immolibre.twa",
+      "sha256_cert_fingerprints": [
+        "B9:9D:0F:30:AE:E2:F4:35:96:E3:C7:53:50:FA:9C:74:E7:40:2E:09:D6:D6:E9:64:2E:EC:41:47:85:E2:B9:93"
+      ]
+    }
+  }
+]

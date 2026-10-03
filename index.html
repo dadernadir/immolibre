@@ -338,18 +338,24 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <!-- PAGE HOME -->
   <div id="page-home">
     <!-- HERO -->
-    <div style="background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 60%,#388e3c 100%);padding:28px 20px 32px;text-align:center;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);"></div>
+    <!-- 🔧 v112 : "overflow:hidden" retiré du hero. Il servait à rogner le cercle
+         décoratif, mais il tronquait aussi la liste de suggestions de villes, qui
+         dépasse volontairement sous le bandeau vert. Le cercle est désormais rogné
+         par son propre conteneur, ce qui règle le problème sans changer le visuel. -->
+    <div style="background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 60%,#388e3c 100%);padding:28px 20px 32px;text-align:center;position:relative;">
+      <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+        <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);"></div>
+      </div>
       <h1 id="heroTitle" style="font-family:'Playfair Display',serif;font-size:clamp(24px,6.5vw,38px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:6px;position:relative;">
         Achetez, louez, vendez<br/><span style="color:#ffcc02;">GRATUITEMENT</span> en Belgique 🇧🇪
       </h1>
       <p id="heroSubtitle" style="color:rgba(255,255,255,.85);font-size:14px;font-weight:600;margin-bottom:18px;">Sans commission. Particuliers et agences. Simple et rapide.</p>
-      <div style="max-width:520px;margin:0 auto;position:relative;">
+      <div style="max-width:520px;margin:0 auto;position:relative;z-index:50;">
         <div style="background:#fff;border-radius:16px;padding:6px;display:flex;gap:6px;box-shadow:0 8px 32px rgba(0,0,0,.2);">
           <input id="searchInput" type="search" inputmode="search" name="recherche-commune" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" readonly onfocus="this.removeAttribute('readonly'); this.setAttribute('autocomplete','off');" oninput="handleSearchInput()" onkeydown="handleSearchKey(event)" placeholder="🔍  Ville, commune, code postal..." style="flex:1;padding:12px 14px;border:none;border-radius:12px;font-size:14px;background:transparent;"/>
           <button onclick="applyFilters()" style="padding:12px 20px;border-radius:12px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;">Rechercher</button>
         </div>
-        <div id="autocompleteDropdown" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:300;overflow:hidden;border:1px solid #e8f5e9;"></div>
+        <div id="autocompleteDropdown" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:60;overflow:hidden;border:1px solid #e8f5e9;max-height:min(50vh,340px);overflow-y:auto;"></div>
         <button onclick="openPostModal()" style="margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:14px;border:none;background:#ffcc02;color:#1b5e20;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2);letter-spacing:.3px;">
           🏡 Publier une annonce gratuite
         </button>
@@ -369,6 +375,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
           <button id="btn-vente" onclick="setType('vente')" style="padding:8px 14px;border:none;font-size:12px;font-weight:700;background:#fff;color:#666;cursor:pointer;">Vente</button>
           <button id="btn-location" onclick="setType('location')" style="padding:8px 14px;border:none;font-size:12px;font-weight:700;background:#fff;color:#666;cursor:pointer;">Location</button>
         </div>
+        <!-- 🌍 v111 : bascule "biens à l'étranger". Par défaut le site n'affiche que les
+             biens belges (cohérent avec le menu "Toute la Belgique") ; ce bouton bascule
+             sur les biens hors Belgique uniquement. -->
+        <button id="abroadBtn" onclick="toggleAbroad()" type="button" style="padding:8px 14px;border-radius:10px;border:1.5px solid #e0e0e0;background:#fff;color:#1b5e20;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">🌍 Étranger</button>
         <button id="nearMeBtn" onclick="toggleNearMe()" type="button" style="padding:8px 14px;border-radius:10px;border:1.5px solid #e0e0e0;background:#fff;color:#1b5e20;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">📍 Autour de moi</button>
         <select id="provinceFilter" onchange="applyFilters()">
           <option>Toute la Belgique</option>
@@ -1367,8 +1377,23 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         <select id="f_kind" onchange="updateTerrainField()" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;">
           <option>Maison</option><option>Appartement</option><option>Studio</option><option>Chambre</option><option>Terrain</option><option>Garage</option><option>Chalet</option><option>Bungalow</option><option>Projet neuf</option><option>Commerce</option><option>Autre</option>
         </select></div>
+        <!-- 🌍 v111 : pays du bien. Belgique par défaut : rien ne change pour la
+             très grande majorité des annonces. Hors Belgique, l'autocomplétion des
+             communes belges et le format du code postal ne s'appliquent plus. -->
+        <div><label style="font-size:11px;color:#888;font-weight:600;">Pays <span style="color:#e53935;">*</span></label>
+        <select id="f_pays" onchange="onPaysChange()" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;">
+          <option value="BE">🇧🇪 Belgique</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="ES">🇪🇸 Espagne</option>
+          <option value="LU">🇱🇺 Luxembourg</option>
+          <option value="NL">🇳🇱 Pays-Bas</option>
+          <option value="MA">🇲🇦 Maroc</option>
+          <option value="PT">🇵🇹 Portugal</option>
+          <option value="IT">🇮🇹 Italie</option>
+          <option value="XX">🌍 Autre pays</option>
+        </select></div>
         <div style="position:relative;"><label style="font-size:11px;color:#888;font-weight:600;">Ville <span style="color:#e53935;">*</span></label><input id="f_city" placeholder="ex: Bruxelles" oninput="searchCommuneForm(this)" autocomplete="off" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;"/><div id="cityDropdown" class="hidden" style="position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;margin-top:4px;max-height:200px;overflow-y:auto;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.1);"></div></div>
-        <div><label style="font-size:11px;color:#888;font-weight:600;">Code postal <span style="color:#e53935;">*</span></label><input id="f_zip" placeholder="ex: 1000" type="number" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;"/></div>
+        <div><label style="font-size:11px;color:#888;font-weight:600;">Code postal <span style="color:#e53935;">*</span></label><input id="f_zip" placeholder="ex: 1000" type="text" inputmode="numeric" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;"/></div>
         <div><label style="font-size:11px;color:#888;font-weight:600;">Surface habitable (m²)</label><input id="f_surface" placeholder="ex: 120" type="number" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;"/></div>
         <div id="f_terrain_wrap"><label style="font-size:11px;color:#888;font-weight:600;">Surface du terrain (m²) <span style="color:#aaa;font-weight:400;">— maison, villa, chalet, terrain</span></label><input id="f_terrain" placeholder="ex: 500" type="number" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;"/></div>
         <div><label style="font-size:11px;color:#888;font-weight:600;">Prix <span style="color:#e53935;">*</span></label><input id="f_price" placeholder="ex: 950" type="number" style="width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:14px;margin-top:4px;display:block;"/></div>
@@ -2762,13 +2787,28 @@ window.ensureListingContact = ensureListingContact;
 // Toute fonctionnalité qui a besoin d'une annonce précise indépendamment de la
 // page courante (messagerie, partage, favoris, carte, annonces similaires...)
 // passe par ce cache + fetch à la demande, au lieu de chercher dans DB_LISTINGS.
-const ANNONCE_PUBLIC_COLS = 'id,type,kind,price,city,zip,rooms,surface,agent,description,badge,boosted,created_at,photos,user_id,views,show_on_map,pdf_enabled,peb,terrain,charges_incluses,charges,videos,status';
+// 🌍 v111 : pays proposés à la publication (Belgique par défaut).
+const PAYS_LISTE = {
+  BE: {nom:'Belgique',    flag:'🇧🇪'},
+  FR: {nom:'France',      flag:'🇫🇷'},
+  ES: {nom:'Espagne',     flag:'🇪🇸'},
+  LU: {nom:'Luxembourg',  flag:'🇱🇺'},
+  NL: {nom:'Pays-Bas',    flag:'🇳🇱'},
+  MA: {nom:'Maroc',       flag:'🇲🇦'},
+  PT: {nom:'Portugal',    flag:'🇵🇹'},
+  IT: {nom:'Italie',      flag:'🇮🇹'},
+  XX: {nom:'Autre pays',  flag:'🌍'},
+};
+function paysLabel(code){ const p = PAYS_LISTE[code]; return p ? p.flag+' '+p.nom : '🌍'; }
+function paysFlag(code){ return (code && code !== 'BE') ? (PAYS_LISTE[code]?.flag || '🌍') : ''; }
+
+const ANNONCE_PUBLIC_COLS = 'id,pays,type,kind,price,city,zip,rooms,surface,agent,description,badge,boosted,created_at,photos,user_id,views,show_on_map,pdf_enabled,peb,terrain,charges_incluses,charges,videos,status';
 
 function mapAnnonceRow(a){
   return {
     id: a.id, type: a.type, kind: a.kind, price: a.price,
     user_id: a.user_id,
-    city: a.city, zip: a.zip, rooms: a.rooms, surface: a.surface,
+    city: a.city, zip: a.zip, pays: a.pays || 'BE', rooms: a.rooms, surface: a.surface,
     img: (a.photos && a.photos.length > 0) ? a.photos[0] : getEmoji(a.kind),
     photos: a.photos || [],
     badge: a.badge||'', agent: a.agent,
@@ -3231,6 +3271,9 @@ function escPostgrestValue(s){
 // dans l'UI, poussés côté SQL (au lieu de tout charger puis filtrer en JS).
 function applyServerFilters(query, filters){
   const { search, province, kind, budget, surfMin } = filters;
+  // 🌍 v111 : le site montre la Belgique par défaut ; le bouton "Étranger" bascule
+  // sur les biens hors Belgique uniquement (jamais les deux mélangés).
+  query = showAbroad ? query.neq('pays', 'BE') : query.eq('pays', 'BE');
   if(currentAgencyFilter){
     query = query.ilike('agent', escPostgrestValue(currentAgencyFilter));
   }
@@ -3503,7 +3546,33 @@ async function geocodeCity(city, zip, key){
     _geocodeFailures.set(key, Date.now()); // évite de redemander en boucle
   }
 }
+// 🌍 v111 : état du filtre "biens à l'étranger"
+let showAbroad = false;
+
+function toggleAbroad(){
+  showAbroad = !showAbroad;
+  const btn = document.getElementById("abroadBtn");
+  if(btn){
+    btn.style.background   = showAbroad ? "#0d47a1" : "#fff";
+    btn.style.color        = showAbroad ? "#fff"    : "#1b5e20";
+    btn.style.borderColor  = showAbroad ? "#0d47a1" : "#e0e0e0";
+  }
+  // "Autour de moi" repose sur la géolocalisation en Belgique : les deux n'ont pas
+  // de sens ensemble, on désactive l'un quand on active l'autre.
+  if(showAbroad && nearMe.active) disableNearMe();
+  // Le menu des provinces ne s'applique qu'à la Belgique.
+  const prov = document.getElementById("provinceFilter");
+  if(prov){
+    if(showAbroad) prov.value = "Toute la Belgique";
+    prov.disabled = showAbroad;
+    prov.style.opacity = showAbroad ? "0.45" : "1";
+  }
+  applyFilters();
+}
+window.toggleAbroad = toggleAbroad;
+
 function toggleNearMe(){
+  if(showAbroad) toggleAbroad(); // revient sur la Belgique avant de géolocaliser
   if(nearMe.active){ disableNearMe(); return; }
   if(!navigator.geolocation){
     toast("La géolocalisation n'est pas disponible sur votre appareil.", "error");
@@ -3626,7 +3695,7 @@ function renderPage(){
       </div>
       <div style="padding:14px 16px;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-weight:800;font-size:15px;color:#1a1a1a;">${esc(l.kind)}</div><div style="color:#666;font-size:12px;margin-top:1px;">📍 ${esc(l.city)} ${esc(l.zip)} <span style="color:#bbb;font-size:10px;">· Réf. #${+l.id||''}</span></div></div>
+          <div><div style="font-weight:800;font-size:15px;color:#1a1a1a;">${esc(l.kind)}</div><div style="color:#666;font-size:12px;margin-top:1px;">📍 ${paysFlag(l.pays)} ${esc(l.city)} ${esc(l.zip)} <span style="color:#bbb;font-size:10px;">· Réf. #${+l.id||''}</span></div></div>
           <div style="text-align:right;">
             <div style="font-weight:900;font-size:16px;color:#1b5e20;">${formatPrice(l.price,l.type)}</div>
             ${l.type==='location'?(l.charges_incluses?`<div style="font-size:10px;color:#2e7d32;font-weight:700;">✅ Charges incluses</div>`:(l.charges>0?`<div style="font-size:10px;color:#f57f17;font-weight:700;">+ ${+l.charges||0}€ charges</div>`:`<div style="font-size:10px;color:#888;">Charges en sus</div>`)):''}
@@ -3821,7 +3890,7 @@ function openModalWithListing(l){
   const _isAgenceM = l.agent && l.agent !== 'Particulier' && l.agent.toLowerCase() !== 'particulier';
   const _isProM = _isAgenceM && isAgencyPro(l.agent);
   const _proBadgeM = _isProM ? ' <span style="background:#fff;color:#1b5e20;padding:1px 6px;border-radius:6px;font-size:10px;font-weight:900;margin-left:3px;" title="Agence Pro vérifiée">✓ PRO</span>' : '';
-  document.getElementById("modalSub").innerHTML = `📍 ${esc(l.city)}, ${esc(l.zip)} · ${_isAgenceM ? '<span onclick="closeModal();setTimeout(function(){filterByAgency(\'' + esc(l.agent).replace(/'/g, "\\'") + '\')},200);" style="background:linear-gradient(135deg,#f57f17,#ff9800);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;" title="Voir toutes les annonces de cette agence">🏢 ' + esc(l.agent) + _proBadgeM + '</span>' : '<span style="background:#f1f8e9;color:#1b5e20;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:800;">👤 Particulier</span>'} · Réf. #${+l.id||''}`;
+  document.getElementById("modalSub").innerHTML = `📍 ${paysFlag(l.pays)} ${esc(l.city)}, ${esc(l.zip)} · ${_isAgenceM ? '<span onclick="closeModal();setTimeout(function(){filterByAgency(\'' + escJsString(l.agent) + '\')},200);" style="background:linear-gradient(135deg,#f57f17,#ff9800);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;" title="Voir toutes les annonces de cette agence">🏢 ' + esc(l.agent) + _proBadgeM + '</span>' : '<span style="background:#f1f8e9;color:#1b5e20;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:800;">👤 Particulier</span>'} · Réf. #${+l.id||''}`;
   // ✨ v59 : Bandeau "Agence Pro vérifiée" sur la fiche détaillée
   const _proBannerEl = document.getElementById("modalProBanner");
   if(_proBannerEl){
@@ -3867,10 +3936,9 @@ function openModalWithListing(l){
   const autoTagsEl = document.getElementById("modalAutoTags");
   if(autoTagsEl){ autoTagsEl.innerHTML = autoTagsHtml(l, 4); }
   document.getElementById("listingModal").classList.remove("hidden");
-  // 🔧 v110 : le bouton flottant "Publier mon bien" restait affiché par-dessus cette
-  // modale et recouvrait le lien "Signaler cette annonce". On le masque via une classe
-  // dédiée — et NON via "modal-open", qui applique position:fixed au body et ferait
-  // perdre la position de défilement à la fermeture (retour en haut de liste).
+  // v110 : le bouton flottant recouvrait "Signaler cette annonce". On le masque via une
+  // classe dédiée — pas via "modal-open", qui applique position:fixed au body et ferait
+  // perdre la position de défilement à la fermeture.
   document.body.classList.add("listing-open");
   initSlider(l);
   incrementViews(l.id);
@@ -4296,6 +4364,7 @@ async function submitAnnonce(){
   const email = document.getElementById("f_email")?document.getElementById("f_email").value.trim():"";
   const city  = document.getElementById("f_city")?document.getElementById("f_city").value.trim():"";
   const zip   = document.getElementById("f_zip")?document.getElementById("f_zip").value.trim():"";
+  const pays  = document.getElementById("f_pays")?document.getElementById("f_pays").value:"BE";
   const price = document.getElementById("f_price")?document.getElementById("f_price").value.trim():"";
   const errEl = document.getElementById("formError");
   const contactErrEl = document.getElementById("contactError");
@@ -4369,6 +4438,7 @@ async function submitAnnonce(){
     price: price,
     city: city,
     zip: zip,
+    pays: pays,
     rooms: document.getElementById("f_rooms")?document.getElementById("f_rooms").value:0,
     surface: document.getElementById("f_surface")?document.getElementById("f_surface").value:0,
     terrain: document.getElementById("f_terrain")?document.getElementById("f_terrain").value:0,
@@ -5256,7 +5326,8 @@ function initMap(){
 async function refreshMapMarkers(){
   if(!leafletMap) return;
   leafletMap.eachLayer(l=>{ if(l instanceof L.Marker) leafletMap.removeLayer(l); });
-  const { data } = await sbClient.from('annonces').select(ANNONCE_PUBLIC_COLS).eq('show_on_map', true).limit(500);
+  // 🌍 v111 : la carte reste 100% belge (choix produit), on exclut donc les biens étrangers.
+  const { data } = await sbClient.from('annonces').select(ANNONCE_PUBLIC_COLS).eq('show_on_map', true).eq('pays', 'BE').limit(500);
   const all = cacheListings((data||[]).map(mapAnnonceRow));
   document.getElementById("mapCount").textContent = all.length + " bien"+(all.length>1?"s":"")+" sur la carte";
   all.forEach(l=>{
@@ -8386,7 +8457,25 @@ setTimeout(applyTranslations, 100);
 
 // ── AUTOCOMPLETE COMMUNE FORMULAIRE ────────────────────────
 let formCommuneTimeout = null;
+// 🌍 v111 : bascule du formulaire selon le pays choisi.
+function onPaysChange(){
+  const code = document.getElementById("f_pays")?.value || 'BE';
+  const estBE = code === 'BE';
+  const zipEl = document.getElementById("f_zip");
+  const cityEl = document.getElementById("f_city");
+  if(zipEl)  zipEl.placeholder  = estBE ? "ex: 1000" : "code postal local";
+  if(cityEl) cityEl.placeholder = estBE ? "ex: Bruxelles" : "ex: Playa de Moncofa";
+  // L'autocomplétion ne connaît que les communes belges : on la referme hors Belgique.
+  if(!estBE){ const dd = document.getElementById("cityDropdown"); if(dd) dd.classList.add("hidden"); }
+}
+window.onPaysChange = onPaysChange;
+
 async function searchCommuneForm(input){
+  // 🌍 v111 : l'autocomplétion des communes ne vaut que pour la Belgique.
+  if((document.getElementById("f_pays")?.value || 'BE') !== 'BE'){
+    const dd = document.getElementById("cityDropdown"); if(dd) dd.classList.add("hidden");
+    return;
+  }
   const query = input.value.trim();
   const dropdown = document.getElementById("cityDropdown");
   if(!dropdown) return;

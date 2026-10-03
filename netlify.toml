@@ -19,11 +19,26 @@
 # ─── App Android (Play Store) : fichier de vérification Digital Asset Links ───
 # Android le télécharge pour prouver que l'app be.immolibre.twa appartient bien
 # à immolibre.be (sinon une barre d'adresse s'affiche en haut de l'app).
+# Le fichier est rangé à la racine (/assetlinks.json) car le glisser-déposer
+# Netlify ignore les dossiers cachés comme .well-known ; la réécriture 200
+# ci-dessous le sert à l'adresse attendue par Android (sans redirection).
 [[headers]]
   for = "/.well-known/assetlinks.json"
   [headers.values]
     Content-Type = "application/json"
     Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/assetlinks.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[redirects]]
+  from = "/.well-known/assetlinks.json"
+  to = "/assetlinks.json"
+  status = 200
+  force = true
 
 # ─── Canonicalisation domaine : www → apex (immolibre.be) ───
 [[redirects]]

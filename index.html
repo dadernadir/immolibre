@@ -778,7 +778,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
           ✅ Page agence dédiée + statistiques détaillées
         </div>
       </div>
-      <div onclick="showPage('agences')" style="display:block;text-align:center;padding:13px;background:#fff;color:#e65100;border-radius:10px;font-weight:900;cursor:pointer;font-size:14px;letter-spacing:.3px;">🏢 Voir les formules Agence</div>
+      <div class="paid-only" onclick="showPage('agences')" style="display:block;text-align:center;padding:13px;background:#fff;color:#e65100;border-radius:10px;font-weight:900;cursor:pointer;font-size:14px;letter-spacing:.3px;">🏢 Voir les formules Agence</div>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;">
@@ -1056,7 +1056,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     <div style="font-size:11px;letter-spacing:1px;">🇧🇪 L'immobilier belge, gratuit et accessible à tous</div>
     <div style="margin-top:12px;font-size:11px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <span onclick="showPage('apropos')" style="cursor:pointer;text-decoration:underline;">À propos</span>
-      <span onclick="showPage('agences')" style="cursor:pointer;text-decoration:underline;color:#ffcc02;font-weight:700;">🏢 Espace Agences</span>
+      <span class="paid-only" onclick="showPage('agences')" style="cursor:pointer;text-decoration:underline;color:#ffcc02;font-weight:700;">🏢 Espace Agences</span>
       <span onclick="openContactModal()" style="cursor:pointer;text-decoration:underline;color:rgba(255,255,255,.7);">Contact</span>
       <a href="https://wa.me/32483431977?text=Bonjour%2C%20je%20viens%20du%20site%20ImmoLibre.be%20%F0%9F%91%8B" target="_blank" rel="noopener noreferrer" style="color:#25d366;text-decoration:underline;">💬 WhatsApp</a>
       <a href="/blog/" style="color:#fff;text-decoration:underline;">📚 Conseils</a>
@@ -1320,7 +1320,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
          proposer un abonnement pro créait de la confusion, et le descriptif affiché ici
          contredisait celui de la page Agences (plafonds de boosts, nombre de biens).
          Les agences passent désormais par leur page dédiée. -->
-    <div onclick="closeBoostModal();showPage('agences');" style="text-align:center;padding:12px;margin-bottom:16px;background:#f5f8ff;border:1px solid #dbe6ff;border-radius:12px;cursor:pointer;">
+    <div class="paid-only" onclick="closeBoostModal();showPage('agences');" style="text-align:center;padding:12px;margin-bottom:16px;background:#f5f8ff;border:1px solid #dbe6ff;border-radius:12px;cursor:pointer;">
       <span style="font-size:12.5px;color:#0d47a1;font-weight:700;">🏢 Vous êtes une agence ? Découvrez nos formules pro →</span>
     </div>
 
@@ -1524,7 +1524,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         <p style="color:#666;font-size:13px;">Voulez-vous la booster pour plus de visibilité ?</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
-        <button onclick="closePostModal();openBoostModal(null)" style="padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#f57f17,#ff9800);color:#fff;font-size:15px;font-weight:800;cursor:pointer;">⚡ Oui, booster mon annonce !</button>
+        <button onclick="closePostModal();openBoostModal(window._lastPublishedId)" style="padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#f57f17,#ff9800);color:#fff;font-size:15px;font-weight:800;cursor:pointer;">⚡ Oui, booster mon annonce !</button>
         <button onclick="postStep(4)" style="padding:14px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fff;color:#666;font-size:14px;font-weight:600;cursor:pointer;">Non merci, publier gratuitement</button>
       </div>
     </div>
@@ -3978,6 +3978,19 @@ function closeModal(){
 
 function boostFromModal(){closeModal();openBoostModal(currentModalId);}
 async function openBoostModal(id){
+  // 🔧 v117 : sans identifiant, le paiement partirait sans référence et l'argent
+  // serait encaissé sans effet. On récupère donc la dernière annonce de l'utilisateur.
+  if(!id){
+    if(!currentUser){ toast("Connectez-vous pour booster une annonce.", "warning", 4000); return; }
+    const { data: mesAnnonces } = await sbClient.from('annonces')
+      .select('id').eq('user_id', currentUser.id).eq('status','disponible')
+      .order('created_at', {ascending:false}).limit(1);
+    if(!mesAnnonces || mesAnnonces.length === 0){
+      toast("Publiez d'abord une annonce, vous pourrez ensuite la booster.", "warning", 4500);
+      return;
+    }
+    id = mesAnnonces[0].id;
+  }
   currentModalId=id;
 
   // Rafraîchir le tier directement depuis Supabase avant toute chose
@@ -4067,6 +4080,12 @@ function selectBoost(key){
 }
 
 async function confirmBoost(){
+  // 🔧 v117 : verrou final — on n'envoie jamais quelqu'un payer si on ne saura
+  // pas quelle annonce booster au retour du paiement.
+  if(!currentModalId){
+    toast("Impossible d'identifier l'annonce à booster. Ouvrez-la puis réessayez.", "error", 5000);
+    return;
+  }
   closeBoostModal();
 
   // 📋 v65 : On ajoute la référence de l'annonce + l'email à l'URL Stripe
@@ -4489,6 +4508,11 @@ async function submitAnnonce(){
   }
 
   const ok=await saveAnnonce(formData);
+  // 🔧 v117 : on retient l'id de l'annonce publiée pour que le boost proposé
+  // juste après sache QUELLE annonce booster. Sans ça, le lien Stripe part sans
+  // client_reference_id : le paiement est encaissé mais le webhook ne peut rien
+  // activer (cas réel du 04/10, annonce #595).
+  window._lastPublishedId = (typeof ok === 'number' || typeof ok === 'string') ? ok : null;
 
   // Reset bouton
   if(submitBtn){
@@ -8567,6 +8591,12 @@ if(window.IMMO_ANDROID_APP){
   ['openBoostModal','boostFromModal','confirmBoost','subscribeAgence'].forEach(function(name){
     window[name] = function(){};
   });
+  // La page Agences n'affiche que des formules payantes : elle serait vide dans
+  // l'app. On la neutralise même si on y arrive par un lien direct.
+  var _showPageApp = window.showPage;
+  if(typeof _showPageApp === 'function'){
+    window.showPage = function(p){ return _showPageApp(p === 'agences' ? 'home' : p); };
+  }
   // Après publication, on saute l'étape « Voulez-vous booster ? » (étape 3).
   var _postStepApp = window.postStep;
   window.postStep = function(n){ return _postStepApp(n === 3 ? 4 : n); };

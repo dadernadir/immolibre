@@ -2228,7 +2228,8 @@ async function loadAnnoncesFromDB() {
 // 🔗 PARTAGE — Routing par annonce
 function checkUrlForListing(){
   const params = new URLSearchParams(window.location.search);
-  const annonceId = params.get("annonce") || params.get("a");
+  // ?ref= : ancien canonical (avant v120), encore présent dans certains index/partages
+  const annonceId = params.get("annonce") || params.get("a") || params.get("ref");
   if(!annonceId) return;
   // Attendre 200ms que le DOM soit prêt
   setTimeout(async () => {
@@ -2256,9 +2257,10 @@ function updateUrlForListing(id){
 function clearUrlForListing(){
   try {
     const url = new URL(window.location.href);
-    if(url.searchParams.has("annonce") || url.searchParams.has("a")){
+    if(url.searchParams.has("annonce") || url.searchParams.has("a") || url.searchParams.has("ref")){
       url.searchParams.delete("annonce");
       url.searchParams.delete("a");
+      url.searchParams.delete("ref");
       history.replaceState({}, "", url.pathname + (url.search ? url.search : ""));
     }
   } catch(e) { /* silencieux */ }
@@ -2878,7 +2880,10 @@ function updateSeoForListing(l){
   const desc = `${l.kind} ${action.toLowerCase()} à ${l.city} ${l.zip||''} · ${priceTxt} · ${l.surface||'?'}m²${l.rooms>0?' · '+l.rooms+' chambres':''}. Sans commission sur ImmoLibre.`;
   const photo = (l.photos && l.photos[0]) || l.img || _DEFAULT_SEO.image;
   const photoUrl = (photo && String(photo).startsWith('http')) ? photo : _DEFAULT_SEO.image;
-  const url = `https://immolibre.be/?ref=${encodeURIComponent(l.id)}`;
+  // 🔧 v120 : ?annonce= (et non ?ref=) — c'est la seule adresse que le site sait
+  // ouvrir, celle des partages et du sitemap-annonces. Avec ?ref=, le canonical
+  // envoyait Google vers une adresse qui affichait la page d'accueil.
+  const url = `https://immolibre.be/?annonce=${encodeURIComponent(l.id)}`;
 
   document.title = title;
   _setMeta('meta[name="description"]', 'content', desc);

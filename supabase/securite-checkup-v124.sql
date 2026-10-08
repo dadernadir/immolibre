@@ -1,7 +1,8 @@
 -- ════════════════════════════════════════════════════════════════════════════
 -- ImmoLibre — correctifs de sécurité Supabase (check-up v124, 08/10/2026)
 --
--- ⚠️ PAS ENCORE APPLIQUÉ. À exécuter dans Supabase → SQL Editor, d'un seul bloc.
+-- PARTIE 1/2 (base de données). À exécuter dans Supabase → SQL Editor, d'un seul bloc.
+-- La partie stockage est dans securite-checkup-v124-stockage.sql.
 -- Tout est dans une transaction : en cas d'erreur, rien n'est modifié.
 -- Après exécution : tester connexion, publication d'annonce (photos + vidéo),
 -- boost agence, panneau admin (membres + statistiques).
@@ -114,30 +115,6 @@ drop policy if exists "Anyone can read aggregated stats" on public.visit_sources
 create policy visit_sources_admin_read on public.visit_sources
   for select to authenticated
   using (public.est_admin());
-
--- ─── 5. Stockage : envois anonymes sans limite de taille ni de type ─────────
--- Les buckets « photos » et « videos » acceptent n'importe quel fichier, de
--- n'importe quelle taille, envoyé par n'importe qui. Le site n'envoie qu'en
--- étant connecté, des images (compressées en webp/jpeg quand c'est plus léger,
--- sinon le fichier d'origine) et des vidéos.
-update storage.buckets
-   set file_size_limit = 10485760,                -- 10 Mo
-       allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']
- where id = 'photos';
-update storage.buckets
-   set file_size_limit = 52428800,                -- 50 Mo
-       allowed_mime_types = array['video/*']
- where id = 'videos';
-
-drop policy if exists "Upload photos public" on storage.objects;
-create policy "Upload photos membres" on storage.objects
-  for insert to authenticated
-  with check (bucket_id = 'photos');
-
-drop policy if exists "Upload videos agence" on storage.objects;
-create policy "Upload videos membres" on storage.objects
-  for insert to authenticated
-  with check (bucket_id = 'videos');
 
 -- ─── 6. Fonctions exposées inutilement ──────────────────────────────────────
 -- Fonctions de trigger : jamais appelées directement par le site.

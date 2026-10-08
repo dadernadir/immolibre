@@ -4976,7 +4976,7 @@ function renderUrlPreviewBox(){
     ? `<div style="display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;">
         ${listing.photos.map((p, idx) => `
           <div style="position:relative;flex-shrink:0;">
-            <img src="${p}" style="height:80px;border-radius:8px;border:1px solid #eee;display:block;"/>
+            <img src="${escUrl(p)}" style="height:80px;border-radius:8px;border:1px solid #eee;display:block;"/>
             <button type="button" onclick="removeExtractedPhoto(${idx})" title="Supprimer cette photo" style="position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;border:none;background:#e53935;color:#fff;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3);line-height:1;display:flex;align-items:center;justify-content:center;">✕</button>
           </div>
         `).join("")}
@@ -4985,27 +4985,27 @@ function renderUrlPreviewBox(){
 
   const transactionLabel = listing.transaction === "vente" ? "🏠 Vente" : "🔑 Location";
   const priceLabel = listing.price
-    ? `${Number(listing.price).toLocaleString("fr-BE")} €${listing.price_period ? " / " + listing.price_period : ""}`
+    ? `${Number(listing.price).toLocaleString("fr-BE")} €${listing.price_period ? " / " + esc(listing.price_period) : ""}`
     : "—";
 
   // Ligne contact si présente
   const contactBits = [];
-  if(listing.phone) contactBits.push(`📞 ${listing.phone}`);
-  if(listing.email) contactBits.push(`✉️ ${listing.email}`);
+  if(listing.phone) contactBits.push(`📞 ${esc(listing.phone)}`);
+  if(listing.email) contactBits.push(`✉️ ${esc(listing.email)}`);
   const contactHtml = contactBits.length > 0
     ? `<div style="font-size:11px;color:#1b5e20;margin-top:8px;font-weight:600;">${contactBits.join(" · ")}</div>`
     : "";
 
   box.innerHTML = `
-    <div style="font-weight:800;color:#1b5e20;font-size:15px;margin-bottom:4px;">${listing.title || "Annonce"}</div>
+    <div style="font-weight:800;color:#1b5e20;font-size:15px;margin-bottom:4px;">${esc(listing.title || "Annonce")}</div>
     <div style="font-size:12px;color:#666;margin-bottom:8px;">${transactionLabel} · ${mapPropertyType(listing.property_type)}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:#444;">
-      <div>📍 ${listing.city || "?"} ${listing.postal_code || ""}</div>
+      <div>📍 ${esc(listing.city || "?")} ${esc(listing.postal_code || "")}</div>
       <div>💰 ${priceLabel}</div>
-      <div>📐 ${listing.surface || "?"} m²</div>
-      <div>🛏️ ${listing.bedrooms || "—"} ch.</div>
+      <div>📐 ${esc(listing.surface || "?")} m²</div>
+      <div>🛏️ ${esc(listing.bedrooms || "—")} ch.</div>
     </div>
-    ${listing.description ? `<div style="font-size:11px;color:#666;margin-top:10px;line-height:1.5;max-height:60px;overflow:hidden;">${listing.description.slice(0, 200)}${listing.description.length > 200 ? "…" : ""}</div>` : ""}
+    ${listing.description ? `<div style="font-size:11px;color:#666;margin-top:10px;line-height:1.5;max-height:60px;overflow:hidden;">${esc(listing.description.slice(0, 200))}${listing.description.length > 200 ? "…" : ""}</div>` : ""}
     ${contactHtml}
     <div style="font-size:11px;color:#888;margin-top:10px;">📷 ${photoCount} photo${photoCount > 1 ? "s" : ""} ${photoCount > 0 ? "<span style='color:#aaa;'>(cliquez ✕ pour retirer)</span>" : ""}</div>
     ${photosHtml}
@@ -5084,7 +5084,7 @@ async function publishExtracted(){
     document.getElementById("urlStep5Icon").textContent = "🎉";
     document.getElementById("urlStep5Title").textContent = "Annonce publiée !";
     document.getElementById("urlStep5Detail").innerHTML =
-      `<strong>${insertData.kind}</strong> à <strong>${insertData.city}</strong><br/>` +
+      `<strong>${esc(insertData.kind)}</strong> à <strong>${esc(insertData.city)}</strong><br/>` +
       `📷 ${insertData.photos.length} photo${insertData.photos.length>1?"s":""} importée${insertData.photos.length>1?"s":""}`;
     await loadAnnoncesFromDB();
   }
@@ -5267,7 +5267,7 @@ async function renderFavoris(){
       </div>
       <div style="padding:14px 16px;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-weight:800;font-size:15px;">${l.kind}</div><div style="color:#666;font-size:12px;">📍 ${l.city} ${l.zip}</div></div>
+          <div><div style="font-weight:800;font-size:15px;">${esc(l.kind)}</div><div style="color:#666;font-size:12px;">📍 ${esc(l.city)} ${esc(l.zip)}</div></div>
           <div style="font-weight:900;font-size:16px;color:#1b5e20;">${formatPrice(l.price,l.type)}</div>
         </div>
       </div>
@@ -5400,7 +5400,7 @@ async function refreshMapMarkers(){
       iconAnchor:[0,0]
     });
     L.marker(jitter,{icon}).addTo(leafletMap)
-      .bindPopup(`<div style="min-width:160px;"><strong>${l.kind} — ${l.city}</strong><br/>${formatPrice(l.price,l.type)}<br/><span style="font-size:11px;color:#888;">${l.rooms>0?l.rooms+' ch. · ':''}${l.surface} m²</span><br/><button onclick="closeMapPopupAndOpen(${l.id})" style="margin-top:8px;padding:6px 12px;border-radius:8px;border:none;background:#1b5e20;color:#fff;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Voir l'annonce</button></div>`);
+      .bindPopup(`<div style="min-width:160px;"><strong>${esc(l.kind)} — ${esc(l.city)}</strong><br/>${formatPrice(l.price,l.type)}<br/><span style="font-size:11px;color:#888;">${l.rooms>0?esc(l.rooms)+' ch. · ':''}${esc(l.surface)} m²</span><br/><button onclick="closeMapPopupAndOpen(${Number(l.id)})" style="margin-top:8px;padding:6px 12px;border-radius:8px;border:none;background:#1b5e20;color:#fff;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Voir l'annonce</button></div>`);
   });
 }
 

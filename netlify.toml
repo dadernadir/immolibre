@@ -16,6 +16,30 @@
     Permissions-Policy = "geolocation=(self), camera=(), microphone=(), payment=(), usb=()"
     Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://svjkpexgckghrtrfowtq.supabase.co wss://svjkpexgckghrtrfowtq.supabase.co https://nominatim.openstreetmap.org; form-action 'self'"
 
+# ─── App Android (Play Store) : fichier de vérification Digital Asset Links ───
+# Android le télécharge pour prouver que l'app be.immolibre.twa appartient bien
+# à immolibre.be (sinon une barre d'adresse s'affiche en haut de l'app).
+# Le fichier est rangé à la racine (/assetlinks.json) car le glisser-déposer
+# Netlify ignore les dossiers cachés comme .well-known ; la réécriture 200
+# ci-dessous le sert à l'adresse attendue par Android (sans redirection).
+[[headers]]
+  for = "/.well-known/assetlinks.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/assetlinks.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[redirects]]
+  from = "/.well-known/assetlinks.json"
+  to = "/assetlinks.json"
+  status = 200
+  force = true
+
 # ─── Canonicalisation domaine : www → apex (immolibre.be) ───
 [[redirects]]
   from = "https://www.immolibre.be/*"
@@ -106,6 +130,96 @@
   from = "/blog/kot-etudiant-belgique.html"
   to = "/blog/kot-etudiant-belgique"
   status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/particulier-a-particulier-belgique.html"
+  to = "/blog/particulier-a-particulier-belgique"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/epc-belgie-complete-gids.html"
+  to = "/nl/blog/epc-belgie-complete-gids"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/home-staging-vastgoedfotos.html"
+  to = "/nl/blog/home-staging-vastgoedfotos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/huis-snel-verkopen-belgie.html"
+  to = "/nl/blog/huis-snel-verkopen-belgie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/huis-verkopen-zonder-makelaar-belgie.html"
+  to = "/nl/blog/huis-verkopen-zonder-makelaar-belgie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/notariskosten-belgie-2026.html"
+  to = "/nl/blog/notariskosten-belgie-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/studentenkot-belgie.html"
+  to = "/nl/blog/studentenkot-belgie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/studentenkot-bergen.html"
+  to = "/nl/blog/studentenkot-bergen"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/studentenkot-brussel.html"
+  to = "/nl/blog/studentenkot-brussel"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/studentenkot-louvain-la-neuve.html"
+  to = "/nl/blog/studentenkot-louvain-la-neuve"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/studentenkot-luik.html"
+  to = "/nl/blog/studentenkot-luik"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/studentenkot-namen.html"
+  to = "/nl/blog/studentenkot-namen"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/van-particulier-tot-particulier-belgie.html"
+  to = "/nl/blog/van-particulier-tot-particulier-belgie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl/blog/waarde-huis-schatten-belgie.html"
+  to = "/nl/blog/waarde-huis-schatten-belgie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nl"
+  to = "/nl/blog/"
+  status = 302
   force = true
 
 [[redirects]]

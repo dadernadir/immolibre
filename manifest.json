@@ -2,12 +2,15 @@
   "name": "ImmoLibre — L'immobilier belge gratuit",
   "short_name": "ImmoLibre",
   "description": "Achetez, louez, vendez gratuitement en Belgique. 0€ de commission.",
+  "id": "/",
+  "scope": "/",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1b5e20",
   "orientation": "portrait",
   "lang": "fr-BE",
+  "dir": "ltr",
   "icons": [
     {
       "src": "icon-192.png",

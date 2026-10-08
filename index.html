@@ -565,11 +565,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <!-- PAGE MENTIONS LÉGALES -->
   <div id="page-mentions" class="hidden" style="max-width:700px;margin:40px auto;padding:0 20px 60px;">
     <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;margin-bottom:6px;">Mentions légales</h2>
-    <p style="color:#888;font-size:13px;margin-bottom:32px;">Dernière mise à jour : août 2026 · immolibre.be</p>
+    <p style="color:#888;font-size:13px;margin-bottom:32px;">Dernière mise à jour : octobre 2026 · immolibre.be</p>
     <div style="display:flex;flex-direction:column;gap:20px;">
       <div style="background:#fff;border-radius:16px;padding:20px 24px;border:1px solid #e8f5e9;">
         <h3 style="font-size:15px;font-weight:800;color:#1b5e20;margin-bottom:8px;">Éditeur du site</h3>
-        <p style="font-size:14px;color:#444;line-height:1.8;">Le site ImmoLibre.be est édité à titre individuel (personne physique), numéro d'entreprise (BCE) en cours d'attribution.</p>
+        <p style="font-size:14px;color:#444;line-height:1.8;">Le site ImmoLibre.be est édité à titre individuel (personne physique).</p>
+        <p style="font-size:14px;color:#444;line-height:1.8;margin-top:8px;"><strong>Numéro d'entreprise (BCE) :</strong> 1042.507.993<br><strong>Numéro de TVA :</strong> BE 1042.507.993<br><span style="font-size:13px;color:#666;">Entreprise bénéficiant du régime de franchise de TVA pour petites entreprises : TVA non applicable.</span></p>
         <p style="font-size:14px;color:#444;line-height:1.8;margin-top:8px;">Contact : <a href="mailto:contact@immolibre.be" style="color:#1b5e20;font-weight:700;">contact@immolibre.be</a> · <a href="https://wa.me/32483431977" target="_blank" rel="noopener noreferrer" style="color:#1b5e20;font-weight:700;">WhatsApp +32 483 43 19 77</a></p>
       </div>
       <div style="background:#fff;border-radius:16px;padding:20px 24px;border:1px solid #e8f5e9;">
@@ -778,7 +779,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
           ✅ Page agence dédiée + statistiques détaillées
         </div>
       </div>
-      <div onclick="showPage('agences')" style="display:block;text-align:center;padding:13px;background:#fff;color:#e65100;border-radius:10px;font-weight:900;cursor:pointer;font-size:14px;letter-spacing:.3px;">🏢 Voir les formules Agence</div>
+      <div class="paid-only" onclick="showPage('agences')" style="display:block;text-align:center;padding:13px;background:#fff;color:#e65100;border-radius:10px;font-weight:900;cursor:pointer;font-size:14px;letter-spacing:.3px;">🏢 Voir les formules Agence</div>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;">
@@ -1054,9 +1055,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <footer style="background:#1b5e20;color:rgba(255,255,255,.7);padding:24px 20px;text-align:center;margin-top:8px;">
     <div style="font-family:'Playfair Display',serif;color:#fff;font-weight:900;font-size:18px;margin-bottom:4px;">immo<span style="color:#ffcc02;">libre</span></div>
     <div style="font-size:11px;letter-spacing:1px;">🇧🇪 L'immobilier belge, gratuit et accessible à tous</div>
+    <div style="font-size:10px;margin-top:6px;opacity:.75;">ImmoLibre.be · TVA BE 1042.507.993</div>
     <div style="margin-top:12px;font-size:11px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <span onclick="showPage('apropos')" style="cursor:pointer;text-decoration:underline;">À propos</span>
-      <span onclick="showPage('agences')" style="cursor:pointer;text-decoration:underline;color:#ffcc02;font-weight:700;">🏢 Espace Agences</span>
+      <span class="paid-only" onclick="showPage('agences')" style="cursor:pointer;text-decoration:underline;color:#ffcc02;font-weight:700;">🏢 Espace Agences</span>
       <span onclick="openContactModal()" style="cursor:pointer;text-decoration:underline;color:rgba(255,255,255,.7);">Contact</span>
       <a href="https://wa.me/32483431977?text=Bonjour%2C%20je%20viens%20du%20site%20ImmoLibre.be%20%F0%9F%91%8B" target="_blank" rel="noopener noreferrer" style="color:#25d366;text-decoration:underline;">💬 WhatsApp</a>
       <a href="/blog/" style="color:#fff;text-decoration:underline;">📚 Conseils</a>
@@ -1268,6 +1270,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <div>
         <h3 style="font-size:20px;font-weight:900;color:#1a1a1a;">⚡ Booster mon annonce</h3>
         <p style="font-size:13px;color:#888;margin-top:2px;">Choisissez votre formule de visibilité</p>
+        <p id="boostTarget" style="font-size:12.5px;color:#1b5e20;font-weight:700;margin-top:6px;"></p>
       </div>
       <button onclick="closeBoostModal()" type="button" aria-label="Fermer" style="border:none;background:#f5f5f5;border-radius:50%;width:32px;height:32px;cursor:pointer;flex-shrink:0;">✕</button>
     </div>
@@ -1320,7 +1323,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
          proposer un abonnement pro créait de la confusion, et le descriptif affiché ici
          contredisait celui de la page Agences (plafonds de boosts, nombre de biens).
          Les agences passent désormais par leur page dédiée. -->
-    <div onclick="closeBoostModal();showPage('agences');" style="text-align:center;padding:12px;margin-bottom:16px;background:#f5f8ff;border:1px solid #dbe6ff;border-radius:12px;cursor:pointer;">
+    <div class="paid-only" onclick="closeBoostModal();showPage('agences');" style="text-align:center;padding:12px;margin-bottom:16px;background:#f5f8ff;border:1px solid #dbe6ff;border-radius:12px;cursor:pointer;">
       <span style="font-size:12.5px;color:#0d47a1;font-weight:700;">🏢 Vous êtes une agence ? Découvrez nos formules pro →</span>
     </div>
 
@@ -1524,7 +1527,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         <p style="color:#666;font-size:13px;">Voulez-vous la booster pour plus de visibilité ?</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
-        <button onclick="closePostModal();openBoostModal(null)" style="padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#f57f17,#ff9800);color:#fff;font-size:15px;font-weight:800;cursor:pointer;">⚡ Oui, booster mon annonce !</button>
+        <button onclick="closePostModal();openBoostModal(window._lastPublishedId)" style="padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#f57f17,#ff9800);color:#fff;font-size:15px;font-weight:800;cursor:pointer;">⚡ Oui, booster mon annonce !</button>
         <button onclick="postStep(4)" style="padding:14px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fff;color:#666;font-size:14px;font-weight:600;cursor:pointer;">Non merci, publier gratuitement</button>
       </div>
     </div>
@@ -2225,7 +2228,8 @@ async function loadAnnoncesFromDB() {
 // 🔗 PARTAGE — Routing par annonce
 function checkUrlForListing(){
   const params = new URLSearchParams(window.location.search);
-  const annonceId = params.get("annonce") || params.get("a");
+  // ?ref= : ancien canonical (avant v120), encore présent dans certains index/partages
+  const annonceId = params.get("annonce") || params.get("a") || params.get("ref");
   if(!annonceId) return;
   // Attendre 200ms que le DOM soit prêt
   setTimeout(async () => {
@@ -2253,9 +2257,10 @@ function updateUrlForListing(id){
 function clearUrlForListing(){
   try {
     const url = new URL(window.location.href);
-    if(url.searchParams.has("annonce") || url.searchParams.has("a")){
+    if(url.searchParams.has("annonce") || url.searchParams.has("a") || url.searchParams.has("ref")){
       url.searchParams.delete("annonce");
       url.searchParams.delete("a");
+      url.searchParams.delete("ref");
       history.replaceState({}, "", url.pathname + (url.search ? url.search : ""));
     }
   } catch(e) { /* silencieux */ }
@@ -2663,28 +2668,34 @@ async function saveAnnonce(formData) {
     autorise_reseaux: formData.autorise_reseaux||false,
     peb: formData.peb||null,
     user_id: currentUser ? currentUser.id : null,
-    videos: formData.videoUrls||[]
+    videos: formData.videoUrls||[],
+    // 🔧 v118 : le pays choisi dans le formulaire n'était jamais enregistré
+    // (toutes les annonces partaient en 'BE', valeur par défaut de la colonne).
+    pays: formData.pays||'BE'
   };
 
-  let {error} = await sbClient.from('annonces').insert([insertData]);
+  // 🔧 v118 : .select('id') pour récupérer l'identifiant de l'annonce créée.
+  // Le boost proposé juste après la publication en a besoin pour que Stripe
+  // sache quelle annonce activer (sinon le paiement est encaissé sans effet).
+  let {data: inserted, error} = await sbClient.from('annonces').insert([insertData]).select('id');
 
   // Si la colonne pdf_enabled n'existe pas encore en DB, on retry sans ce champ
   if(error && /pdf_enabled/i.test(error.message||'')){
     delete insertData.pdf_enabled;
-    const retry = await sbClient.from('annonces').insert([insertData]);
-    error = retry.error;
+    const retry = await sbClient.from('annonces').insert([insertData]).select('id');
+    inserted = retry.data; error = retry.error;
   }
   // Idem pour la colonne peb (si non créée encore)
   if(error && /\bpeb\b/i.test(error.message||'')){
     delete insertData.peb;
-    const retry = await sbClient.from('annonces').insert([insertData]);
-    error = retry.error;
+    const retry = await sbClient.from('annonces').insert([insertData]).select('id');
+    inserted = retry.data; error = retry.error;
   }
   // Idem pour la colonne autorise_reseaux (si non créée encore)
   if(error && /autorise_reseaux/i.test(error.message||'')){
     delete insertData.autorise_reseaux;
-    const retry = await sbClient.from('annonces').insert([insertData]);
-    error = retry.error;
+    const retry = await sbClient.from('annonces').insert([insertData]).select('id');
+    inserted = retry.data; error = retry.error;
   }
 
   if(error){
@@ -2695,7 +2706,9 @@ async function saveAnnonce(formData) {
     return false;
   }
   await loadAnnoncesFromDB();
-  return true;
+  // Renvoie l'id (toujours « vrai » pour les appelants qui testent if(ok)),
+  // ou true si la base ne l'a pas renvoyé.
+  return (inserted && inserted[0] && inserted[0].id) || true;
 }
 
 let currentType="tous",currentChambres=0,currentSort="default",currentModalId=null,selectedBoost="starter",currentAgencyFilter=null;
@@ -2867,7 +2880,10 @@ function updateSeoForListing(l){
   const desc = `${l.kind} ${action.toLowerCase()} à ${l.city} ${l.zip||''} · ${priceTxt} · ${l.surface||'?'}m²${l.rooms>0?' · '+l.rooms+' chambres':''}. Sans commission sur ImmoLibre.`;
   const photo = (l.photos && l.photos[0]) || l.img || _DEFAULT_SEO.image;
   const photoUrl = (photo && String(photo).startsWith('http')) ? photo : _DEFAULT_SEO.image;
-  const url = `https://immolibre.be/?ref=${encodeURIComponent(l.id)}`;
+  // 🔧 v120 : ?annonce= (et non ?ref=) — c'est la seule adresse que le site sait
+  // ouvrir, celle des partages et du sitemap-annonces. Avec ?ref=, le canonical
+  // envoyait Google vers une adresse qui affichait la page d'accueil.
+  const url = `https://immolibre.be/?annonce=${encodeURIComponent(l.id)}`;
 
   document.title = title;
   _setMeta('meta[name="description"]', 'content', desc);
@@ -3978,6 +3994,19 @@ function closeModal(){
 
 function boostFromModal(){closeModal();openBoostModal(currentModalId);}
 async function openBoostModal(id){
+  // 🔧 v117 : sans identifiant, le paiement partirait sans référence et l'argent
+  // serait encaissé sans effet. On récupère donc la dernière annonce de l'utilisateur.
+  if(!id){
+    if(!currentUser){ toast("Connectez-vous pour booster une annonce.", "warning", 4000); return; }
+    const { data: mesAnnonces } = await sbClient.from('annonces')
+      .select('id').eq('user_id', currentUser.id).eq('status','disponible')
+      .order('created_at', {ascending:false}).limit(1);
+    if(!mesAnnonces || mesAnnonces.length === 0){
+      toast("Publiez d'abord une annonce, vous pourrez ensuite la booster.", "warning", 4500);
+      return;
+    }
+    id = mesAnnonces[0].id;
+  }
   currentModalId=id;
 
   // Rafraîchir le tier directement depuis Supabase avant toute chose
@@ -3991,6 +4020,19 @@ async function openBoostModal(id){
       handleAgenceBoost(id);
       return;
     }
+  }
+
+  // 🔧 v118 : on affiche l'annonce concernée. Sans ça, un utilisateur qui a plusieurs
+  // annonces et clique sur une bannière « Boostez » payait pour la plus récente
+  // sans le savoir.
+  const targetEl = document.getElementById("boostTarget");
+  if(targetEl){
+    targetEl.textContent = "Annonce Réf. #" + id;
+    sbClient.from('annonces').select('kind,city').eq('id', id).single().then(({data})=>{
+      if(data && currentModalId === id){
+        targetEl.textContent = "Annonce Réf. #" + id + " — " + (data.kind||'') + (data.city ? " à " + data.city : "");
+      }
+    });
   }
 
   selectBoost("starter");
@@ -4067,6 +4109,12 @@ function selectBoost(key){
 }
 
 async function confirmBoost(){
+  // 🔧 v117 : verrou final — on n'envoie jamais quelqu'un payer si on ne saura
+  // pas quelle annonce booster au retour du paiement.
+  if(!currentModalId){
+    toast("Impossible d'identifier l'annonce à booster. Ouvrez-la puis réessayez.", "error", 5000);
+    return;
+  }
   closeBoostModal();
 
   // 📋 v65 : On ajoute la référence de l'annonce + l'email à l'URL Stripe
@@ -4220,11 +4268,18 @@ window.openPostModal=openPostModal;
 // On passe l'email + une référence pour identifier le paiement dans le dashboard Stripe.
 // (Activation manuelle pour l'instant — le webhook d'activation auto viendra ensuite.)
 function subscribeAgence(url, nom){
+  // 🔧 v118 : sans compte connecté, Stripe ne recevait aucune référence et le
+  // webhook ne pouvait pas activer l'abonnement (même bug que les boosts v117).
+  if(!currentUser || !currentUser.id){
+    if(typeof showLoginRequiredModal === 'function') showLoginRequiredModal();
+    else toast("Connectez-vous pour souscrire une formule agence.", "warning", 4500);
+    return;
+  }
   let finalUrl = url;
   const params = [];
   if(currentUser && currentUser.email){
     params.push('prefilled_email=' + encodeURIComponent(currentUser.email));
-    params.push('client_reference_id=' + encodeURIComponent('agence_' + (currentUser.id || currentUser.email)));
+    params.push('client_reference_id=' + encodeURIComponent('agence_' + currentUser.id));
   }
   if(params.length) finalUrl += (finalUrl.includes('?') ? '&' : '?') + params.join('&');
   window.open(finalUrl, '_blank');
@@ -4489,6 +4544,11 @@ async function submitAnnonce(){
   }
 
   const ok=await saveAnnonce(formData);
+  // 🔧 v117 : on retient l'id de l'annonce publiée pour que le boost proposé
+  // juste après sache QUELLE annonce booster. Sans ça, le lien Stripe part sans
+  // client_reference_id : le paiement est encaissé mais le webhook ne peut rien
+  // activer (cas réel du 04/10, annonce #595).
+  window._lastPublishedId = (typeof ok === 'number' || typeof ok === 'string') ? ok : null;
 
   // Reset bouton
   if(submitBtn){
@@ -6652,7 +6712,15 @@ function calculateEstim(){
 window.calculateEstim = calculateEstim;
 
 // ── SYSTÈME DE TRADUCTION FR/NL ───────────────────────────
-let currentLang = localStorage.getItem('immolibre_lang') || 'fr';
+// 🌐 v122 : ?lang=nl (ou ?lang=fr) dans l'adresse force la langue. Utilisé par les liens
+// du blog néerlandais (/nl/blog/…) pour que le visiteur arrive sur l'app en néerlandais.
+let currentLang = (function(){
+  try {
+    const q = new URLSearchParams(window.location.search).get('lang');
+    if(q === 'nl' || q === 'fr') return q;
+  } catch(e) {}
+  return localStorage.getItem('immolibre_lang') || 'fr';
+})();
 
 const TRANSLATIONS = {
   fr: {
@@ -6843,6 +6911,867 @@ function toggleLang(){
   applyFilters(); // Rafraîchir les annonces
 }
 window.toggleLang = toggleLang;
+
+// ══════════════════════════════════════════════════════════════════════════
+// 🌐 v123 : COUCHE DE TRADUCTION NÉERLANDAISE
+// Le reste de l'app n'est pas modifié : cette couche remplace les textes À
+// L'AFFICHAGE quand la langue est « nl », et les remet en français sinon.
+//  • NL_DICT   : texte français exact → texte néerlandais
+//  • NL_PREFIX : débuts de phrase (« Erreur : » + détail)
+//  • NL_RULES  : phrases contenant un nombre ou un nom variable
+//  • NL_INLINE : petits fragments retraduits dans le résultat d'une règle (« Il y a 3j »)
+// Un texte absent du dictionnaire reste simplement en français.
+// Pour désactiver toute la couche : vider NL_DICT, NL_PREFIX et NL_RULES.
+// ══════════════════════════════════════════════════════════════════════════
+const NL_DICT = {
+"🇧🇪 L'IMMOBILIER BELGE GRATUIT": "🇧🇪 GRATIS BELGISCH VASTGOED",
+"Accueil": "Home",
+"Carte": "Kaart",
+"Favoris": "Favorieten",
+"À propos": "Over ons",
+"Mon compte": "Mijn account",
+"Contacter ImmoLibre sur WhatsApp": "Contacteer ImmoLibre via WhatsApp",
+"Nous contacter sur WhatsApp": "Contacteer ons via WhatsApp",
+"Changer le thème": "Thema wijzigen",
+"Achetez, louez, vendez": "Koop, huur, verkoop",
+"GRATUITEMENT": "GRATIS",
+"en Belgique 🇧🇪": "in België 🇧🇪",
+"Sans commission. Particuliers et agences. Simple et rapide.": "Zonder commissie. Particulieren en makelaars. Eenvoudig en snel.",
+"Rechercher": "Zoeken",
+"🏡 Publier une annonce gratuite": "🏡 Plaats een gratis advertentie",
+"📊 Estimer mon bien": "📊 Schat mijn pand",
+"💰 Frais notaire": "💰 Notariskosten",
+"Tout": "Alles",
+"Vente": "Te koop",
+"Location": "Te huur",
+"🌍 Étranger": "🌍 Buitenland",
+"📍 Autour de moi": "📍 In mijn buurt",
+"Toute la Belgique": "Heel België",
+"Bruxelles-Capitale": "Brussels Hoofdstedelijk Gewest",
+"Hainaut": "Henegouwen",
+"Brabant wallon": "Waals-Brabant",
+"Liège": "Luik",
+"Namur": "Namen",
+"Luxembourg": "Luxemburg",
+"Flandre orientale": "Oost-Vlaanderen",
+"Flandre occidentale": "West-Vlaanderen",
+"Anvers": "Antwerpen",
+"Brabant flamand": "Vlaams-Brabant",
+"Limbourg": "Limburg",
+"Tous types": "Alle types",
+"Maison": "Huis",
+"Chambre": "Kamer",
+"Terrain": "Grond",
+"Projet neuf": "Nieuwbouwproject",
+"Commerce": "Handelspand",
+"Autre": "Andere",
+"💰 BUDGET MAX": "💰 MAX. BUDGET",
+"Sans limite": "Geen limiet",
+"🛏 CHAMBRES MIN": "🛏 MIN. SLAAPKAMERS",
+"Toutes": "Alle",
+"📐 SURFACE MIN": "📐 MIN. OPPERVLAKTE",
+"↕️ TRIER PAR": "↕️ SORTEREN OP",
+"Par défaut": "Standaard",
+"Prix ↑": "Prijs ↑",
+"Prix ↓": "Prijs ↓",
+"Surface ↓": "Oppervlakte ↓",
+"Récents": "Recentste",
+"🏡 Annonces actives": "🏡 Actieve advertenties",
+"100% Belge": "100% Belgisch",
+"💚 Commission": "💚 Commissie",
+"⚡ Pour publier": "⚡ Om te publiceren",
+"🤝 Pourquoi ImmoLibre est-il vraiment gratuit ?": "🤝 Waarom is ImmoLibre echt gratis?",
+"Cliquez pour lire": "Klik om te lezen",
+"On comprend la méfiance — en immobilier, \"gratuit\" est rare. Voici la vérité, sans détour :": "We begrijpen het wantrouwen — in vastgoed is \"gratis\" zeldzaam. Dit is de waarheid, zonder omwegen:",
+"✅ La publication est et restera gratuite": "✅ Publiceren is en blijft gratis",
+"Pour toujours. Aucune date d'expiration cachée.": "Voor altijd. Geen verborgen vervaldatum.",
+"✅ Aucune commission sur la vente": "✅ Geen commissie op de verkoop",
+"Vous gardez 100% de votre prix de vente.": "U houdt 100% van uw verkoopprijs.",
+"✅ Vos données ne sont jamais revendues": "✅ Uw gegevens worden nooit doorverkocht",
+"Hébergement européen, conformité RGPD stricte.": "Europese hosting, strikte naleving van de AVG.",
+"💰 Comment on gagne notre vie alors ?": "💰 Hoe verdienen we dan ons brood?",
+"Avec les": "Met de",
+"boosts optionnels (5€)": "optionele boosts (5€)",
+"pour les vendeurs qui veulent plus de visibilité. C'est tout. Et c'est volontaire.": "voor verkopers die meer zichtbaarheid willen. Dat is alles. En het is vrijwillig.",
+"🇧🇪 ImmoLibre est une initiative belge indépendante. Notre but : casser le monopole des grosses plateformes qui facturent 50€ à 100€ pour publier.": "🇧🇪 ImmoLibre is een onafhankelijk Belgisch initiatief. Ons doel: het monopolie doorbreken van de grote platformen die 50€ tot 100€ vragen om te publiceren.",
+"🔄 Réinitialiser": "🔄 Opnieuw instellen",
+"+ Publier gratuitement": "+ Gratis publiceren",
+"📤 Partager cette agence": "📤 Deel deze makelaar",
+"← Voir toutes les annonces": "← Bekijk alle advertenties",
+"Aucun résultat trouvé": "Geen resultaten gevonden",
+"Soyez le premier à publier dans cette catégorie !": "Wees de eerste die in deze categorie publiceert!",
+"🔄 Réinitialiser les filtres": "🔄 Filters opnieuw instellen",
+"+ Publier une annonce": "+ Een advertentie plaatsen",
+"⚡ Boostez votre annonce !": "⚡ Boost uw advertentie!",
+"Soyez vu en premier par des milliers d'acheteurs belges": "Word als eerste gezien door duizenden Belgische kopers",
+"Voir les offres 🚀": "Bekijk de formules 🚀",
+"Vous vendez ou louez un bien ?": "Verkoopt of verhuurt u een pand?",
+"Publiez votre annonce gratuitement et touchez des milliers de Belges": "Plaats gratis uw advertentie en bereik duizenden Belgen",
+"Publier mon annonce — c'est GRATUIT 🎉": "Plaats mijn advertentie — het is GRATIS 🎉",
+"🔔 Recevoir des alertes gratuites": "🔔 Ontvang gratis alerts",
+"🔍  Ville, commune, code postal...": "🔍  Stad, gemeente, postcode...",
+"Fermer": "Sluiten",
+"🎯 Rayon :": "🎯 Straal:",
+"Désactiver": "Uitschakelen",
+"🔍 Agrandir": "🔍 Vergroten",
+"❤️ Sauvegarder l'annonce": "❤️ Advertentie bewaren",
+"📤 Partager cette annonce": "📤 Deel deze advertentie",
+"🔗 Copier le lien": "🔗 Link kopiëren",
+"📄 Télécharger en PDF": "📄 Downloaden als PDF",
+"⚡ Booster cette annonce": "⚡ Boost deze advertentie",
+"🚩 Signaler cette annonce": "🚩 Meld deze advertentie",
+"📝 Publier une annonce": "📝 Een advertentie plaatsen",
+"Quel type d'annonce ?": "Welk type advertentie?",
+"🏠 Vente": "🏠 Te koop",
+"🔑 Location": "🔑 Te huur",
+"✨ Pourquoi publier sur ImmoLibre ?": "✨ Waarom publiceren op ImmoLibre?",
+"de commission, contrairement aux portails classiques": "commissie, in tegenstelling tot de klassieke portalen",
+"✅ Annonce visible immédiatement sur Google": "✅ Advertentie meteen zichtbaar op Google",
+"✅ Vous gardez le contrôle total (modif/suppression à tout moment)": "✅ U houdt de volledige controle (op elk moment wijzigen of verwijderen)",
+"✅ Plateforme": "✅ Platform",
+"100% belge": "100% Belgisch",
+"et": "en",
+"sécurisée": "beveiligd",
+"💚 Plus on est nombreux, plus on est visibles ensemble !": "💚 Hoe meer we zijn, hoe zichtbaarder we samen zijn!",
+"Informations du bien": "Gegevens van het pand",
+"* Champs obligatoires": "* Verplichte velden",
+"Vente ou location": "Te koop of te huur",
+"Type de bien": "Type pand",
+"Pays": "Land",
+"🇧🇪 Belgique": "🇧🇪 België",
+"🇫🇷 France": "🇫🇷 Frankrijk",
+"🇪🇸 Espagne": "🇪🇸 Spanje",
+"🇱🇺 Luxembourg": "🇱🇺 Luxemburg",
+"🇳🇱 Pays-Bas": "🇳🇱 Nederland",
+"🇲🇦 Maroc": "🇲🇦 Marokko",
+"🇮🇹 Italie": "🇮🇹 Italië",
+"🌍 Autre pays": "🌍 Ander land",
+"Ville": "Gemeente",
+"Code postal": "Postcode",
+"Surface habitable (m²)": "Bewoonbare oppervlakte (m²)",
+"Surface du terrain (m²)": "Oppervlakte van het perceel (m²)",
+"— maison, villa, chalet, terrain": "— huis, villa, chalet, grond",
+"Prix": "Prijs",
+"✅ Charges incluses dans le loyer": "✅ Kosten inbegrepen in de huur",
+"Montant des charges (€/mois)": "Bedrag van de kosten (€/maand)",
+"— optionnel": "— optioneel",
+"Chambres": "Slaapkamers",
+"⚡ Certificat PEB": "⚡ EPC (energielabel)",
+"— obligatoire en Belgique": "— verplicht in België",
+"— Sélectionner —": "— Selecteren —",
+"A — Très économe (vert foncé)": "A — Zeer zuinig (donkergroen)",
+"B — Économe": "B — Zuinig",
+"C — Bon": "C — Goed",
+"D — Moyen": "D — Gemiddeld",
+"E — Peu économe": "E — Weinig zuinig",
+"F — Énergivore": "F — Energieverslindend",
+"G — Très énergivore": "G — Zeer energieverslindend",
+"Pas encore disponible": "Nog niet beschikbaar",
+"Non requis (terrain, garage, parking…)": "Niet vereist (grond, garage, parking…)",
+"💡 En Belgique, l'affichage du PEB est": "💡 In België is de vermelding van het EPC",
+"légalement obligatoire": "wettelijk verplicht",
+"pour toute annonce. Si vous ne l'avez pas encore, choisissez \"Pas encore disponible\".": "voor elke advertentie. Hebt u het nog niet, kies dan \"Nog niet beschikbaar\".",
+"Vous êtes": "U bent",
+"🏢 Agence": "🏢 Makelaar",
+"🏢 Nom de votre agence": "🏢 Naam van uw kantoor",
+"💡 Apparaîtra comme badge sur votre annonce.": "💡 Verschijnt als badge op uw advertentie.",
+"Plus crédible pour les acheteurs.": "Geloofwaardiger voor kopers.",
+"📞 COORDONNÉES DE CONTACT": "📞 CONTACTGEGEVENS",
+"Téléphone": "Telefoon",
+"Email": "E-mail",
+"Ces informations seront visibles par les acheteurs intéressés.": "Deze gegevens zijn zichtbaar voor geïnteresseerde kopers.",
+"⚠️ Veuillez renseigner au moins un moyen de contact (téléphone ou email).": "⚠️ Vul minstens één contactmogelijkheid in (telefoon of e-mail).",
+"Description": "Beschrijving",
+"Photos du bien": "Foto's van het pand",
+"📷 Ajouter des photos (jusqu'à 10 gratuites)": "📷 Foto's toevoegen (tot 10 gratis)",
+"JPG, PNG — 10 photos gratuites": "JPG, PNG — 10 gratis foto's",
+"· 15 avec Starter (5€/mois)": "· 15 met Starter (5€/maand)",
+"🎥 VIDÉOS — Agence Pro": "🎥 VIDEO'S — Agence Pro",
+"EXCLUSIF": "EXCLUSIEF",
+"🎥 Uploader une vidéo (fichier)": "🎥 Een video uploaden (bestand)",
+"MP4, MOV — 1 vidéo maximum par annonce": "MP4, MOV — maximaal 1 video per advertentie",
+"OU LIEN EXTERNE": "OF EXTERNE LINK",
+"📺 YouTube, TikTok ou Vimeo — collez simplement le lien de la vidéo": "📺 YouTube, TikTok of Vimeo — plak gewoon de link van de video",
+"🗺️ Afficher mon bien sur la carte interactive": "🗺️ Mijn pand tonen op de interactieve kaart",
+"J'accepte que la localisation approximative de mon bien (ville) soit visible sur la carte publique d'ImmoLibre. Je peux retirer mon accord à tout moment.": "Ik ga ermee akkoord dat de benaderende ligging van mijn pand (gemeente) zichtbaar is op de openbare kaart van ImmoLibre. Ik kan mijn akkoord op elk moment intrekken.",
+"📄 Autoriser l'export PDF de mon annonce": "📄 PDF-export van mijn advertentie toestaan",
+"Les visiteurs pourront télécharger une fiche PDF de votre annonce pour l'imprimer ou la partager.": "Bezoekers kunnen een PDF-fiche van uw advertentie downloaden om ze af te drukken of te delen.",
+"Aucune information de contact (téléphone, email) ne sera incluse": "Er worden geen contactgegevens (telefoon, e-mail) opgenomen",
+"— tout passe par ImmoLibre.": "— alles verloopt via ImmoLibre.",
+"🎬 Promouvoir mon bien sur les réseaux sociaux": "🎬 Mijn pand promoten op sociale media",
+"J'autorise ImmoLibre à mettre en avant mon bien (photos, infos) sur ses réseaux sociaux (TikTok, Instagram...) pour lui donner plus de visibilité. Je peux retirer mon accord à tout moment.": "Ik geef ImmoLibre de toestemming om mijn pand (foto's, gegevens) in de kijker te zetten op zijn sociale media (TikTok, Instagram...) voor meer zichtbaarheid. Ik kan mijn akkoord op elk moment intrekken.",
+"Voir les options pour booster mon annonce": "Bekijk de opties om mijn advertentie te boosten",
+"(optionnel, après publication)": "(optioneel, na publicatie)",
+"Vous pourrez à tout moment booster votre annonce depuis": "U kunt uw advertentie op elk moment boosten via",
+"\"Mes annonces\"": "\"Mijn advertenties\"",
+"— 4,99€ · 7 jours en tête de liste": "— 4,99€ · 7 dagen bovenaan de lijst",
+"— 9,99€ · 15 jours + badge doré": "— 9,99€ · 15 dagen + gouden badge",
+"(le plus choisi)": "(meest gekozen)",
+"Aucune obligation. Annonce gratuite à vie sans boost.": "Geen verplichting. Advertentie levenslang gratis zonder boost.",
+"Publier mon annonce →": "Plaats mijn advertentie →",
+"Annonce créée !": "Advertentie aangemaakt!",
+"Voulez-vous la booster pour plus de visibilité ?": "Wilt u ze boosten voor meer zichtbaarheid?",
+"⚡ Oui, booster mon annonce !": "⚡ Ja, boost mijn advertentie!",
+"Non merci, publier gratuitement": "Nee bedankt, gratis publiceren",
+"Annonce publiée !": "Advertentie gepubliceerd!",
+"Votre annonce est maintenant visible par des milliers de Belges.": "Uw advertentie is nu zichtbaar voor duizenden Belgen.",
+"PROCHAINES ÉTAPES": "VOLGENDE STAPPEN",
+"✅ Votre annonce est en ligne": "✅ Uw advertentie staat online",
+"👁 Les acheteurs peuvent déjà la voir": "👁 Kopers kunnen ze al zien",
+"✉️ Vous recevrez les messages dans \"Mon compte\"": "✉️ U ontvangt de berichten in \"Mijn account\"",
+"⚡ Boostez pour encore plus de visibilité": "⚡ Boost voor nog meer zichtbaarheid",
+"Parfait, merci ! 🎉": "Perfect, bedankt! 🎉",
+"ex: Bruxelles": "bv. Brussel",
+"ex: 1000": "bv. 1000",
+"ex: 120": "bv. 120",
+"ex: 500": "bv. 500",
+"ex: 950": "bv. 950",
+"ex: 150": "bv. 150",
+"ex: 3": "bv. 3",
+"ex : Inforim, RE/MAX Liège…": "bv. Inforim, RE/MAX Luik…",
+"ex: +32 470 12 34 56": "bv. +32 470 12 34 56",
+"ex: contact@email.be": "bv. contact@email.be",
+"Décrivez votre bien...": "Beschrijf uw pand...",
+"https://youtube.com/watch?v=... ou https://tiktok.com/@...": "https://youtube.com/watch?v=... of https://tiktok.com/@...",
+"✏️ Modifier l'annonce": "✏️ Advertentie wijzigen",
+"📋 Référence externe (CRM / agence)": "📋 Externe referentie (CRM / kantoor)",
+"💡 Optionnel : votre référence interne pour retrouver l'annonce rapidement": "💡 Optioneel: uw interne referentie om de advertentie snel terug te vinden",
+"Surface (m²)": "Oppervlakte (m²)",
+"📞 Coordonnées de contact": "📞 Contactgegevens",
+"Téléphone (optionnel)": "Telefoon (optioneel)",
+"Email (optionnel)": "E-mail (optioneel)",
+"Nom du contact / Agence (optionnel)": "Naam van de contactpersoon / het kantoor (optioneel)",
+"Non renseigné": "Niet ingevuld",
+"B — Économe (vert)": "B — Zuinig (groen)",
+"C — Bon (vert clair)": "C — Goed (lichtgroen)",
+"D — Moyen (jaune)": "D — Gemiddeld (geel)",
+"E — Peu économe (orange clair)": "E — Weinig zuinig (lichtoranje)",
+"F — Énergivore (orange)": "F — Energieverslindend (oranje)",
+"G — Très énergivore (rouge)": "G — Zeer energieverslindend (rood)",
+"PEB non requis (terrain, garage…)": "EPC niet vereist (grond, garage…)",
+"Inconnu / en cours": "Onbekend / in aanvraag",
+"📷 Photos actuelles": "📷 Huidige foto's",
+"➕ Ajouter des photos": "➕ Foto's toevoegen",
+"📷 Ajouter des photos": "📷 Foto's toevoegen",
+"💾 Enregistrer les modifications": "💾 Wijzigingen opslaan",
+"ex : GDN-2026-167, MARQ-A-32...": "bv. GDN-2026-167, MARQ-A-32...",
+"contact@exemple.com": "contact@voorbeeld.be",
+"ex : Marie Dupont": "bv. Marie Peeters",
+"Accédez à vos annonces et gérez votre profil": "Bekijk uw advertenties en beheer uw profiel",
+"Se connecter": "Inloggen",
+"S'inscrire": "Registreren",
+"✨ Connexion rapide — sans mot de passe": "✨ Snel inloggen — zonder wachtwoord",
+"Saisissez votre email ci-dessous et recevez un lien magique pour vous connecter en": "Vul hieronder uw e-mailadres in en ontvang een magische link om in te loggen in",
+"1 clic": "1 klik",
+". Pas de mot de passe à retenir !": ". Geen wachtwoord om te onthouden!",
+"⚡ Recevoir mon lien magique": "⚡ Stuur mij mijn magische link",
+"OU AVEC MOT DE PASSE": "OF MET WACHTWOORD",
+"EMAIL": "E-MAIL",
+"MOT DE PASSE": "WACHTWOORD",
+"Mot de passe oublié ?": "Wachtwoord vergeten?",
+"Vos données sont protégées conformément au RGPD 🔒": "Uw gegevens zijn beschermd volgens de AVG 🔒",
+"Gratuit": "Gratis",
+"✉️ Messages": "✉️ Berichten",
+"🏠 Mes annonces": "🏠 Mijn advertenties",
+"← Retour": "← Terug",
+"Envoyer": "Verzenden",
+"Se déconnecter": "Uitloggen",
+"Supprimer mon compte et mes données": "Mijn account en mijn gegevens verwijderen",
+"🔔 Notifications push": "🔔 Pushmeldingen",
+"Recevez une notification quand vous avez un nouveau message": "Ontvang een melding wanneer u een nieuw bericht hebt",
+"🔔 Activer les notifications": "🔔 Meldingen inschakelen",
+"votre@email.be": "uw@email.be",
+"Minimum 6 caractères": "Minimaal 6 tekens",
+"Votre réponse...": "Uw antwoord...",
+"🔍 Rechercher (réf, ville, type...)": "🔍 Zoeken (ref., gemeente, type...)",
+"❤️ Vos favoris": "❤️ Uw favorieten",
+"Les annonces que vous avez sauvegardées": "De advertenties die u hebt bewaard",
+"Aucun favori pour l'instant": "Nog geen favorieten",
+"Cliquez sur \"Sauvegarder\" dans une annonce pour la retrouver ici.": "Klik op \"Bewaren\" in een advertentie om ze hier terug te vinden.",
+"Voir les annonces": "Bekijk de advertenties",
+"🗺️ Carte des annonces": "🗺️ Kaart van de advertenties",
+"Seules les annonces dont le vendeur a accepté l'affichage sont visibles.": "Alleen de advertenties waarvan de verkoper de weergave heeft aanvaard, zijn zichtbaar.",
+"✉️ Nous contacter": "✉️ Contacteer ons",
+"Nous répondons sous 24h": "We antwoorden binnen 24 uur",
+"Vous pouvez aussi nous écrire directement": "U kunt ons ook rechtstreeks schrijven",
+"Message envoyé ! Nous vous répondrons sous 24h à l'adresse indiquée.": "Bericht verzonden! We antwoorden binnen 24 uur op het opgegeven adres.",
+"VOTRE NOM *": "UW NAAM *",
+"VOTRE EMAIL *": "UW E-MAIL *",
+"SUJET": "ONDERWERP",
+"Question générale": "Algemene vraag",
+"Problème avec une annonce": "Probleem met een advertentie",
+"Signalement d'une annonce": "Een advertentie melden",
+"Question sur les abonnements": "Vraag over de abonnementen",
+"Problème technique": "Technisch probleem",
+"VOTRE MESSAGE *": "UW BERICHT *",
+"📨 Envoyer le message": "📨 Bericht verzenden",
+"Vos données ne sont utilisées que pour répondre à votre demande 🔒": "Uw gegevens worden alleen gebruikt om uw vraag te beantwoorden 🔒",
+"ex: Jean Dupont": "bv. Jan Peeters",
+"Décrivez votre demande...": "Beschrijf uw vraag...",
+"🔔 Alerte nouvelles annonces": "🔔 Alert voor nieuwe advertenties",
+"Recevez par email les nouvelles annonces qui correspondent à vos critères !": "Ontvang per e-mail de nieuwe advertenties die aan uw criteria voldoen!",
+"VOTRE EMAIL": "UW E-MAIL",
+"TYPE DE BIEN": "TYPE PAND",
+"VILLE": "GEMEENTE",
+"BUDGET MAX (€)": "MAX. BUDGET (€)",
+"🔔 Activer mon alerte gratuite": "🔔 Activeer mijn gratis alert",
+"Gratuit · Résiliable à tout moment": "Gratis · Op elk moment opzegbaar",
+"ex: 300000": "bv. 300000",
+"Aidez-nous à maintenir la qualité des annonces. Votre signalement sera examiné sous 24h.": "Help ons de kwaliteit van de advertenties te bewaken. Uw melding wordt binnen 24 uur bekeken.",
+"Annonce frauduleuse ou arnaque": "Frauduleuze advertentie of oplichting",
+"Informations inexactes ou trompeuses": "Onjuiste of misleidende informatie",
+"Annonce en double": "Dubbele advertentie",
+"Contenu inapproprié": "Ongepaste inhoud",
+"Autre raison": "Andere reden",
+"Envoyer le signalement": "Melding verzenden",
+"Les signalements abusifs peuvent entraîner la suspension du compte.": "Misbruik van meldingen kan leiden tot de schorsing van het account.",
+"Détails supplémentaires (optionnel)...": "Bijkomende details (optioneel)...",
+"Votre annonce est boostée !": "Uw advertentie is geboost!",
+"Elle apparaît maintenant en tête de liste.": "Ze verschijnt nu bovenaan de lijst.",
+"Des acheteurs vont la voir très vite !": "Kopers zullen ze heel snel zien!",
+"FORMULE ACTIVÉE": "FORMULE GEACTIVEERD",
+"Super, merci ! 🎉": "Super, bedankt! 🎉",
+"⚡ Booster mon annonce": "⚡ Boost mijn advertentie",
+"Choisissez votre formule de visibilité": "Kies uw zichtbaarheidsformule",
+"paiement unique · 7 jours": "eenmalige betaling · 7 dagen",
+"7 jours": "7 dagen",
+"en tête de liste": "bovenaan de lijst",
+"✅ Badge \"En vedette\" 🔥": "✅ Badge \"In de kijker\" 🔥",
+"✅ Position prioritaire dans les résultats": "✅ Voorrangspositie in de resultaten",
+"15 photos": "15 foto's",
+"par annonce": "per advertentie",
+"✅ Jusqu'à": "✅ Tot",
+"3 annonces": "3 advertenties",
+"actives": "actief",
+"💡 Idéal pour une annonce qui démarre": "💡 Ideaal voor een advertentie die van start gaat",
+"⭐ LE PLUS POPULAIRE": "⭐ MEEST GEKOZEN",
+"paiement unique · 15 jours": "eenmalige betaling · 15 dagen",
+"15 jours": "15 dagen",
+"✅ Badge \"Premium\" 🏆 doré": "✅ Gouden badge \"Premium\" 🏆",
+"✅ Visibilité maximale 2 semaines": "✅ Maximale zichtbaarheid gedurende 2 weken",
+"20 photos": "20 foto's",
+"5 annonces": "5 advertenties",
+"✅ Statistiques détaillées des vues": "✅ Gedetailleerde statistieken van de weergaven",
+"💡 Meilleur rapport visibilité/prix": "💡 Beste verhouding zichtbaarheid/prijs",
+"🏢 Vous êtes une agence ? Découvrez nos formules pro →": "🏢 Bent u een makelaar? Ontdek onze pro-formules →",
+"Formule choisie": "Gekozen formule",
+"⚡ Starter — 7 jours": "⚡ Starter — 7 dagen",
+"💳 Payer et booster maintenant": "💳 Nu betalen en boosten",
+"Paiement sécurisé via Stripe • Visa / Mastercard / Bancontact": "Veilige betaling via Stripe • Visa / Mastercard / Bancontact",
+"Installer ImmoLibre": "ImmoLibre installeren",
+"Accédez à l'app depuis votre écran d'accueil": "Open de app vanaf uw startscherm",
+"Installer": "Installeren",
+"Page introuvable": "Pagina niet gevonden",
+"Cette page n'existe pas ou a été déplacée.": "Deze pagina bestaat niet of is verplaatst.",
+"Pas de panique, les annonces sont toujours là !": "Geen paniek, de advertenties staan er nog!",
+"🏠 Retour à l'accueil": "🏠 Terug naar home",
+"🇧🇪 L'immobilier belge, gratuit et accessible à tous": "🇧🇪 Belgisch vastgoed, gratis en toegankelijk voor iedereen",
+"ImmoLibre.be · TVA BE 1042.507.993": "ImmoLibre.be · BTW BE 1042.507.993",
+"🏢 Espace Agences": "🏢 Makelaarsruimte",
+"📚 Conseils": "📚 Advies",
+"Mentions légales": "Wettelijke vermeldingen",
+"CGU": "Gebruiksvoorwaarden",
+"Confidentialité 🔒": "Privacy 🔒",
+"🔔 Alertes": "🔔 Alerts",
+"🏡 Publier mon bien gratuitement": "🏡 Plaats gratis mijn pand",
+"Annonce introuvable ou plus disponible": "Advertentie niet gevonden of niet meer beschikbaar",
+"Annonce introuvable": "Advertentie niet gevonden",
+"Message": "Bericht",
+"Erreur": "Fout",
+"Attention": "Opgelet",
+"Le vendeur n'a pas autorisé l'export PDF.": "De verkoper heeft de PDF-export niet toegestaan.",
+"Chargement du module PDF…": "PDF-module laden…",
+"Impossible de charger le PDF, réessayez.": "De PDF kan niet worden geladen, probeer opnieuw.",
+"Génération du PDF…": "PDF aanmaken…",
+"PDF téléchargé !": "PDF gedownload!",
+"Erreur lors de la génération du PDF. Réessayez.": "Fout bij het aanmaken van de PDF. Probeer opnieuw.",
+"La géolocalisation n'est pas disponible sur votre appareil.": "Locatiebepaling is niet beschikbaar op uw toestel.",
+"Recherche de votre position…": "Uw locatie zoeken…",
+"Connectez-vous pour booster une annonce.": "Log in om een advertentie te boosten.",
+"Publiez d'abord une annonce, vous pourrez ensuite la booster.": "Plaats eerst een advertentie, daarna kunt u ze boosten.",
+"Boost désactivé": "Boost uitgeschakeld",
+"Erreur lors du boost. Réessayez.": "Fout bij het boosten. Probeer opnieuw.",
+"Impossible d'identifier l'annonce à booster. Ouvrez-la puis réessayez.": "De advertentie om te boosten kan niet worden bepaald. Open ze en probeer opnieuw.",
+"Veuillez entrer votre email": "Vul uw e-mailadres in",
+"⚠️ Une erreur est survenue, réessayez.": "⚠️ Er is een fout opgetreden, probeer opnieuw.",
+"✅ Alerte activée ! Vérifiez vos emails pour la confirmation.": "✅ Alert geactiveerd! Controleer uw e-mail voor de bevestiging.",
+"🔥 Excellente annonce ! Les annonces avec 8+ photos reçoivent 3× plus de contacts.": "🔥 Uitstekende advertentie! Advertenties met 8+ foto's krijgen 3× meer contacten.",
+"Une erreur est survenue.": "Er is een fout opgetreden.",
+"Erreur lors de la suppression.": "Fout bij het verwijderen.",
+"Cette annonce ne vous appartient pas.": "Deze advertentie is niet van u.",
+"✅ Lien copié !": "✅ Link gekopieerd!",
+"✅ Copié !": "✅ Gekopieerd!",
+"✅ Localisation active": "✅ Locatie actief",
+"Paiement en cours...": "Betaling bezig...",
+"⏳ Activation...": "⏳ Activeren...",
+"⏳ Publication en cours...": "⏳ Bezig met publiceren...",
+"Erreur de publication": "Fout bij het publiceren",
+"Veuillez remplir tous les champs.": "Vul alle velden in.",
+"✅ Compte créé ! Vérifiez vos emails pour confirmer votre inscription.": "✅ Account aangemaakt! Controleer uw e-mail om uw registratie te bevestigen.",
+"Veuillez saisir votre email ci-dessus, puis cliquer à nouveau sur « Recevoir mon lien magique ».": "Vul hierboven uw e-mailadres in en klik opnieuw op « Stuur mij mijn magische link ».",
+"Email invalide. Vérifiez le format (ex: votre@email.be).": "Ongeldig e-mailadres. Controleer het formaat (bv. uw@email.be).",
+"⏳ Envoi en cours...": "⏳ Bezig met verzenden...",
+"Veuillez saisir votre email dans le champ ci-dessus, puis cliquer à nouveau sur « Mot de passe oublié ».": "Vul uw e-mailadres in het veld hierboven in en klik opnieuw op « Wachtwoord vergeten ».",
+"✅ Message envoyé ! Le vendeur vous répondra par email.": "✅ Bericht verzonden! De verkoper antwoordt u per e-mail.",
+"✅ Message envoyé ! Le vendeur vous répondra dans Mon compte.": "✅ Bericht verzonden! De verkoper antwoordt u in Mijn account.",
+"⚠️ La ville et le prix sont obligatoires.": "⚠️ De gemeente en de prijs zijn verplicht.",
+"⏳ Upload des photos...": "⏳ Foto's uploaden...",
+"❌ Votre navigateur ne supporte pas les notifications.": "❌ Uw browser ondersteunt geen meldingen.",
+"✅ Notifications déjà activées !": "✅ Meldingen al ingeschakeld!",
+"🔔 Notifications actives": "🔔 Meldingen actief",
+"❌ Notifications bloquées. Allez dans les paramètres de votre navigateur pour les autoriser.": "❌ Meldingen geblokkeerd. Ga naar de instellingen van uw browser om ze toe te staan.",
+"⏳ Demande en cours...": "⏳ Aanvraag bezig...",
+"✅ Notifications activées !": "✅ Meldingen ingeschakeld!",
+"Vous recevrez une notification pour chaque nouveau message 😊": "U ontvangt een melding voor elk nieuw bericht 😊",
+"Notifications refusées.": "Meldingen geweigerd.",
+"✅ Notifications actives": "✅ Meldingen actief",
+"🚫 Notifications bloquées": "🚫 Meldingen geblokkeerd",
+"Autorisez les notifications dans les paramètres du navigateur.": "Sta meldingen toe in de instellingen van de browser.",
+"⚠️ Veuillez remplir tous les champs obligatoires.": "⚠️ Vul alle verplichte velden in.",
+"❌ Erreur lors de l'envoi. Écrivez-nous directement à contact@immolibre.be": "❌ Fout bij het verzenden. Schrijf ons rechtstreeks op contact@immolibre.be",
+"⚠️ Veuillez remplir tous les champs.": "⚠️ Vul alle velden in.",
+"Connexion…": "Inloggen…",
+"⚠️ Email ou mot de passe incorrect.": "⚠️ E-mailadres of wachtwoord onjuist.",
+"⚠️ Erreur de connexion. Réessayez.": "⚠️ Fout bij het inloggen. Probeer opnieuw.",
+"⚠️ Veuillez choisir une raison.": "⚠️ Kies een reden.",
+"✅ Signalement envoyé, merci ! Notre équipe va examiner cette annonce.": "✅ Melding verzonden, bedankt! Ons team bekijkt deze advertentie.",
+"⚡ ANNONCE BOOSTÉE": "⚡ GEBOOSTE ADVERTENTIE",
+"VENTE": "TE KOOP",
+"LOCATION": "TE HUUR",
+"À l'instant": "Zonet",
+"✅ VENDU": "✅ VERKOCHT",
+"✅ LOUÉ": "✅ VERHUURD",
+"🟡 SOUS OPTION": "🟡 IN OPTIE",
+"VENDU": "VERKOCHT",
+"LOUÉ": "VERHUURD",
+"✅ Charges incluses": "✅ Kosten inbegrepen",
+"☀️ Terrasse": "☀️ Terras",
+"⚡ Éco-énergétique": "⚡ Energiezuinig",
+"✨ Neuf": "✨ Nieuw",
+"🆕 Récent": "🆕 Recent",
+"🌄 Belle vue": "🌄 Mooi uitzicht",
+"🌳 Jardin": "🌳 Tuin",
+"🍷 Cave": "🍷 Kelder",
+"🎓 Idéal étudiant": "🎓 Ideaal voor studenten",
+"🎓 Étudiant": "🎓 Student",
+"🏊 Piscine": "🏊 Zwembad",
+"🏗️ À rénover": "🏗️ Te renoveren",
+"🐾 Animaux OK": "🐾 Huisdieren OK",
+"💚 Charges incl.": "💚 Kosten inbegr.",
+"📍 Centre": "📍 Centrum",
+"📶 Wifi inclus": "📶 Wifi inbegrepen",
+"🔥 Cheminée": "🔥 Open haard",
+"🛋️ Meublé": "🛋️ Gemeubeld",
+"🛗 Ascenseur": "🛗 Lift",
+"🤫 Calme": "🤫 Rustig",
+"⚡ BOOSTÉE": "⚡ GEBOOST",
+"m² habitables": "m² bewoonbaar",
+"m² terrain": "m² perceel",
+"⚡ CERTIFICAT PEB": "⚡ EPC",
+"Très économe": "Zeer zuinig",
+"Économe": "Zuinig",
+"Bon": "Goed",
+"Moyen": "Gemiddeld",
+"Peu économe": "Weinig zuinig",
+"Énergivore": "Energieverslindend",
+"Très énergivore": "Zeer energieverslindend",
+"💶 PRIX AU M²": "💶 PRIJS PER M²",
+"Cette annonce": "Deze advertentie",
+"🟢 En dessous du marché": "🟢 Onder de markt",
+"🟡 Dans la moyenne": "🟡 Rond het marktgemiddelde",
+"🔴 Au-dessus du marché": "🔴 Boven de markt",
+"* Estimation basée sur les prix moyens du marché belge 2025": "* Schatting op basis van de gemiddelde Belgische marktprijzen 2025",
+"📞 Contacter le vendeur": "📞 Contacteer de verkoper",
+"💡 Vous aussi vous avez un bien à vendre ou louer ?": "💡 Hebt u ook een pand te koop of te huur?",
+"Publiez votre annonce": "Plaats uw advertentie",
+"100% gratuitement": "100% gratis",
+"sur ImmoLibre — sans commission. Inscription en 30 secondes ⏱️": "op ImmoLibre — zonder commissie. Registratie in 30 seconden ⏱️",
+"🏡 Publier mon annonce gratuitement": "🏡 Plaats gratis mijn advertentie",
+"Envoyer le message": "Bericht verzenden",
+"🔒 Pas besoin de créer un compte. Le vendeur vous répondra par email.": "🔒 U hoeft geen account aan te maken. De verkoper antwoordt u per e-mail.",
+"ANNONCES SIMILAIRES": "VERGELIJKBARE ADVERTENTIES",
+"🤍 Sauvegarder l'annonce": "🤍 Advertentie bewaren",
+"Annonce publiée par un membre vérifié ImmoLibre": "Advertentie geplaatst door een geverifieerd ImmoLibre-lid",
+"Votre nom": "Uw naam",
+"Votre email (pour recevoir la réponse)": "Uw e-mailadres (om het antwoord te ontvangen)",
+"Bonjour, je suis intéressé par votre bien...": "Hallo, ik heb interesse in uw pand...",
+"Créez votre compte gratuit": "Maak uw gratis account aan",
+"Pour publier une annonce, vous devez créer un compte gratuit (30 secondes ⏱️).": "Om een advertentie te plaatsen, maakt u een gratis account aan (30 seconden ⏱️).",
+"✅ Pourquoi un compte ?": "✅ Waarom een account?",
+"Recevoir les messages": "De berichten ontvangen",
+"des acheteurs": "van kopers",
+"Modifier": "Wijzigen",
+"ou supprimer vos annonces": "of verwijderen van uw advertenties",
+"Sauvegarder": "Bewaren",
+"des annonces en favoris": "van advertenties als favoriet",
+"Sécurité": "Veiligheid",
+": vos annonces sont protégées": ": uw advertenties zijn beschermd",
+"🚀 Créer mon compte gratuit": "🚀 Maak mijn gratis account aan",
+"J'ai déjà un compte — Me connecter": "Ik heb al een account — Inloggen",
+"100% gratuit · Aucune carte bancaire requise": "100% gratis · Geen bankkaart nodig",
+"Aucune annonce": "Geen advertenties",
+"🗑️ Supprimer": "🗑️ Verwijderen",
+"👁 Voir l'annonce": "👁 Bekijk de advertentie",
+"Aucune photo pour le moment": "Nog geen foto's",
+"⚠️ Limite atteinte — Votre forfait": "⚠️ Limiet bereikt — Uw formule",
+"Upgrader mon forfait →": "Mijn formule upgraden →",
+"Upgrader ↑": "Upgraden ↑",
+"Nouveau": "Nieuw",
+"Coup de ❤️": "Favoriet ❤️"
+};
+const NL_PREFIX = [
+[
+"⚠️ Erreur : ",
+"⚠️ Fout: "
+],
+[
+"❌ Erreur : ",
+"❌ Fout: "
+],
+[
+"Erreur : ",
+"Fout: "
+],
+[
+"⚠️ Veuillez renseigner : ",
+"⚠️ Vul in: "
+],
+[
+"⚠️ Vérifiez : ",
+"⚠️ Controleer: "
+],
+[
+"Position trouvée ! Recherche dans un rayon de ",
+"Locatie gevonden! Zoeken binnen een straal van "
+],
+[
+"Annonce Réf. #",
+"Advertentie ref. #"
+]
+];
+const NL_RULES = [
+[
+"^(\\d+) annonces$",
+"$1 advertenties"
+],
+[
+"^1 annonce$",
+"1 advertentie"
+],
+[
+"^📍 (\\d+) annonces? actives? sur ImmoLibre$",
+"📍 $1 actieve advertenties op ImmoLibre"
+],
+[
+"^⏳ Publication dans (\\d+)\\.\\.\\.$",
+"⏳ Publicatie over $1..."
+],
+[
+"^🔄 Nouvelle tentative \\((\\d+)\\/(\\d+)\\)\\.\\.\\.$",
+"🔄 Nieuwe poging ($1/$2)..."
+],
+[
+"^Votre forfait (.+) permet (\\d+) photos maximum\\.$",
+"Uw formule $1 laat maximaal $2 foto's toe."
+],
+[
+"^Votre forfait permet (\\d+) photos maximum\\. Supprimez d'abord des photos existantes\\.$",
+"Uw formule laat maximaal $1 foto's toe. Verwijder eerst bestaande foto's."
+],
+[
+"^Seules (\\d+) nouvelles photos peuvent être ajoutées \\(limite (\\d+) au total\\)\\.$",
+"Er kunnen nog maar $1 nieuwe foto's worden toegevoegd (limiet van $2 in totaal)."
+],
+[
+"^(.*\\d) €\\/mois$",
+"$1 €/maand"
+],
+[
+"^(.*\\d) € \\/mois$",
+"$1 €/maand"
+],
+[
+"^· Réf\\. #(.+)$",
+"· Ref. #$1"
+],
+[
+"^🛏 (\\d+) ch\\.$",
+"🛏 $1 slpk."
+],
+[
+"^⚡ PEB (.+)$",
+"⚡ EPC $1"
+],
+[
+"^(\\d+) m² · (\\d+) ch\\.$",
+"$1 m² · $2 slpk."
+],
+[
+"^Marché (.+)$",
+"Markt $1"
+],
+[
+"^([+-]?\\d+)% vs marché$",
+"$1% t.o.v. de markt"
+],
+[
+"^✉️ Contacter le vendeur — (.+) à (.+)$",
+"✉️ Contacteer de verkoper — $1 in $2"
+],
+[
+"^(Maison|Appartement|Studio|Chambre|Terrain|Garage|Chalet|Bungalow|Projet neuf|Commerce|Autre) — (.+)$",
+"$1 — $2"
+],
+[
+"^⭐ (.+) · (\\d+) photos · (∞|\\d+) annonces$",
+"⭐ $1 · $2 foto's · $3 advertenties"
+],
+[
+"^👁 (\\d+) vues · (.*)$",
+"👁 $1 weergaven · $2"
+],
+[
+"^📸 (\\d+) photos?$",
+"📸 $1 foto's"
+],
+[
+"^📞 (\\d+) appels?$",
+"📞 $1 oproepen"
+],
+[
+"^✉️ (\\d+) emails?$",
+"✉️ $1 e-mails"
+],
+[
+"^🌿 Terrain (\\d+)m²$",
+"🌿 Perceel $1m²"
+],
+[
+"^Il y a (\\d+) min$",
+"$1 min geleden"
+],
+[
+"^Il y a (\\d+)h$",
+"$1 u geleden"
+],
+[
+"^Il y a (\\d+)j$",
+"$1 d geleden"
+],
+[
+"^Il y a (\\d+) mois$",
+"$1 mnd geleden"
+],
+[
+"^Il y a (\\d+) ans?$",
+"$1 jaar geleden"
+],
+[
+"^permet (\\d+) annonces?\\.$",
+"laat $1 advertenties toe."
+],
+[
+"^permet illimité annonces?\\.$",
+"laat een onbeperkt aantal advertenties toe."
+],
+[
+"^⭐ (.+) — (\\d+)\\/(\\d+|∞) annonces? · (\\d+) photos max$",
+"⭐ $1 — $2/$3 advertenties · max. $4 foto's"
+],
+[
+"^(.+) — (\\d+)\\/(\\d+|∞) annonces? · (\\d+) photos max$",
+"$1 — $2/$3 advertenties · max. $4 foto's"
+],
+[
+"^📷 Ajouter des photos \\(max (\\d+)\\)$",
+"📷 Foto's toevoegen (max. $1)"
+]
+].map(function(r){ return [new RegExp(r[0]), r[1]]; });
+const NL_INLINE = [
+[
+"Il y a (\\d+) min",
+"$1 min geleden"
+],
+[
+"Il y a (\\d+)h",
+"$1 u geleden"
+],
+[
+"Il y a (\\d+)j",
+"$1 d geleden"
+],
+[
+"Il y a (\\d+) mois",
+"$1 mnd geleden"
+],
+[
+"Il y a (\\d+) ans?",
+"$1 jaar geleden"
+],
+[
+"À l'instant",
+"Zonet"
+],
+[
+"\\bMaison\\b",
+"Huis"
+],
+[
+"\\bChambre\\b",
+"Kamer"
+],
+[
+"\\bTerrain\\b",
+"Grond"
+],
+[
+"\\bProjet neuf\\b",
+"Nieuwbouwproject"
+],
+[
+"\\bCommerce\\b",
+"Handelspand"
+],
+[
+"\\bAutre\\b",
+"Andere"
+],
+[
+"\\bGratuit\\b",
+"Gratis"
+],
+[
+"\\bla ville\\b",
+"de gemeente"
+],
+[
+"\\ble code postal\\b",
+"de postcode"
+],
+[
+"\\ble prix\\b",
+"de prijs"
+]
+].map(function(r){ return [new RegExp(r[0], 'g'), r[1]]; });
+const NL_ATTRS = ['placeholder', 'title', 'aria-label'];
+const _nlText = new WeakMap();   // nœud texte → {fr, nl}
+const _nlAttr = new WeakMap();   // élément    → {attribut: {fr, nl}}
+let _nlObserver = null;
+
+function _nlInline(s){
+  for(let i = 0; i < NL_INLINE.length; i++) s = s.replace(NL_INLINE[i][0], NL_INLINE[i][1]);
+  return s;
+}
+function _nlLookup(k){
+  if(Object.prototype.hasOwnProperty.call(NL_DICT, k)) return NL_DICT[k];
+  for(let i = 0; i < NL_PREFIX.length; i++){
+    if(k.indexOf(NL_PREFIX[i][0]) === 0) return NL_PREFIX[i][1] + _nlInline(k.slice(NL_PREFIX[i][0].length));
+  }
+  for(let i = 0; i < NL_RULES.length; i++){
+    if(NL_RULES[i][0].test(k)) return _nlInline(k.replace(NL_RULES[i][0], NL_RULES[i][1]));
+  }
+  return null;
+}
+// Zones jamais traduites : code, champs de saisie, contenu écrit par les utilisateurs.
+function _nlSkip(el){
+  return !el || !el.closest || !!el.closest('script,style,textarea,[contenteditable],[data-nl-skip]');
+}
+function _nlTextNode(n){
+  const cur = n.nodeValue, rec = _nlText.get(n);
+  if(rec && rec.nl === cur) return;                 // déjà traduit
+  const k = cur.replace(/\s+/g, ' ').trim();
+  if(!k) return;
+  const r = _nlLookup(k);
+  if(r === null) return;
+  const out = cur.match(/^\s*/)[0] + r + cur.match(/\s*$/)[0];
+  _nlText.set(n, { fr: cur, nl: out });
+  n.nodeValue = out;
+}
+function _nlSkipAttr(el){ return !el || !el.closest || !!el.closest('script,style,[data-nl-skip]'); }
+function _nlElem(el){
+  // ⚠️ Une <option> sans attribut value utilise son TEXTE comme valeur (« Maison »,
+  // « Tous types »…). On fige cette valeur en français AVANT de traduire le texte,
+  // sinon une annonce serait enregistrée avec « Huis » et les filtres casseraient.
+  if(el.tagName === 'OPTION' && !el.hasAttribute('value')) el.setAttribute('value', el.value);
+  for(let i = 0; i < NL_ATTRS.length; i++){
+    const a = NL_ATTRS[i];
+    if(!el.hasAttribute(a)) continue;
+    const cur = el.getAttribute(a);
+    let map = _nlAttr.get(el);
+    if(map && map[a] && map[a].nl === cur) continue;
+    const r = _nlLookup(cur.replace(/\s+/g, ' ').trim());
+    if(r === null) continue;
+    if(!map){ map = {}; _nlAttr.set(el, map); }
+    map[a] = { fr: cur, nl: r };
+    el.setAttribute(a, r);
+  }
+}
+function _nlWalk(root){
+  if(!root) return;
+  if(root.nodeType === 3){ if(!_nlSkip(root.parentElement)) _nlTextNode(root); return; }
+  if(root.nodeType !== 1 || _nlSkipAttr(root)) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+  let n = root;
+  while(n){
+    if(n.nodeType === 1){ if(!_nlSkipAttr(n)) _nlElem(n); }
+    else if(!_nlSkip(n.parentElement)) _nlTextNode(n);
+    n = w.nextNode();
+  }
+}
+function _nlRestore(){
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+  let n = w.nextNode();
+  while(n){
+    if(n.nodeType === 3){
+      const rec = _nlText.get(n);
+      if(rec && n.nodeValue === rec.nl){ n.nodeValue = rec.fr; _nlText.delete(n); }
+    } else {
+      const map = _nlAttr.get(n);
+      if(map){
+        Object.keys(map).forEach(function(a){ if(n.getAttribute(a) === map[a].nl) n.setAttribute(a, map[a].fr); });
+        _nlAttr.delete(n);
+      }
+    }
+    n = w.nextNode();
+  }
+}
+function _nlObserve(){
+  _nlObserver.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: NL_ATTRS });
+}
+function _nlApply(){
+  try {
+    document.documentElement.lang = (currentLang === 'nl') ? 'nl' : 'fr';
+    if(currentLang === 'nl'){
+      _nlWalk(document.body);
+      if(!_nlObserver){
+        // Le contenu ajouté ensuite (annonces, fenêtres, messages) est traduit à son arrivée.
+        _nlObserver = new MutationObserver(function(muts){
+          if(currentLang !== 'nl') return;
+          _nlObserver.disconnect();               // nos propres remplacements ne doivent pas nous rappeler
+          try {
+            for(let i = 0; i < muts.length; i++){
+              const m = muts[i];
+              if(m.type === 'childList'){ for(let j = 0; j < m.addedNodes.length; j++) _nlWalk(m.addedNodes[j]); }
+              else if(m.type === 'characterData') _nlWalk(m.target);
+              else if(m.type === 'attributes' && !_nlSkipAttr(m.target)) _nlElem(m.target);
+            }
+          } catch(e) { /* une traduction ratée ne doit jamais bloquer l'app */ }
+          _nlObserve();
+        });
+        _nlObserve();
+      }
+    } else {
+      if(_nlObserver){ _nlObserver.disconnect(); _nlObserver = null; }
+      _nlRestore();
+    }
+  } catch(e) { /* silencieux : au pire, le texte reste en français */ }
+}
+// On se greffe sur le système de langue existant, sans le modifier.
+const _applyTranslationsBase = applyTranslations;
+applyTranslations = function(){
+  _applyTranslationsBase.apply(this, arguments);
+  _nlApply();
+};
 
 // ── NOTIFICATIONS PUSH ─────────────────────────────────────
 async function toggleNotifications(){
@@ -8567,6 +9496,12 @@ if(window.IMMO_ANDROID_APP){
   ['openBoostModal','boostFromModal','confirmBoost','subscribeAgence'].forEach(function(name){
     window[name] = function(){};
   });
+  // La page Agences n'affiche que des formules payantes : elle serait vide dans
+  // l'app. On la neutralise même si on y arrive par un lien direct.
+  var _showPageApp = window.showPage;
+  if(typeof _showPageApp === 'function'){
+    window.showPage = function(p){ return _showPageApp(p === 'agences' ? 'home' : p); };
+  }
   // Après publication, on saute l'étape « Voulez-vous booster ? » (étape 3).
   var _postStepApp = window.postStep;
   window.postStep = function(n){ return _postStepApp(n === 3 ? 4 : n); };

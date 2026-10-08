@@ -35,7 +35,13 @@
     <loc>https://immolibre.be/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/blog/particulier-a-particulier-belgique</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://immolibre.be/blog/vendre-rapidement-maison-belgique</loc>
@@ -47,7 +53,7 @@
     <loc>https://immolibre.be/blog/frais-notaire-belgique-2026</loc>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://immolibre.be/blog/kot-etudiant-belgique</loc>
@@ -101,7 +107,7 @@
     <loc>https://immolibre.be/blog/vendre-sa-maison-sans-agence-belgique</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://immolibre.be/blog/home-staging-photos-immobilieres</loc>
@@ -113,5 +119,89 @@
     <loc>https://immolibre.be/confidentialite</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/epc-belgie-complete-gids</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/home-staging-vastgoedfotos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/huis-snel-verkopen-belgie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/huis-verkopen-zonder-makelaar-belgie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/notariskosten-belgie-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/studentenkot-belgie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/studentenkot-bergen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/studentenkot-brussel</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/studentenkot-louvain-la-neuve</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/studentenkot-luik</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/studentenkot-namen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/van-particulier-tot-particulier-belgie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
+  </url>
+  <url>
+    <loc>https://immolibre.be/nl/blog/waarde-huis-schatten-belgie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-10-07</lastmod>
   </url>
 </urlset>

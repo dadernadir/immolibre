@@ -1,6 +1,6 @@
 -- ════════════════════════════════════════════════════════════════════════════
 -- ImmoLibre — PARTIE 2/2 (stockage photos / vidéos), check-up v124
--- À exécuter APRÈS la partie 1, dans Supabase → SQL Editor.
+-- ✅ APPLIQUÉ le 08/10/2026 (policies d'envoi restreintes à « authenticated »).
 -- Si l'éditeur répond « must be owner of table objects » : faire la même chose
 -- depuis l'interface (voir instructions en bas de ce fichier).
 -- ════════════════════════════════════════════════════════════════════════════
@@ -20,15 +20,9 @@ update storage.buckets
        allowed_mime_types = array['video/*']
  where id = 'videos';
 
-drop policy if exists "Upload photos public" on storage.objects;
-create policy "Upload photos membres" on storage.objects
-  for insert to authenticated
-  with check (bucket_id = 'photos');
+alter policy "Upload photos public" on storage.objects to authenticated;
 
-drop policy if exists "Upload videos agence" on storage.objects;
-create policy "Upload videos membres" on storage.objects
-  for insert to authenticated
-  with check (bucket_id = 'videos');
+alter policy "Upload videos agence" on storage.objects to authenticated;
 
 commit;
 

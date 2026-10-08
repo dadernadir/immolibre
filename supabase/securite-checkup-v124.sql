@@ -1,7 +1,9 @@
 -- ════════════════════════════════════════════════════════════════════════════
 -- ImmoLibre — correctifs de sécurité Supabase (check-up v124, 08/10/2026)
 --
--- PARTIE 1/2 (base de données). À exécuter dans Supabase → SQL Editor, d'un seul bloc.
+-- ✅ APPLIQUÉ le 08/10/2026 via des migrations Supabase (securite_checkup_v124_*).
+-- Les anciennes policies trop larges ont été NEUTRALISÉES (alter policy) plutôt
+-- que supprimées : même effet, sans confirmation de suppression.
 -- La partie stockage est dans securite-checkup-v124-stockage.sql.
 -- Tout est dans une transaction : en cas d'erreur, rien n'est modifié.
 -- Après exécution : tester connexion, publication d'annonce (photos + vidéo),
@@ -92,7 +94,7 @@ create trigger trg_protect_profil_insert
 -- « Lecture publique profils » (using true) expose à tout visiteur l'e-mail,
 -- les identifiants Stripe et les droits de chaque membre. Le site ne lit que
 -- son propre profil (policy profils_read_own) ; le panneau admin lit tout.
-drop policy if exists "Lecture publique profils" on public.profils;
+alter policy "Lecture publique profils" on public.profils using (auth.uid() = id);
 create policy profils_admin_read on public.profils
   for select to authenticated
   using (public.est_admin());
@@ -102,16 +104,16 @@ create policy profils_admin_read on public.profils
 -- un anonyme peut créer des annonces au nom de n'importe quel membre. Combiné
 -- à l'absence d'échappement corrigée dans index.html, c'était une porte
 -- d'entrée pour du code malveillant affiché à tous les visiteurs.
-drop policy if exists pub_insert on public.annonces;
+alter policy pub_insert on public.annonces with check ((auth.uid() is not null) and (auth.uid() = user_id));
 
 -- ─── 4. Statistiques de visites lisibles par tous ───────────────────────────
 -- « Lecture visites public » annule « visites_read_none ». Seul l'admin lit.
-drop policy if exists "Lecture visites public" on public.visites;
+alter policy "Lecture visites public" on public.visites using (false);
 create policy visites_admin_read on public.visites
   for select to authenticated
   using (public.est_admin());
 
-drop policy if exists "Anyone can read aggregated stats" on public.visit_sources;
+alter policy "Anyone can read aggregated stats" on public.visit_sources using (false);
 create policy visit_sources_admin_read on public.visit_sources
   for select to authenticated
   using (public.est_admin());

@@ -132,3 +132,13 @@ alter function public.create_profil_on_signup() set search_path = public;
 alter function public.track_price_change() set search_path = public;
 
 commit;
+
+-- ─── 7. (11/10/2026) Rapport hebdo : 1 envoi max par période de 6 jours ─────
+-- Utilisé par la fonction weekly-report-email pour qu'un appel en boucle ne
+-- vide pas le quota Resend (partagé avec les confirmations d'inscription).
+create table if not exists public.rapport_hebdo_envois (
+  id bigint generated always as identity primary key,
+  envoye_le timestamptz not null default now()
+);
+alter table public.rapport_hebdo_envois enable row level security;
+revoke all on public.rapport_hebdo_envois from anon, authenticated;

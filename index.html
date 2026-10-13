@@ -5440,8 +5440,16 @@ async function handleAuth(){
   btn.disabled=false;
   btn.textContent = currentAuthTab==='login'?'Se connecter':'Créer mon compte';
   if(result.error){
-    const msgs={"Invalid login credentials":"Email ou mot de passe incorrect.","User already registered":"Un compte existe déjà avec cet email.","Password should be at least 6 characters":"Le mot de passe doit faire au moins 6 caractères."};
-    errEl.textContent=msgs[result.error.message]||result.error.message;
+    const msgs={"Invalid login credentials":"Email ou mot de passe incorrect.","User already registered":"Un compte existe déjà avec cet email.","Password should be at least 6 characters":"Le mot de passe doit faire au moins 6 caractères.",
+      // 🔧 v124 : messages Supabase restés en anglais (vus dans les journaux d'inscription)
+      "Password is known to be weak and easy to guess, please choose a different one.":"Ce mot de passe est trop courant (il figure dans des listes de mots de passe piratés). Choisissez-en un autre, par exemple avec des chiffres et une majuscule.",
+      "email rate limit exceeded":"Trop d'inscriptions en ce moment. Réessayez dans quelques minutes, ou utilisez « Recevoir mon lien magique ».",
+      "Email not confirmed":"Votre email n'est pas encore confirmé. Cliquez sur le lien reçu par email (pensez à vérifier vos spams).",
+      "Unable to validate email address: invalid format":"Email invalide. Vérifiez le format (ex: votre@email.be)."};
+    const _attente = /only request this after (\d+) seconds?/i.exec(result.error.message||'');
+    errEl.textContent = _attente
+      ? `Un email vient déjà de vous être envoyé. Vérifiez votre boîte mail (et vos spams), ou réessayez dans ${_attente[1]} secondes.`
+      : (msgs[result.error.message]||result.error.message);
     errEl.classList.remove("hidden");
   } else if(currentAuthTab==='register'){
     errEl.style.cssText="background:#e8f5e9;border:1px solid #c8e6c9;border-radius:10px;padding:12px;font-size:13px;color:#2e7d32;margin-bottom:14px;font-weight:600;";

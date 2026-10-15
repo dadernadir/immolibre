@@ -3366,8 +3366,41 @@ async function fetchAnnoncesPage(page, filters){
   const start = (page-1)*PER_PAGE;
   query = query.range(start, start+PER_PAGE-1);
   const { data, error, count } = await query;
-  if(error){ console.error('fetchAnnoncesPage error', error); return { data:[], count:0 }; }
+  if(error){ console.error('fetchAnnoncesPage error', error); return { data:[], count:0, error }; }
   return { data: data||[], count: count||0 };
+}
+
+// ⚡ v124 : mémorise la 1re page de l'accueil (sans filtre, tri par défaut) dans le
+// navigateur. À l'ouverture suivante, ces annonces s'affichent immédiatement, puis sont
+// remplacées dès que la réponse de Supabase arrive. Utile surtout en connexion lente.
+// Seules les colonnes publiques sont mémorisées (pas de téléphone ni d'email).
+const HOME_CACHE_KEY = 'immo_home_cache_v1';
+const HOME_CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+let _homeShownFromCache = false;
+
+function isDefaultHomeView(filters){
+  return currentPage === 1 && currentSort === 'default' && !nearMe.active && !hasActiveFilters(filters);
+}
+
+function saveHomeCache(rows, count){
+  try { localStorage.setItem(HOME_CACHE_KEY, JSON.stringify({ t: Date.now(), count, rows })); } catch(e) {}
+}
+
+function showHomeFromCache(){
+  try {
+    const params = new URLSearchParams(location.search);
+    if(params.get('agence') || params.get('agency')) return false; // page filtrée par agence : on attend le vrai résultat
+    const saved = JSON.parse(localStorage.getItem(HOME_CACHE_KEY) || 'null');
+    if(!saved || !Array.isArray(saved.rows) || !saved.rows.length) return false;
+    if(Date.now() - saved.t > HOME_CACHE_MAX_AGE) return false;
+    if(!isDefaultHomeView(readFilterState())) return false;
+    currentList = cacheListings(saved.rows.map(mapAnnonceRow));
+    currentTotal = saved.count || saved.rows.length;
+    renderPage();
+    _homeShownFromCache = true;
+    hideAppLoader();
+    return true;
+  } catch(e) { return false; }
 }
 
 // 📍 "Autour de moi" ne peut pas être filtré en SQL (pas de colonnes lat/lng en base) :
@@ -3410,7 +3443,10 @@ let _fetchGeneration = 0;
 // vérifier après coup si sa propre requête est toujours la plus récente.
 async function fetchAndRenderPage(){
   const myGen = ++_fetchGeneration;
-  showSkeletons();
+  // Si les annonces mémorisées sont déjà affichées, on ne les remplace pas par des squelettes.
+  const keepCachedView = _homeShownFromCache;
+  _homeShownFromCache = false;
+  if(!keepCachedView) showSkeletons();
   const filters = readFilterState();
   if(nearMe.active && nearMe.lat && nearMe.lng){
     await fetchNearMeBatch(filters);
@@ -3421,8 +3457,13 @@ async function fetchAndRenderPage(){
     }
     return myGen;
   }
-  const { data, count } = await fetchAnnoncesPage(currentPage, filters);
+  const { data, count, error } = await fetchAnnoncesPage(currentPage, filters);
   if(myGen === _fetchGeneration){
+    if(error && keepCachedView){
+      toast("Connexion faible : annonces de votre dernière visite affichées.", "info", 4000);
+      return myGen;
+    }
+    if(!error && isDefaultHomeView(filters)) saveHomeCache(data, count);
     currentList = cacheListings(data.map(mapAnnonceRow));
     currentTotal = count;
     if(totalSiteListings===null && !hasActiveFilters(filters)) totalSiteListings = count;
@@ -9418,6 +9459,7 @@ document.addEventListener('click', e => {
   if (!e.target.closest('#searchInput') && !e.target.closest('#autocompleteDropdown')) hideAutocomplete();
 });
 
+showHomeFromCache();
 loadAnnoncesFromDB();
 // Appliquer la langue sauvegardée
 setTimeout(applyTranslations, 100);

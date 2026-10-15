@@ -1,4 +1,4 @@
-const CACHE_NAME = 'immolibre-v124';
+const CACHE_NAME = 'immolibre-v125';
 const OFFLINE_URL = '/index.html';
 
 const ASSETS_TO_CACHE = [
@@ -6,7 +6,53 @@ const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
+  '/data/cities.js',
+  '/vendor/supabase-js-2.117.2.min.js',
 ];
+
+// ⚡ v125 : au-delà de ce délai, si une version en cache existe, on l'affiche tout de suite
+// (la version réseau continue de se télécharger en arrière-plan pour la prochaine fois).
+// Avant, le Service Worker attendait le réseau sans limite : en 3G faible / Wi-Fi saturé,
+// le site restait plusieurs secondes sur l'écran de chargement.
+const NETWORK_TIMEOUT_MS = 3500;
+
+function putInCache(request, response){
+  if(response && response.ok){
+    const clone = response.clone();
+    caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+  }
+  return response;
+}
+
+// Page HTML : réseau d'abord, mais pas plus de NETWORK_TIMEOUT_MS s'il existe une copie en cache.
+function handleNavigation(e){
+  const network = fetch(e.request).then(r => putInCache(e.request, r));
+  e.waitUntil(network.catch(() => {}));
+  const cachedPage = caches.match(e.request).then(c => c
+    || (new URL(e.request.url).pathname === '/' ? caches.match(OFFLINE_URL) : undefined));
+  return new Promise(resolve => {
+    let done = false;
+    const finish = r => { if(!done && r){ done = true; resolve(r); } };
+    network.then(finish).catch(async () => {
+      // Hors ligne ou erreur réseau : copie en cache, sinon l'accueil en cache.
+      finish((await cachedPage) || (await caches.match(OFFLINE_URL)) || Response.error());
+    });
+    setTimeout(() => cachedPage.then(finish), NETWORK_TIMEOUT_MS);
+  });
+}
+
+// Bibliothèques versionnées (/vendor/…) : le nom change à chaque version → le cache suffit.
+function handleVendor(e){
+  return caches.match(e.request).then(c => c || fetch(e.request).then(r => putInCache(e.request, r)));
+}
+
+// Autres fichiers du site (villes, icônes, manifest…) : copie en cache immédiate si elle existe,
+// mise à jour en arrière-plan.
+function handleStatic(e){
+  const network = fetch(e.request).then(r => putInCache(e.request, r));
+  e.waitUntil(network.catch(() => {}));
+  return caches.match(e.request).then(c => c || network);
+}
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -41,22 +87,10 @@ self.addEventListener('fetch', (e) => {
   try { sameOrigin = new URL(e.request.url).origin === self.location.origin; } catch (err) { return; }
   if (!sameOrigin) return;
 
-  e.respondWith(
-    fetch(e.request)
-      .then(response => {
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-        }
-        return response;
-      })
-      .catch(() => {
-        return caches.match(e.request).then(cached => {
-          if (cached) return cached;
-          if (e.request.mode === 'navigate') return caches.match(OFFLINE_URL);
-        });
-      })
-  );
+  const path = new URL(e.request.url).pathname;
+  if(e.request.mode === 'navigate') e.respondWith(handleNavigation(e));
+  else if(path.startsWith('/vendor/')) e.respondWith(handleVendor(e));
+  else e.respondWith(handleStatic(e));
 });
 
 self.addEventListener('push', (e) => {

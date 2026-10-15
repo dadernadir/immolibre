@@ -104,6 +104,10 @@
 }
 </script>
 
+<!-- ⚡ v124 : ouvre tôt les connexions aux serveurs utilisés au démarrage (gagne 0,3 à 1 s en 3G) -->
+<link rel="preconnect" href="https://svjkpexgckghrtrfowtq.supabase.co" crossorigin/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script>
 // 🎨 Init thème AVANT chargement du body pour éviter le "flash" (FOUC)
@@ -117,10 +121,28 @@
 })();
 </script>
 <script src="data/cities.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- ⚡ v124 : supabase-js hébergé sur le site (version figée) : plus de serveur tiers à contacter,
+     et le Service Worker le garde en cache → ouverture quasi instantanée aux visites suivantes.
+     Leaflet (carte) et jsPDF ne sont plus chargés au démarrage : seulement quand on en a besoin. -->
+<script src="/vendor/supabase-js-2.117.2.min.js"></script>
+<script>
+// Charge un script (ou une feuille de style) à la demande, une seule fois.
+window.loadOnce = (function(){
+  const cache = {};
+  return function(url){
+    if(cache[url]) return cache[url];
+    cache[url] = new Promise((resolve, reject) => {
+      const css = /\.css$/.test(url);
+      const el = document.createElement(css ? 'link' : 'script');
+      if(css){ el.rel = 'stylesheet'; el.href = url; } else { el.src = url; }
+      el.onload = () => resolve();
+      el.onerror = () => { delete cache[url]; reject(new Error('Chargement impossible : ' + url)); };
+      document.head.appendChild(el);
+    });
+    return cache[url];
+  };
+})();
+</script>
 <script>
 // 🛡️ v104 : filet de secours pour les visiteurs déjà bloqués.
 // Si une librairie externe n'a pas pu se charger — cas typique : un ancien
@@ -2961,12 +2983,9 @@ async function downloadListingPdf(){
   if(!l){ toast("Annonce introuvable", "error"); return; }
   if(!l.pdf_enabled){ toast("Le vendeur n'a pas autorisé l'export PDF.", "warning"); return; }
   if(!window.jspdf || !window.jspdf.jsPDF){
+    // ⚡ v124 : jsPDF (360 Ko) n'est plus chargé au démarrage, seulement ici.
     toast("Chargement du module PDF…", "info");
-    // Attend jusqu'à 3s que la lib soit dispo
-    for(let i = 0; i < 30; i++){
-      await new Promise(r => setTimeout(r, 100));
-      if(window.jspdf && window.jspdf.jsPDF) break;
-    }
+    try { await loadOnce('/vendor/jspdf-2.5.1.umd.min.js'); } catch(e) {}
     if(!window.jspdf || !window.jspdf.jsPDF){ toast("Impossible de charger le PDF, réessayez.", "error"); return; }
   }
   toast("Génération du PDF…", "info", 2000);
@@ -5371,8 +5390,19 @@ const CITY_COORDS = {
 };
 let leafletMap = null;
 
-function initMap(){
+let _leafletLoading = null;
+async function initMap(){
   if(leafletMap){ refreshMapMarkers(); return; }
+  // ⚡ v124 : Leaflet (150 Ko + CSS) n'est plus chargé au démarrage, seulement à l'ouverture de la carte.
+  if(!window.L){
+    _leafletLoading = _leafletLoading || Promise.all([
+      loadOnce('/vendor/leaflet-1.9.4/leaflet.css'),
+      loadOnce('/vendor/leaflet-1.9.4/leaflet.js'),
+    ]);
+    try { await _leafletLoading; }
+    catch(e){ _leafletLoading = null; toast("Impossible de charger la carte, vérifiez votre connexion.", "error"); return; }
+    if(leafletMap){ refreshMapMarkers(); return; }
+  }
   leafletMap = L.map('map').setView([50.5, 4.5], 8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',

@@ -23,7 +23,11 @@ Dernière mise à jour : 20/10/2026.
 3. **Ne jamais régénérer l'appli Android avec une nouvelle clé** sans en parler : Google refuserait les mises à jour.
 4. Ne jamais mettre de secret (mot de passe, keystore, clé API) dans le site ou le dépôt.
 
-## Version actuelle : v126 (déployée le 18-19/10/2026)
+## Version actuelle : v126
+
+Zip de référence : `immolibre-deploy-v126-verifie.zip` (CACHE_NAME `immolibre-v126`).
+Le 19/10/2026, https://immolibre.be/.well-known/assetlinks.json affichait déjà les 3 empreintes :
+la v126 semble donc déployée — à confirmer dans Netlify (onglet Deploys).
 
 Branche GitHub : `ccr-f1381ce0-0y9wxt`.
 
@@ -56,17 +60,24 @@ Branche GitHub : `ccr-f1381ce0-0y9wxt`.
 
 **Appli Android**
 - `assetlinks.json` contient 3 empreintes SHA-256 :
-  - `FC:B0:0B:ED:…:9A:76` = **clé de signature Google Play** (la plus importante) ;
-  - `63:48:85:50:…:F6:4C` = clé qui signe le fichier `ImmoLibre.aab` du 03/10/2026 ;
+  - `FC:B0:0B:ED:…:9A:76` = SHA-256 du keystore local `playpkg/signing.keystore` (vérifié sur l'ordinateur).
+    **Ce n'est PAS forcément la clé de signature Google** : à confirmer dans la Play Console.
+  - `63:48:85:50:…:F6:4C` = clé qui signe le fichier `ImmoLibre.aab` du 03/10/2026. **Aucun keystore trouvé** pour elle.
   - `B9:9D:0F:30:…:B9:93` = ancienne clé (probablement le tout premier zip PWABuilder).
+  - ⚠️ Il manque peut-être la vraie clé de signature Google (« Certificat de la clé de signature d'application »).
 - Les options payantes (boosts, formules agences) sont masquées dans l'appli (`?app=android`), règle Google Play.
 
 ## Ce qui reste à faire
 
-1. **Play Store — clé d'importation** : Google refuse `ImmoLibre.aab` (signé `63:48…`) car une 1re version avait été
-   envoyée avec une autre clé. Solution : « Demander la réinitialisation de la clé d'importation » (Protégé avec Play →
-   Protection Play Store → Signature d'application Play) en envoyant `upload_certificate.pem` (certificat public de
-   `63:48…`). Prérequis : avoir encore le `signing.keystore` + mot de passe du zip PWABuilder du 03/10.
+1. **Play Store — clés** (à faire dans cet ordre) :
+   a. Lire dans la Play Console (Protégé avec Play → Protection Play Store → Signature d'application Play) :
+      - SHA-256 du « Certificat de la clé de signature d'application » → à ajouter dans `assetlinks.json` ;
+      - SHA-256 du « Certificat de la clé d'importation » (s'il existe) ;
+      - le SHA1 « attendu » indiqué dans le message de refus du `.aab`.
+   b. Si la clé d'importation attendue = `FC:B0…` (signing.keystore local) → **pas de réinitialisation** :
+      re-signer / régénérer le `.aab` avec `playpkg/signing.keystore`.
+   c. Sinon → réinitialiser la clé d'importation avec un certificat exporté de `signing.keystore`
+      (PAS avec `upload_certificate.pem` de 63:48, dont la clé privée est introuvable), puis re-signer le `.aab`.
 2. **Test fermé** : si compte développeur personnel récent → 12 testeurs pendant 14 jours avant la production.
 3. **Accès à l'appli** : créer un compte de test (e-mail + mot de passe) pour l'équipe de Google.
 4. Catégorie Play Store : « Maison et intérieur ». Sécurité des données : e-mail, téléphone, photos, messages,

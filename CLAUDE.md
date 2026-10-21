@@ -2,7 +2,7 @@
 
 Fichier lu automatiquement par Claude Code au démarrage d'une session sur ce dépôt.
 À coller aussi en début de conversation Claude classique pour donner le contexte.
-Dernière mise à jour : 20/10/2026.
+Dernière mise à jour : 21/10/2026.
 
 ## Le projet
 
@@ -23,11 +23,11 @@ Dernière mise à jour : 20/10/2026.
 3. **Ne jamais régénérer l'appli Android avec une nouvelle clé** sans en parler : Google refuserait les mises à jour.
 4. Ne jamais mettre de secret (mot de passe, keystore, clé API) dans le site ou le dépôt.
 
-## Version actuelle : v126
+## Version actuelle : v127 (21/10/2026)
 
-Zip de référence : `immolibre-deploy-v126-verifie.zip` (CACHE_NAME `immolibre-v126`).
-Le 19/10/2026, https://immolibre.be/.well-known/assetlinks.json affichait déjà les 3 empreintes :
-la v126 semble donc déployée — à confirmer dans Netlify (onglet Deploys).
+Zip de référence : `immolibre-deploy-v127.zip` (CACHE_NAME `immolibre-v127`).
+v127 = v126 + clé de signature Google `D8:AE…` ajoutée dans `assetlinks.json`. Rien d'autre ne change.
+Le dépôt (branche ci-dessous) est identique au zip v127.
 
 Branche GitHub : `ccr-f1381ce0-0y9wxt`.
 
@@ -59,19 +59,19 @@ Branche GitHub : `ccr-f1381ce0-0y9wxt`.
 - v125 (autre conversation) : bouton « Publier » masqué quand une fenêtre est ouverte — intégré dans la v126.
 
 **Appli Android**
-- `assetlinks.json` contient 3 empreintes SHA-256 :
-  - `FC:B0:0B:ED:…:9A:76` = SHA-256 du keystore local `playpkg/signing.keystore` (vérifié sur l'ordinateur).
-    **Ce n'est PAS forcément la clé de signature Google** : à confirmer dans la Play Console.
+- `assetlinks.json` contient 4 empreintes SHA-256 :
+  - `D8:AE:B9:0B:…:67:C1` = **clé de signature Google Play** (lue dans la Play Console le 21/10/2026).
+    C'est elle qui permet l'ouverture plein écran de l'appli installée depuis le Play Store.
+  - `FC:B0:0B:ED:…:9A:76` = SHA-256 du keystore local `playpkg/signing.keystore` = clé d'importation.
   - `63:48:85:50:…:F6:4C` = clé qui signe le fichier `ImmoLibre.aab` du 03/10/2026. **Aucun keystore trouvé** pour elle.
   - `B9:9D:0F:30:…:B9:93` = ancienne clé (probablement le tout premier zip PWABuilder).
-  - ⚠️ Il manque peut-être la vraie clé de signature Google (« Certificat de la clé de signature d'application »).
 - Les options payantes (boosts, formules agences) sont masquées dans l'appli (`?app=android`), règle Google Play.
 
 ## Ce qui reste à faire
 
 1. **Play Store — clés** (à faire dans cet ordre) :
    a. Lire dans la Play Console (Protégé avec Play → Protection Play Store → Signature d'application Play) :
-      - SHA-256 du « Certificat de la clé de signature d'application » → à ajouter dans `assetlinks.json` ;
+      - ✅ clé de signature d'application = `D8:AE…`, ajoutée dans `assetlinks.json` (v127) ;
       - SHA-256 du « Certificat de la clé d'importation » (s'il existe) ;
       - le SHA1 « attendu » indiqué dans le message de refus du `.aab`.
    b. Si la clé d'importation attendue = `FC:B0…` (signing.keystore local) → **pas de réinitialisation** :

@@ -29,7 +29,7 @@ Dernière mise à jour : 24/10/2026.
 
 ## Version actuelle : v130 (déployée le 24/10/2026, accueil vérifié sur téléphone)
 
-Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v133** (identiques au zip v133).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v134** (identiques au zip v134).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -51,6 +51,11 @@ Historique récent :
 - **v133** (24/10/2026, contrôlée) : remise en ligne d'une annonce vendue/louée au-delà de la limite → message clair
   au lieu de « LIMITE_ANNONCES:2 », liste « Mes annonces » remise dans son état réel, compteur relu après chaque
   changement de statut ; cache `immolibre-v133`.
+- **v134** (24/10/2026, contrôlée) : bouton « Booster » de la fiche (agences) → fonction serveur `use_agency_boost`
+  (avant : mise à jour directe de `boosted`, ignorée en silence par `protect_boost_columns` alors que le site affichait
+  « boostée ! », cas de l'annonce #671) ; messages de refus clairs ; « déjà boostée jusqu'au … » ;
+  448 pages d'annonce (670, 671, 672 ajoutées) ; cache `immolibre-v134`.
+  ⚠️ L'annonce #671 n'est toujours pas boostée en base (vérifié le 24/10) : l'agence doit relancer le boost après déploiement.
 
 ### Référencement Google (v128 → v129)
 

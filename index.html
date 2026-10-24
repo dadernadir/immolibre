@@ -6074,12 +6074,20 @@ window.filterMyAnnonces = filterMyAnnonces;
 // Met à jour le statut d'une annonce (disponible / option / vendu / loue)
 async function updateAnnonceStatus(id, newStatus){
   const { error } = await sbClient.from('annonces').update({ status: newStatus }).eq('id', id);
+  if(error && /LIMITE_ANNONCES/.test(error.message||'')){
+    // 🔒 v133 : remise en ligne refusée par la règle trg_limite_annonces (limite atteinte)
+    const lim = parseInt(((error.message||'').match(/LIMITE_ANNONCES:(\d+)/)||[])[1], 10);
+    toast(`⚠️ Limite atteinte : votre forfait permet ${isNaN(lim) ? (TIERS[currentTier]||TIERS.gratuit).annonces : lim} annonces en ligne. Marquez d'abord une autre annonce comme vendue ou louée.`, "warning", 7000);
+    await loadMyAnnonces(); // remet la liste (et le sélecteur de statut) dans son état réel
+    return;
+  }
   if(error){
     toast("Erreur : " + (error.message || 'mise à jour échouée'), "error");
     return;
   }
   const labels = { disponible: 'Disponible', option: 'Sous option', vendu: 'Vendu', loue: 'Loué' };
   toast(`✅ Statut changé : ${labels[newStatus] || newStatus}`, "success");
+  try { userAnnonceCount = await compterAnnoncesEnLigne(); } catch(e) {} // 🔒 v133 : compteur à jour
   await loadAnnoncesFromDB();
   await loadMyAnnonces();
 }

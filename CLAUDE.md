@@ -29,7 +29,7 @@ Dernière mise à jour : 24/10/2026.
 
 ## Version actuelle : v130 (déployée le 24/10/2026, accueil vérifié sur téléphone)
 
-Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v131** (identiques au zip v131).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v132** (identiques au zip v132).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -45,6 +45,10 @@ Historique récent :
   pages d'annonce vérifiées à jour (mêmes 445, aucune ajoutée ni retirée) ; cache `immolibre-v131`.
   Note : Supabase n'est pas joignable par `--fetch` depuis la session « Check-up complet » (proxy) ;
   la vérification s'y fait via l'accès SQL en lecture.
+- **v132** (24/10/2026, contrôlée) : compteur d'annonces relu dans la base avant chaque publication et limité aux
+  annonces en ligne (comme `trg_limite_annonces`) ; message clair « Limite atteinte » (lien « Upgrader » masqué
+  dans l'appli Android) ; cache `immolibre-v132`. Reste : `updateAnnonceStatus` affiche encore l'erreur brute
+  « Erreur : LIMITE_ANNONCES:2 » si on remet en ligne une annonce vendue au-delà de la limite.
 
 ### Référencement Google (v128 → v129)
 
@@ -94,8 +98,7 @@ python3 -I tools/gen_annonces.py --site DOSSIER_DE_LA_VERSION --fetch --version 
 - **Limite d'annonces en ligne par formule (24/10/2026, appliquée par Nadir après des annonces d'arnaque)** :
   trigger `trg_limite_annonces` → Gratuit 2 · Starter 3 · Premium 5 · Agence et admin illimité ; seules
   « disponible » et « option » comptent. Erreur renvoyée : `LIMITE_ANNONCES:<limite>`. Script : `supabase/limite-annonces-v132.sql`.
-  ⚠️ Côté site (index.html), à aligner : `userAnnonceCount` compte TOUTES les annonces (vendues comprises) au lieu
-  des seules en ligne, et l'erreur `LIMITE_ANNONCES` s'affiche brute (« Erreur : LIMITE_ANNONCES:2 »).
+  Côté site : aligné en v132 (sauf le changement de statut, voir v132).
 
 **Fonctions Supabase (edge functions) verrouillées**
 - `send-message-email` et `send-alert-confirmation` relisent le message / l'alerte en base (refus si absent ou > 5 min).

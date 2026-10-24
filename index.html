@@ -2744,6 +2744,13 @@ async function saveAnnonce(formData) {
     inserted = retry.data; error = retry.error;
   }
 
+  if(error && /LIMITE_ANNONCES/.test(error.message||'')){
+    // 🔒 v132 : refus de la règle Supabase trg_limite_annonces
+    const lim = parseInt(((error.message||'').match(/LIMITE_ANNONCES:(\d+)/)||[])[1], 10);
+    afficherLimiteAnnonces(isNaN(lim) ? null : lim);
+    toast("Limite d'annonces atteinte pour votre forfait.", "warning", 6000);
+    return false;
+  }
   if(error){
     console.error('saveAnnonce error:', error);
     // Afficher un message plus précis à l'utilisateur
@@ -4617,12 +4624,15 @@ async function submitAnnonce(){
     peb: document.getElementById("f_peb")?document.getElementById("f_peb").value:""
   };
   // Vérifier limite d'annonces
+  // 🔒 v132 : le compteur était lu une seule fois à la connexion et jamais mis à jour :
+  // on pouvait publier sans limite pendant une même visite (arnaque du 24/10, 3 annonces
+  // en 6 minutes). On le relit dans la base AVANT d'envoyer les photos. La base refuse
+  // de toute façon au-delà de la limite (règle trg_limite_annonces).
   if(currentUser){
     const tier = TIERS[currentTier];
-    if(userAnnonceCount >= tier.annonces){
-      const errEl = document.getElementById("formError");
-      errEl.innerHTML = `⚠️ Limite atteinte — Votre forfait <strong>${tier.label}</strong> permet ${tier.annonces === 999 ? 'illimité' : tier.annonces} annonce${tier.annonces > 1 ? 's' : ''}. <span onclick="closePostModal();openBoostModal(null)" style="text-decoration:underline;cursor:pointer;">Upgrader mon forfait →</span>`;
-      errEl.classList.remove("hidden");
+    try { userAnnonceCount = await compterAnnoncesEnLigne(); } catch(e) {}
+    if(tier.annonces !== 999 && userAnnonceCount >= tier.annonces){
+      afficherLimiteAnnonces(tier.annonces);
       return;
     }
   }
@@ -4659,6 +4669,7 @@ async function submitAnnonce(){
   }
 
   if(ok){
+    userAnnonceCount++; // 🔒 v132 : le compteur suit les publications de la visite
     postStep(3);
     // Reset complet du formulaire
     resetPostForm();
@@ -8136,6 +8147,33 @@ const TIERS = {
 let currentTier = 'gratuit';
 let userAnnonceCount = 0;
 
+// 🔒 v132 : nombre d'annonces en ligne du compte connecté, relu dans la base.
+async function compterAnnoncesEnLigne(){
+  if(!currentUser) return 0;
+  const { count } = await sbClient.from('annonces')
+    .select('*', {count:'exact', head:true})
+    .eq('user_id', currentUser.id)
+    .in('status', ['disponible','option']);
+  return count || 0;
+}
+// 🔒 v132 : message « limite atteinte » (le lien vers les formules est masqué dans l'appli Android)
+function messageLimiteAnnonces(limite){
+  const tier = TIERS[currentTier] || TIERS.gratuit;
+  const n = limite || tier.annonces;
+  return `⚠️ Limite atteinte — Votre forfait <strong>${esc(tier.label)}</strong> permet ${n} annonce${n > 1 ? 's' : ''} en ligne. `
+    + `Marquez une annonce comme vendue ou louée pour en publier une nouvelle.`
+    + ` <span class="paid-only" onclick="closePostModal();openBoostModal(null)" style="text-decoration:underline;cursor:pointer;">Upgrader mon forfait →</span>`;
+}
+function afficherLimiteAnnonces(limite){
+  const errEl = document.getElementById("formError");
+  if(errEl){
+    errEl.innerHTML = messageLimiteAnnonces(limite);
+    errEl.classList.remove("hidden");
+  } else {
+    toast("Limite d'annonces atteinte pour votre forfait.", "warning", 6000);
+  }
+}
+
 async function checkUserTier(){
   if(!currentUser) return;
   const { data } = await sbClient.from('profils')
@@ -8149,10 +8187,9 @@ async function checkUserTier(){
 
   isAgencePro = currentTier === 'agence';
 
-  const { count } = await sbClient.from('annonces')
-    .select('*', {count:'exact', head:true})
-    .eq('user_id', currentUser.id);
-  userAnnonceCount = count || 0;
+  // 🔒 v132 : seules les annonces EN LIGNE comptent (disponible / sous option),
+  // exactement comme la règle trg_limite_annonces dans Supabase.
+  userAnnonceCount = await compterAnnoncesEnLigne();
 
   updateFormForTier();
 

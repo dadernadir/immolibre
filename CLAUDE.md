@@ -29,7 +29,7 @@ Dernière mise à jour : 24/10/2026.
 
 ## Version actuelle : v130 (déployée le 24/10/2026, accueil vérifié sur téléphone)
 
-Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v130** (identiques au zip v130).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v131** (identiques au zip v131).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -40,6 +40,11 @@ Historique récent :
 - **v130** (déployée le 24/10/2026) : bloc vert « maquette A » — titre « L'immobilier belge sans commission »,
   sous-titre masqué, boutons Acheter · Louer · Filtres (synchronisés avec Tout / Vente / Location), NL traduit ;
   445 pages d'annonce régénérées ; cache `immolibre-v130`.
+- **v131** (24/10/2026, préparée, pas encore déployée) : slogan du haut resserré sur téléphone (masqué sous 340 px)
+  pour ne plus passer sous le bouton 🌙 ; recherche « Ville ou code postal » (NL « Stad of postcode ») ;
+  pages d'annonce vérifiées à jour (mêmes 445, aucune ajoutée ni retirée) ; cache `immolibre-v131`.
+  Note : Supabase n'est pas joignable par `--fetch` depuis la session « Check-up complet » (proxy) ;
+  la vérification s'y fait via l'accès SQL en lecture.
 
 ### Référencement Google (v128 → v129)
 
@@ -147,6 +152,5 @@ Après accord de Google (quelques jours) : envoyer `ImmoLibre.aab` signé avec `
 3. Régénérer les pages d'annonce à chaque version (`tools/gen_annonces.py`).
 4. Idée : vignettes photo gratuites (≈ 30 Ko) créées à l'envoi pour alléger l'accueil et les pages d'annonce
    (photos actuelles ≈ 200 Ko en moyenne). Alternative payante : transformations d'images Supabase.
-5. Petits défauts d'affichage vus sur téléphone (antérieurs à v130) : slogan du haut qui passe sous le bouton 🌙 ;
-   texte de recherche coupé (« Ville, commune, code pos… »).
+5. ✅ Défauts d'affichage du haut de page corrigés en v131.
 6. À surveiller : quota Resend (forfait gratuit ≈ 100 e-mails/jour) ; bande passante Supabase (Organization → Usage → Egress).

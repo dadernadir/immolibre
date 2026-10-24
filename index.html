@@ -343,6 +343,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <!-- HEADER -->
   <header id="mainHeader" style="background:#fff;border-bottom:1px solid #e8f5e9;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:all .25s;">
     <!-- LIGNE 1 : Logo -->
+<style>
+  /* 🔧 v131 : sur téléphone, le slogan (lettres très espacées) passait sous le bouton 🌙. */
+  @media (max-width:520px){ #headerSlogan{ font-size:9px !important; letter-spacing:.5px !important; } }
+  @media (max-width:380px){ #headerSlogan{ letter-spacing:0 !important; } }
+  @media (max-width:340px){ #headerSlogan{ display:none !important; } }
+</style>
     <div id="headerLogo" style="padding:8px 20px;text-align:center;border-bottom:1px solid #f0f0f0;overflow:hidden;transition:all .25s;max-height:60px;opacity:1;position:relative;">
       <div onclick="showPage('home')" style="cursor:pointer;display:inline-block;">
         <span style="font-family:'Playfair Display',serif;font-weight:900;font-size:24px;color:#1b5e20;letter-spacing:-1px;">immo<span style="color:#f57f17;">libre</span></span>
@@ -380,7 +386,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <p id="heroSubtitle" style="display:none;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;margin-bottom:18px;">Sans commission. Particuliers et agences. Simple et rapide.</p>
       <div style="max-width:520px;margin:0 auto;position:relative;z-index:50;">
         <div style="background:#fff;border-radius:16px;padding:6px;display:flex;gap:6px;box-shadow:0 8px 32px rgba(0,0,0,.2);">
-          <input id="searchInput" type="search" inputmode="search" name="recherche-commune" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" readonly onfocus="this.removeAttribute('readonly'); this.setAttribute('autocomplete','off');" oninput="handleSearchInput()" onkeydown="handleSearchKey(event)" placeholder="🔍  Ville, commune, code postal..." style="flex:1;padding:12px 14px;border:none;border-radius:12px;font-size:14px;background:transparent;"/>
+          <input id="searchInput" type="search" inputmode="search" name="recherche-commune" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" readonly onfocus="this.removeAttribute('readonly'); this.setAttribute('autocomplete','off');" oninput="handleSearchInput()" onkeydown="handleSearchKey(event)" placeholder="🔍  Ville ou code postal" style="flex:1;padding:12px 14px;border:none;border-radius:12px;font-size:14px;background:transparent;"/>
           <button onclick="applyFilters()" style="padding:12px 20px;border-radius:12px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;">Rechercher</button>
         </div>
         <div id="autocompleteDropdown" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:60;overflow:hidden;border:1px solid #e8f5e9;max-height:min(50vh,340px);overflow-y:auto;"></div>
@@ -6851,7 +6857,7 @@ const TRANSLATIONS = {
     heroTitle: `L'immobilier belge <span style="color:#ffcc02;">sans commission</span>`,
     heroSubtitle: "Sans commission. Particuliers et agences. Simple et rapide.",
     heroBtn: "🏡 Publier une annonce gratuite",
-    heroSearchPlaceholder: "🔍  Ville, commune, code postal...",
+    heroSearchPlaceholder: "🔍  Ville ou code postal",
     heroSearchBtn: "Rechercher",
     heroAnnonces: "Annonces",
     heroBelgique: "Toute la Belgique",
@@ -6906,7 +6912,7 @@ const TRANSLATIONS = {
     heroTitle: `Belgisch vastgoed <span style="color:#ffcc02;">zonder commissie</span>`,
     heroSubtitle: "Geen commissie. Geen makelaar. Eenvoudig en snel.",
     heroBtn: "🏡 Gratis advertentie plaatsen",
-    heroSearchPlaceholder: "🔍  Stad, gemeente, postcode...",
+    heroSearchPlaceholder: "🔍  Stad of postcode",
     heroSearchBtn: "Zoeken",
     heroAnnonces: "Advertenties",
     heroBelgique: "Heel België",
@@ -7128,7 +7134,7 @@ const NL_DICT = {
 "Publiez votre annonce gratuitement et touchez des milliers de Belges": "Plaats gratis uw advertentie en bereik duizenden Belgen",
 "Publier mon annonce — c'est GRATUIT 🎉": "Plaats mijn advertentie — het is GRATIS 🎉",
 "🔔 Recevoir des alertes gratuites": "🔔 Ontvang gratis alerts",
-"🔍  Ville, commune, code postal...": "🔍  Stad, gemeente, postcode...",
+"🔍  Ville ou code postal": "🔍  Stad of postcode",
 "Fermer": "Sluiten",
 "🎯 Rayon :": "🎯 Straal:",
 "Désactiver": "Uitschakelen",

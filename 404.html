@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page introuvable | ImmoLibre</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/icon-192.png">
+<meta name="theme-color" content="#1b5e20">
+<script>
+// Annonce publiée après la dernière version du site : sa page /annonce/ID
+// n'existe pas encore, on ouvre l'annonce dans le site à la place.
+(function(){
+  var m = location.pathname.match(/^\/annonces?\/(\d+)\/?$/);
+  if (m) { location.replace('/?annonce=' + m[1]); }
+})();
+</script>
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f6f8f6;color:#1d2420;line-height:1.55}
+header{background:#1b5e20;padding:12px 16px}
+header a{color:#fff;text-decoration:none;font-weight:800;font-size:18px}
+main{max-width:560px;margin:0 auto;padding:40px 16px;text-align:center}
+h1{font-size:24px;margin:0 0 8px}
+p{color:#5b6660}
+a.btn{display:inline-block;margin-top:16px;background:#1b5e20;color:#fff;text-decoration:none;font-weight:800;padding:12px 20px;border-radius:12px}
+</style>
+</head>
+<body>
+<header><a href="/">🏠 ImmoLibre</a></header>
+<main>
+<h1>Page introuvable</h1>
+<p>Cette page n'existe pas ou n'est plus disponible. L'annonce a peut-être été vendue ou louée.</p>
+<a class="btn" href="/">Voir les annonces</a>
+</main>
+</body>
+</html>

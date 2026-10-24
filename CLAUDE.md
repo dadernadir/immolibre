@@ -29,8 +29,7 @@ Dernière mise à jour : 22/10/2026.
 
 ## Version actuelle : v129 (déployée le 22/10/2026, fonctionne)
 
-⚠️ Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v127** :
-les v128-v129 n'y sont pas encore. Pour travailler dessus, partir du zip v129 (ou l'ajouter au dépôt).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v130** (identiques au zip v130).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -38,6 +37,9 @@ Historique récent :
 - **v127** : ajout de l'empreinte de la clé de signature Google Play dans `assetlinks.json`.
 - **v128** : pages statiques d'annonce `/annonce/ID` + sitemaps nettoyés (référencement Google).
 - **v129** : page `404.html` de secours + pages d'annonce régénérées.
+- **v130** (24/10/2026, contrôlée, pas encore déployée) : bloc vert « maquette A » — titre « L'immobilier belge sans commission »,
+  sous-titre masqué, boutons Acheter · Louer · Filtres (synchronisés avec Tout / Vente / Location), NL traduit ;
+  445 pages d'annonce régénérées ; cache `immolibre-v130`.
 
 ### Référencement Google (v128 → v129)
 

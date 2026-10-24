@@ -252,8 +252,3 @@
   force = true
 
 # ─── Existant : sitemap dynamique des annonces ───
-[[redirects]]
-  from = "/sitemap-annonces.xml"
-  to = "https://svjkpexgckghrtrfowtq.supabase.co/functions/v1/sitemap-annonces"
-  status = 200
-  force = true

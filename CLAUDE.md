@@ -91,6 +91,11 @@ python3 -I tools/gen_annonces.py --site DOSSIER_DE_LA_VERSION --fetch --version 
 - Statistiques de visites lisibles par l'admin seulement.
 - Stockage : envois photos/vidéos réservés aux membres connectés ; photos ≤ 10 Mo (images), vidéos ≤ 50 Mo.
 - Scripts SQL de référence : `supabase/securite-checkup-v124.sql` et `supabase/securite-checkup-v124-stockage.sql`.
+- **Limite d'annonces en ligne par formule (24/10/2026, appliquée par Nadir après des annonces d'arnaque)** :
+  trigger `trg_limite_annonces` → Gratuit 2 · Starter 3 · Premium 5 · Agence et admin illimité ; seules
+  « disponible » et « option » comptent. Erreur renvoyée : `LIMITE_ANNONCES:<limite>`. Script : `supabase/limite-annonces-v132.sql`.
+  ⚠️ Côté site (index.html), à aligner : `userAnnonceCount` compte TOUTES les annonces (vendues comprises) au lieu
+  des seules en ligne, et l'erreur `LIMITE_ANNONCES` s'affiche brute (« Erreur : LIMITE_ANNONCES:2 »).
 
 **Fonctions Supabase (edge functions) verrouillées**
 - `send-message-email` et `send-alert-confirmation` relisent le message / l'alerte en base (refus si absent ou > 5 min).

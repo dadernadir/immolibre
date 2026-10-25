@@ -2,7 +2,7 @@
 
 Fichier lu automatiquement par Claude Code au démarrage d'une session sur ce dépôt.
 À coller aussi en début de conversation Claude classique pour donner le contexte.
-Dernière mise à jour : 24/10/2026.
+Dernière mise à jour : 25/10/2026.
 
 ## Le projet
 
@@ -27,7 +27,7 @@ Dernière mise à jour : 24/10/2026.
 5. Ne jamais mettre de secret (mot de passe, keystore, clé API privée) dans le site ou le dépôt.
    La clé Supabase publique (anon) présente dans `index.html` est normale.
 
-## Version actuelle : v130 (déployée le 24/10/2026, accueil vérifié sur téléphone)
+## Version actuelle : v134 (déployée le 24-25/10/2026, fonctionne)
 
 Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v134** (identiques au zip v134).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
@@ -51,11 +51,11 @@ Historique récent :
 - **v133** (24/10/2026, contrôlée) : remise en ligne d'une annonce vendue/louée au-delà de la limite → message clair
   au lieu de « LIMITE_ANNONCES:2 », liste « Mes annonces » remise dans son état réel, compteur relu après chaque
   changement de statut ; cache `immolibre-v133`.
-- **v134** (24/10/2026, contrôlée, pas encore déployée) : bouton « Booster » de la fiche (agences) → fonction serveur `use_agency_boost`
+- **v134** (déployée, fonctionne) : bouton « Booster » de la fiche (agences) → fonction serveur `use_agency_boost`
   (avant : mise à jour directe de `boosted`, ignorée en silence par `protect_boost_columns` alors que le site affichait
   « boostée ! », cas de l'annonce #671) ; messages de refus clairs ; « déjà boostée jusqu'au … » ;
   448 pages d'annonce (670, 671, 672 ajoutées) ; cache `immolibre-v134`.
-  ⚠️ L'annonce #671 n'est toujours pas boostée en base (vérifié le 24/10) : l'agence doit relancer le boost après déploiement.
+  ✅ Annonce #671 boostée jusqu'au 03/11/2026 (vérifié le 25/10).
 
 ### Référencement Google (v128 → v129)
 

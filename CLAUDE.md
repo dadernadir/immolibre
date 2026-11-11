@@ -2,7 +2,7 @@
 
 Fichier lu automatiquement par Claude Code au démarrage d'une session sur ce dépôt.
 À coller aussi en début de conversation Claude classique pour donner le contexte.
-Dernière mise à jour : 25/10/2026.
+Dernière mise à jour : 11/11/2026.
 
 ## Le projet
 
@@ -27,9 +27,9 @@ Dernière mise à jour : 25/10/2026.
 5. Ne jamais mettre de secret (mot de passe, keystore, clé API privée) dans le site ou le dépôt.
    La clé Supabase publique (anon) présente dans `index.html` est normale.
 
-## Version actuelle : v134 (déployée le 24-25/10/2026, fonctionne)
+## Version actuelle : v142 (déployée, 11/11/2026)
 
-Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v134** (identiques au zip v134).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v142** (identiques au zip v142).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -56,6 +56,68 @@ Historique récent :
   « boostée ! », cas de l'annonce #671) ; messages de refus clairs ; « déjà boostée jusqu'au … » ;
   448 pages d'annonce (670, 671, 672 ajoutées) ; cache `immolibre-v134`.
   ✅ Annonce #671 boostée jusqu'au 03/11/2026 (vérifié le 25/10).
+
+## Récap v134 → v142 (au 11/11/2026, transmis par Nadir)
+
+**Dernière version déployée : v142.** Netlify : projet `playful-chebakia-520v56` (domaine immolibre.be).
+Si la page Netlify reste blanche sur le téléphone : navigation privée (cookies Netlify corrompus).
+Table des profils = **`profils`** (pas `profiles`), admin = `profils.is_admin = true`.
+Ne jamais supprimer de données sans OK explicite de Nadir.
+Ne jamais écrire dans ce dépôt l'adresse e-mail d'un membre, d'un client ou d'un tiers (données personnelles).
+
+| Version | Contenu |
+|---|---|
+| v134 | Bouton « Booster » agences : vrai appel RPC `use_agency_boost` (quota, limite simultanée, déjà boostée). |
+| v135 | Header masqué en descendant, réaffiché en remontant (sticky, z-index 60). |
+| v136 | Tri : `boosted desc → tri_visible desc → created_at desc` ; une annonce sans photo garde sa place 7 jours. Repli sur `has_photos` si `tri_visible` absent. Avertissement à la publication sans photo. |
+| v137 | Bandeau « 📱 Testez l'app en avant-première » (navigateurs Android hors TWA, FR/NL) → `contacts` sujet `Testeur Android`. |
+| v138 | IndexNow (Bing) : clé `2afb14d90df34b60d6e941df2d6c1eca.txt` à la racine, bouton admin « 📡 Prévenir Bing » + envoi auto des nouvelles URL (mémoire `localStorage`), via l'edge function `indexnow`. |
+| v139 | Régénération sans l'annonce 482 (affaire Godin). |
+| v140 | Régénération sans les 97 annonces Godin passées hors ligne. |
+| v141 | Onglet admin **✉️ Contact** : « 📱 Testeurs Android : N / 12 » + « Copier tout », et messages du formulaire de contact. |
+| v142 | Compteur de vues réparé (RPC `increment_annonce_views`, 1 fois par annonce et par session) ; toasts de debug retirés. |
+
+**Supabase**
+- `tri_visible(annonces)` : a des photos OU créée il y a moins de 7 jours.
+- Statut `hors_ligne` ajouté (`annonces_status_check`). Lecture : une seule règle `annonces_read_public` =
+  `status is distinct from 'hors_ligne' OR auth.uid() = user_id OR admin` (vérifié le 11/11).
+- `annonces_hors_ligne_log` : journal des passages hors ligne (ancien statut) pour restaurer.
+- Démarcheurs : `expediteurs_bloques(email, raison)` + trigger `trg_filtrer_expediteurs_bloques` (BEFORE INSERT
+  sur `messages`, message ignoré en silence) + `messages_bloques_log`. 1 adresse bloquée (démarcheur « estimation
+  gratuite »). Tables en RLS sans policy : privées (vérifié le 11/11).
+- Edge functions : `indexnow` (admin seulement, URL https://immolibre.be uniquement) ; `supprimer-compte` désactivée (410).
+- Le compte admin porte des annonces recopiées d'agences (Inforim 49, La Marquise 17, IGG 12, MCA 10,
+  La Priorité 8, Eco-Immo 1) **sans accord écrit**.
+
+**Modération / RGPD** (détails nominatifs : uniquement dans Supabase et la messagerie de Nadir)
+- Annonce 443 (arnaque, studio à Ixelles) supprimée ; compte de l'auteur banni.
+- Affaire Godin : 482 supprimée ; **97 annonces Godin en `hors_ligne`** (accord oral seulement). Appel avec M. Godin :
+  remettre en ligne (biens encore disponibles, idéalement via un compte agence qu'ils gèrent) ou supprimer.
+- 2 suppressions RGPD faites (comptes, profils, photos, messages) ; les demandes sont conservées comme preuve.
+
+**Emails** : `contact@immolibre.be` chez Combell, redirigé vers la boîte Gmail de Nadir (vérifié le 11/11).
+
+**Trafic** : Google ≈ 20 visites/jour (légère baisse, passage aux URL `/annonce/ID`) ; Bing exploration max + IndexNow ;
+Meta : paiement refusé, compte pub suspendu (carte à mettre à jour + vérification).
+
+**App Android** : bundle v1 dans la bibliothèque Play. Test fermé : 12 testeurs × 14 jours. Nadir a 6 adresses.
+À 12 : configurer le test fermé Alpha, s'arrêter avant « Envoyer à Google pour examen » (accord de Nadir).
+
+**À faire / idées**
+1. v143 : masquer les annonces `hors_ligne` de la grille d'accueil même pour l'admin connecté ; les garder dans
+   « Mes annonces » et le panneau admin, avec le libellé « Hors ligne » dans le menu des statuts.
+2. Résultat de l'appel Godin → restaurer depuis `annonces_hors_ligne_log`, ou supprimer.
+3. Accord écrit (un email suffit) des autres agences recopiées.
+4. Email automatique à Nadir à chaque nouveau signalement.
+5. Démarchage d'agences (hausse des tarifs Immoweb 2027) : ImmoLibre comme complément gratuit, avec statistiques réelles.
+6. Option : règle anti-démarchage dans les CGU.
+
+**Points relevés au contrôle de la v142 (session « Check-up complet », 11/11)**
+- Pages 275 et 615 : JSON-LD avec « < » brut → la v142 a été générée avec l'**ancien** `gen_annonces.py`.
+  Utiliser celui du dépôt (`tools/gen_annonces.py`, encode « < » en `<`).
+- 403 annonces en ligne pour 402 pages (1 annonce publiée après la génération : couverte par `404.html`).
+- `increment_annonce_views` reste appelable par n'importe qui : les vues peuvent être gonflées par un appel direct
+  (la limite « 1 fois par session » est côté navigateur). À garder en tête avant de vendre des « statistiques réelles ».
 
 ### Référencement Google (v128 → v129)
 

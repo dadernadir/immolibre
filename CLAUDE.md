@@ -27,9 +27,9 @@ Dernière mise à jour : 11/11/2026.
 5. Ne jamais mettre de secret (mot de passe, keystore, clé API privée) dans le site ou le dépôt.
    La clé Supabase publique (anon) présente dans `index.html` est normale.
 
-## Version actuelle : v142 (déployée, 11/11/2026)
+## Version actuelle : v143 (contrôlée le 11/11/2026, prête à déployer)
 
-Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v142** (identiques au zip v142).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v143** (identiques au zip v143).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -76,6 +76,7 @@ Ne jamais écrire dans ce dépôt l'adresse e-mail d'un membre, d'un client ou d
 | v140 | Régénération sans les 97 annonces Godin passées hors ligne. |
 | v141 | Onglet admin **✉️ Contact** : « 📱 Testeurs Android : N / 12 » + « Copier tout », et messages du formulaire de contact. |
 | v142 | Compteur de vues réparé (RPC `increment_annonce_views`, 1 fois par annonce et par session) ; toasts de debug retirés. |
+| v143 | Photos compressées une par une (avant : en parallèle, des téléphones saturaient et envoyaient l'original de 4 Mo) + décodage de secours via `<img>` + type vide reconnu par l'extension. Annonces `hors_ligne` exclues de la liste, de la carte et de la page agence, même pour l'admin ; bandeau « ⚫ Hors ligne » dans « Mes annonces ». 404 pages d'annonce (bon générateur). |
 
 **Supabase**
 - `tri_visible(annonces)` : a des photos OU créée il y a moins de 7 jours.
@@ -111,6 +112,13 @@ Meta : paiement refusé, compte pub suspendu (carte à mettre à jour + vérific
 4. Email automatique à Nadir à chaque nouveau signalement.
 5. Démarchage d'agences (hausse des tarifs Immoweb 2027) : ImmoLibre comme complément gratuit, avec statistiques réelles.
 6. Option : règle anti-démarchage dans les CGU.
+
+**Allègement des photos existantes (11/11/2026)** : photos > 500 Ko réduites à 1600 px max (≈ 20× plus légères),
+même adresse. Originaux sauvegardés dans `photos/originaux/` (bucket **public** : ils restent téléchargeables par
+quiconque devine l'adresse, avec leurs métadonnées éventuelles, dont la position GPS des photos de téléphone).
+→ Une fois le résultat vérifié, supprimer `originaux/` (avec l'OK de Nadir) ou le déplacer dans un bucket privé.
+⚠️ Un propriétaire peut remettre lui-même en « Disponible » une annonce passée `hors_ligne` par l'admin
+(sans conséquence tant que ce sont les annonces du compte admin ; à bloquer avant de retirer l'annonce d'un autre membre).
 
 **Points relevés au contrôle de la v142 (session « Check-up complet », 11/11)**
 - Pages 275 et 615 : JSON-LD avec « < » brut → la v142 a été générée avec l'**ancien** `gen_annonces.py`.

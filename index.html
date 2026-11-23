@@ -288,7 +288,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 .skeleton-tags{display:flex;gap:8px;margin-top:12px;}
 .skeleton-tag{height:22px;width:60px;border-radius:20px;background:linear-gradient(90deg,#eef2ee 0%,#f8faf8 50%,#eef2ee 100%);background-size:800px 100%;animation:skeletonShimmer 1.4s infinite linear;}
 </style>
-<script id="static-annonces">window.__STATIC_ANNONCES=new Set([50,94,98,99,100,102,106,108,110,112,113,114,115,116,118,119,123,124,125,126,127,128,130,132,134,135,136,137,138,142,163,164,180,182,189,190,191,192,193,194,195,196,197,198,200,201,203,204,205,219,220,233,234,235,236,237,238,239,240,241,242,243,245,246,247,248,256,257,275,292,296,297,298,299,301,303,304,305,306,307,308,309,310,311,312,314,315,316,317,318,319,320,321,322,326,327,328,329,330,331,333,337,345,346,347,348,353,354,355,356,357,358,359,361,362,363,365,366,368,372,373,375,376,377,378,379,380,381,382,383,384,385,387,388,389,390,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,413,414,416,419,420,421,422,424,426,428,429,431,436,437,438,439,440,444,447,448,449,450,451,452,453,455,456,458,459,460,461,462,463,464,465,466,467,468,469,472,473,474,475,477,479,481,483,484,486,488,489,490,491,492,493,494,495,496,497,498,499,500,502,505,507,508,509,510,511,512,513,514,515,516,517,518,522,526,528,530,533,535,537,538,540,541,542,543,544,545,546,547,548,550,551,552,553,555,556,557,558,559,560,561,562,563,564,565,569,570,571,573,574,575,576,577,578,579,580,581,582,583,585,586,587,588,589,590,591,592,593,594,595,597,599,600,601,602,603,604,605,606,607,608,609,610,611,612,613,614,615,616,617,618,619,620,621,624,625,627,628,629,630,631,632,634,636,637,638,639,640,641,642,643,644,650,652,653,654,655,657,658,659,660,661,662,663,670,672,674,675,676,677,678,680,682,683,684,685,686,687,688,689,690,691,692,693,694,695,696,698,699,700,701,702,703,704,705,707,708,709,710,711,712,713,714,715,716,718,719,720,721,722,723,724,725,726,727,728,729,730,731,732,733,734,736,737,738,739]);</script>
+<script id="static-annonces">window.__STATIC_ANNONCES=new Set([50,94,98,99,100,102,106,108,110,112,113,114,115,116,118,119,123,124,125,126,127,128,130,132,134,135,136,137,138,142,163,164,180,182,189,190,191,192,193,194,195,196,197,198,200,201,203,204,205,219,220,233,234,235,236,237,241,242,243,245,246,247,248,256,257,275,292,296,297,298,299,301,303,304,305,306,307,308,309,310,311,312,314,315,316,317,318,319,320,321,322,326,327,328,329,333,337,345,346,347,348,353,354,355,356,357,358,359,361,362,363,365,366,368,372,373,375,376,377,378,379,380,381,382,383,384,385,387,388,389,390,393,394,395,396,397,398,399,400,401,402,404,405,406,407,408,409,410,411,413,414,416,419,420,421,422,424,426,428,429,431,436,437,438,439,440,444,447,448,449,450,451,452,453,455,456,458,459,460,461,462,463,464,465,466,467,468,469,472,473,474,475,477,479,481,483,484,486,488,489,490,491,492,493,494,495,496,497,498,499,500,502,505,507,508,509,510,511,512,513,514,515,516,517,518,522,526,528,530,533,535,537,538,540,541,543,544,545,546,547,548,550,551,552,553,555,556,557,558,559,560,561,562,563,564,565,569,570,571,573,574,575,576,577,578,579,580,581,582,583,585,586,587,588,589,590,591,592,593,594,595,597,599,600,601,602,603,604,605,606,607,608,609,610,611,612,613,614,615,616,617,618,619,620,621,624,625,627,628,629,630,631,634,636,637,638,639,640,641,642,643,644,650,652,653,654,655,657,658,659,660,662,663,670,672,674,675,677,678,680,682,683,684,685,686,687,688,689,690,691,692,693,694,695,696,698,699,700,701,702,703,704,705,707,708,709,710,711,712,713,714,715,716,718,719,720,721,722,723,724,725,726,727,728,729,730,731,734,736,737,738,739,741,742,743,744,745,746,747,748,749,750,751,752,753,754,756,757,758,759,770,771,772,773,774,775,776,777,778,784,785]);</script>
 </head>
 <body>
 <!-- Container pour les toasts -->
@@ -326,6 +326,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
      de modification (z-index 100), et masquait « Enregistrer les modifications ».
      On le cache dès qu'une fenêtre overlay est ouverte (édition, boost, etc.). */
   body:has(.overlay:not(.hidden)) #stickyPublishCta{ display:none !important; }
+  body:has(#page-compte:not(.hidden)) #stickyPublishCta{ display:none !important; }
 </style>
 <div id="appLoader" style="position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s;">
   <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:32px;color:#1b5e20;letter-spacing:-1px;margin-bottom:8px;">immo<span style="color:#f57f17;">libre</span></div>
@@ -994,10 +995,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     <!-- VUE NON CONNECTÉ -->
     <div id="authView">
       <div style="display:flex;border-radius:12px;overflow:hidden;border:1.5px solid #e0e0e0;margin-bottom:20px;">
-        <button id="tabLogin" onclick="switchAuthTab('login')" style="flex:1;padding:10px;border:none;background:#1b5e20;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Se connecter</button>
-        <button id="tabRegister" onclick="switchAuthTab('register')" style="flex:1;padding:10px;border:none;background:#fff;color:#666;font-size:13px;font-weight:700;cursor:pointer;">S'inscrire</button>
+        <button id="tabLogin" role="tab" onclick="switchAuthTab('login')" style="flex:1;padding:10px;border:none;background:#1b5e20;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Se connecter</button>
+        <button id="tabRegister" role="tab" onclick="switchAuthTab('register')" style="flex:1;padding:10px;border:none;background:#fff;color:#666;font-size:13px;font-weight:700;cursor:pointer;">S'inscrire</button>
       </div>
-      <div id="authError" class="hidden" style="background:#ffebee;border:1px solid #ffcdd2;border-radius:10px;padding:12px;font-size:13px;color:#c62828;margin-bottom:14px;font-weight:600;"></div>
+      <div id="authError" class="hidden" role="alert" aria-live="polite" style="background:#ffebee;border:1px solid #ffcdd2;border-radius:10px;padding:12px;font-size:13px;color:#c62828;margin-bottom:14px;font-weight:600;"></div>
+
+      <!-- 📜 v147 (audit M1) : acceptation des CGU, obligatoire pour créer un compte -->
+      <label id="cguBox" for="cguCheck" style="display:flex;gap:10px;align-items:flex-start;background:#f1f8e9;border:1.5px solid #c8e6c9;border-radius:12px;padding:12px;margin-bottom:14px;font-size:13px;color:#333;line-height:1.5;cursor:pointer;">
+        <input id="cguCheck" type="checkbox" style="width:20px;height:20px;margin-top:1px;flex-shrink:0;accent-color:#1b5e20;cursor:pointer;" onchange="document.getElementById('cguBox').style.borderColor='#c8e6c9';" />
+        <span data-cgu="texte">J'accepte les <a href="#" onclick="event.preventDefault();showPage('cgu');" style="color:#1b5e20;font-weight:700;">conditions générales</a> et la <a href="/confidentialite" target="_blank" rel="noopener" style="color:#1b5e20;font-weight:700;">politique de confidentialité</a>.</span>
+      </label>
 
       <!-- ✨ v54 : LIEN MAGIQUE (inscription/connexion sans mot de passe) -->
       <div id="magicLinkBox" style="background:linear-gradient(135deg,#fff8e1,#ffecb3);border:2px dashed #f57f17;border-radius:12px;padding:14px;margin-bottom:16px;">
@@ -1013,12 +1020,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       </div>
 
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div><label style="font-size:11px;color:#888;font-weight:600;letter-spacing:1px;">EMAIL</label>
-        <input id="authEmail" type="email" placeholder="votre@email.be" style="width:100%;padding:12px 14px;border-radius:10px;margin-top:4px;border:1.5px solid #e0e0e0;font-size:14px;display:block;"/></div>
-        <div><label style="font-size:11px;color:#888;font-weight:600;letter-spacing:1px;">MOT DE PASSE</label>
+        <div><label for="authEmail" style="font-size:12px;color:#555;font-weight:700;letter-spacing:1px;">EMAIL</label>
+        <input id="authEmail" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="votre@email.be" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('authPassword').focus();}" style="width:100%;padding:12px 14px;border-radius:10px;margin-top:4px;border:1.5px solid #e0e0e0;font-size:16px;display:block;"/></div>
+        <div><label for="authPassword" style="font-size:12px;color:#555;font-weight:700;letter-spacing:1px;">MOT DE PASSE</label>
         <div style="position:relative;">
-          <input id="authPassword" type="password" placeholder="Minimum 6 caractères" style="width:100%;padding:12px 44px 12px 14px;border-radius:10px;margin-top:4px;border:1.5px solid #e0e0e0;font-size:14px;display:block;"/>
-          <button type="button" onclick="togglePasswordVisibility()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:#888;padding:4px;" id="eyeBtn">👁️</button>
+          <input id="authPassword" name="password" type="password" autocomplete="current-password" placeholder="Minimum 8 caractères" onkeydown="if(event.key==='Enter'){event.preventDefault();handleAuth();}" style="width:100%;padding:12px 44px 12px 14px;border-radius:10px;margin-top:4px;border:1.5px solid #e0e0e0;font-size:16px;display:block;"/>
+          <button type="button" onclick="togglePasswordVisibility();this.setAttribute('aria-pressed', document.getElementById('authPassword').type==='text');" aria-label="Afficher le mot de passe" aria-pressed="false" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:#888;padding:4px;" id="eyeBtn">👁️</button>
         </div></div>
       </div>
       <button id="authBtn" onclick="handleAuth()" style="width:100%;padding:14px;border-radius:12px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:15px;cursor:pointer;margin-top:16px;">Se connecter</button>
@@ -1075,7 +1082,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       </div>
 
       <button onclick="handleLogout()" style="width:100%;padding:14px;border-radius:12px;border:2px solid #e53935;background:transparent;color:#e53935;font-weight:700;font-size:14px;cursor:pointer;margin-top:20px;">Se déconnecter</button>
-      <p style="text-align:center;margin-top:10px;font-size:12px;"><a href="/suppression-compte" style="color:#888;">Supprimer mon compte et mes données</a></p>
+      <button onclick="ouvrirSuppressionCompte()" style="width:100%;padding:10px;border-radius:12px;border:none;background:transparent;color:#999;font-weight:600;font-size:12px;cursor:pointer;margin-top:10px;text-decoration:underline;">Supprimer mon compte et mes données</button>
 
       <!-- Notifications push -->
       <div id="notifSection" style="margin-top:16px;background:#f8faf8;border-radius:14px;padding:14px;border:1px solid #e8f5e9;">
@@ -2168,7 +2175,22 @@ const LISTINGS=[];
 
 const SUPABASE_URL = "https://svjkpexgckghrtrfowtq.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2amtwZXhnY2tnaHJ0cmZvd3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwNzE2NTMsImV4cCI6MjA5MTY0NzY1M30.T5dV3XwSDxGp5khiK8_rtkN5WZp0YfE8kVwp_c6u0zw";
+// 🔑 v145 : lien « mot de passe oublié » → on note qu'il faut demander un nouveau mot de passe
+window.__IMMO_RECOVERY = /type=recovery/.test((location.hash || '') + (location.search || ''));
+// 🔧 v146 : lien expiré (#error_code=otp_expired…) ou compte tout juste confirmé (?confirme=1 / type=signup)
+(function(){
+  const h = (location.hash || '').replace(/^#/, ''), q = (location.search || '').replace(/^\?/, '');
+  const hp = new URLSearchParams(h), qp = new URLSearchParams(q);
+  window.__IMMO_AUTH_ERREUR = hp.get('error_code') || qp.get('error_code') || ((hp.get('error') || qp.get('error')) ? 'erreur' : null);
+  window.__IMMO_CONFIRME = !window.__IMMO_AUTH_ERREUR && (qp.get('confirme') === '1' || hp.get('type') === 'signup');
+})();
 const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+sbClient.auth.onAuthStateChange(function(event){
+  if(event === 'PASSWORD_RECOVERY'){
+    window.__IMMO_RECOVERY = true;
+    setTimeout(function(){ if(window.ouvrirNouveauMotDePasse) window.ouvrirNouveauMotDePasse(); }, 300);
+  }
+});
 
 // 📍 TRACKING SOURCE DES VISITES
 // Détecte ?source=flyer / ?source=facebook / etc. et enregistre dans la DB
@@ -2786,6 +2808,11 @@ async function saveAnnonce(formData) {
     toast("Limite d'annonces atteinte pour votre forfait.", "warning", 6000);
     return false;
   }
+  if(error && (error.code === '42501' || /row-level security|JWT/i.test(error.message||''))){
+    console.error('saveAnnonce (connexion) :', error);
+    connexionPerduePublication(); // 🔑 v153
+    return false;
+  }
   if(error){
     console.error('saveAnnonce error:', error);
     // Afficher un message plus précis à l'utilisateur
@@ -2912,7 +2939,8 @@ function mapAnnonceRow(a){
     city: a.city, zip: a.zip, pays: a.pays || 'BE', rooms: a.rooms, surface: a.surface,
     img: (a.photos && a.photos.length > 0) ? a.photos[0] : getEmoji(a.kind),
     photos: a.photos || [],
-    badge: a.badge||'', agent: a.agent,
+    // 🔧 v150 : « Nouveau » n'a de sens que la première semaine
+    badge: (a.badge === 'Nouveau' && a.created_at && (Date.now() - new Date(a.created_at).getTime()) > 7*24*3600*1000) ? '' : (a.badge||''), agent: a.agent,
     desc: a.description, boosted: a.boosted||false,
     phone: '', email: '', _contactLoaded: false, show_on_map: a.show_on_map||false,
     pdf_enabled: a.pdf_enabled||false,
@@ -2965,7 +2993,7 @@ function updateSeoForListing(l){
   const action = l.type === 'vente' ? 'À vendre' : 'À louer';
   const priceTxt = formatPrice(l.price, l.type);
   const title = `${action} : ${l.kind} à ${l.city} — ${priceTxt} · ImmoLibre`;
-  const desc = `${l.kind} ${action.toLowerCase()} à ${l.city} ${l.zip||''} · ${priceTxt} · ${l.surface||'?'}m²${l.rooms>0?' · '+l.rooms+' chambres':''}. Sans commission sur ImmoLibre.`;
+  const desc = `${l.kind} ${action.toLowerCase()} à ${l.city} ${l.zip||''} · ${priceTxt}${+l.surface>0?' · '+l.surface+'m²':''}${l.rooms>0?' · '+l.rooms+' chambres':''}. Sans commission sur ImmoLibre.`;
   const photo = (l.photos && l.photos[0]) || l.img || _DEFAULT_SEO.image;
   const photoUrl = (photo && String(photo).startsWith('http')) ? photo : _DEFAULT_SEO.image;
   // 🔧 v120 : ?annonce= (et non ?ref=) — c'est la seule adresse que le site sait
@@ -3138,8 +3166,8 @@ async function downloadListingPdf(){
     const feats = [
       ['Type', l.kind || '-'],
       ['Transaction', l.type === 'vente' ? 'Vente' : 'Location'],
-      ['Surface', (l.surface || 0) + ' m² habitables'],
     ];
+    if(+l.surface > 0) feats.push(['Surface', l.surface + ' m² habitables']);
     if(+l.rooms > 0) feats.push(['Chambres', String(l.rooms)]);
     if(+l.terrain > 0) feats.push(['Terrain', l.terrain + ' m²']);
     if(l.type === 'location' && l.charges_incluses) feats.push(['Charges', 'Incluses']);
@@ -3887,7 +3915,7 @@ function renderPage(){
         </div>
         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
           ${l.rooms>0?`<span class="tag">🛏 ${+l.rooms} ch.</span>`:""}
-          <span class="tag">🏠 ${+l.surface||0} m²</span>
+          ${+l.surface>0?`<span class="tag">🏠 ${+l.surface} m²</span>`:""}
           ${l.terrain>0?`<span class="tag">🌿 ${+l.terrain} m²</span>`:""}
           ${l.peb && PEB_INFO[l.peb] ? `<span style="padding:4px 8px;border-radius:20px;background:${PEB_INFO[l.peb].color};color:#fff;font-size:10px;font-weight:900;letter-spacing:.5px;">⚡ PEB ${PEB_INFO[l.peb].label}</span>` : ""}
           ${l.videos&&l.videos.length>0?`<span style="padding:4px 10px;border-radius:20px;background:#fff8f0;color:#f57f17;font-size:11px;font-weight:700;border:1px solid #ffe0b2;">📹 Vidéo</span>`:""}
@@ -4110,7 +4138,7 @@ function openModalWithListing(l){
   document.getElementById("modalBadges").innerHTML=`<span style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;background:${l.type==="vente"?"#1b5e20":"#0d47a1"};color:#fff;">${esc(String(l.type||'').toUpperCase())}</span>${badgeHtml(l.badge)}${l.boosted?'<span style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;background:#f57f17;color:#fff;">⚡ BOOSTÉE</span>':""}`;
   const stats=[];
   if(l.rooms>0)stats.push(`<div style="flex:1;background:#f8faf8;border-radius:12px;padding:12px;text-align:center;border:1px solid #e8f5e9;"><span style="display:block;font-weight:900;font-size:20px;color:#1b5e20;">${l.rooms}</span><span style="display:block;font-size:10px;color:#888;margin-top:2px;">Chambres</span></div>`);
-  stats.push(`<div style="flex:1;background:#f8faf8;border-radius:12px;padding:12px;text-align:center;border:1px solid #e8f5e9;"><span style="display:block;font-weight:900;font-size:20px;color:#1b5e20;">${l.surface}</span><span style="display:block;font-size:10px;color:#888;margin-top:2px;">m² habitables</span></div>`);
+  if(+l.surface>0)stats.push(`<div style="flex:1;background:#f8faf8;border-radius:12px;padding:12px;text-align:center;border:1px solid #e8f5e9;"><span style="display:block;font-weight:900;font-size:20px;color:#1b5e20;">${l.surface}</span><span style="display:block;font-size:10px;color:#888;margin-top:2px;">m² habitables</span></div>`);
   if(l.terrain>0)stats.push(`<div style="flex:1;background:#f8faf8;border-radius:12px;padding:12px;text-align:center;border:1px solid #e8f5e9;"><span style="display:block;font-weight:900;font-size:20px;color:#2e7d32;">${l.terrain}</span><span style="display:block;font-size:10px;color:#888;margin-top:2px;">m² terrain</span></div>`);
   if(l.type==="vente"&&l.surface>0)stats.push(`<div style="flex:1;background:#f8faf8;border-radius:12px;padding:12px;text-align:center;border:1px solid #e8f5e9;"><span style="display:block;font-weight:900;font-size:20px;color:#1b5e20;">${Math.round(l.price/l.surface).toLocaleString()}</span><span style="display:block;font-size:10px;color:#888;margin-top:2px;">€/m²</span></div>`);
   document.getElementById("modalStats").innerHTML=stats.join("");
@@ -4173,6 +4201,13 @@ async function openBoostModal(id){
       toast("Publiez d'abord une annonce, vous pourrez ensuite la booster.", "warning", 4500);
       return;
     }
+    // 🔧 v148 : un compte agence (boost gratuit, immédiat) doit choisir lui-même l'annonce
+    const { data: pf } = await sbClient.from('profils').select('is_agence').eq('id', currentUser.id).single();
+    if(pf && pf.is_agence){
+      showPage('compte');
+      toast("⚡ Choisissez l'annonce à booster avec le bouton ⚡ dans « Mes annonces ».", "info", 6000);
+      return;
+    }
     id = mesAnnonces[0].id;
   }
   currentModalId=id;
@@ -4217,7 +4252,7 @@ async function handleAgenceBoost(id){
   // affichait quand même « Votre annonce est boostée ! » (cas de l'annonce #671, 24/10).
   // On passe désormais par la fonction serveur use_agency_boost (même chemin que « Mes
   // annonces »), qui vérifie les quotas, et on n'affiche la confirmation qu'en cas de succès.
-  const { data: annonce } = await sbClient.from('annonces').select('boosted, boost_expires_at').eq('id', id).single();
+  const { data: annonce } = await sbClient.from('annonces').select('boosted, boost_expires_at, kind, city').eq('id', id).single();
   const expire = annonce && annonce.boost_expires_at ? new Date(annonce.boost_expires_at) : null;
   const dejaBoostee = annonce && annonce.boosted && (!expire || expire > new Date());
   if(dejaBoostee){
@@ -4227,7 +4262,8 @@ async function handleAgenceBoost(id){
     return;
   }
 
-  if(!confirm("⚡ Booster cette annonce pendant 10 jours ? (inclus dans votre abonnement Agence Pro)")) return;
+  const quoi = "Réf. #" + id + (annonce ? " — " + (annonce.kind || "") + (annonce.city ? " à " + annonce.city : "") : "");
+  if(!confirm("⚡ Booster l'annonce " + quoi + " pendant 10 jours ?\n(inclus dans votre abonnement Agence Pro)")) return;
   const { data, error } = await sbClient.rpc('use_agency_boost', { p_annonce_id: Number(id) });
   if(error){ toast("⚠️ Erreur : " + error.message, "error", 5000); return; }
   if(!data || !data.success){
@@ -4334,7 +4370,10 @@ function openPostModal(){
     showLoginRequiredModal();
     return;
   }
-  postStep(1);
+  // 🔑 v153 : formulaire déjà rempli (ex. reconnexion après expiration) → retour à l'étape 2
+  const dejaRempli = (document.getElementById("f_city")?.value || '').trim() && (document.getElementById("f_price")?.value || '').trim();
+  postStep(dejaRempli ? 2 : 1);
+  const fe = document.getElementById("formError"); if(fe) fe.classList.add("hidden");
   const m=document.getElementById("postModal");
   m.classList.remove("hidden");
   m.style.display="flex";
@@ -4367,8 +4406,8 @@ function showLoginRequiredModal(){
           <div>❤️ <strong>Sauvegarder</strong> des annonces en favoris</div>
           <div>🔒 <strong>Sécurité</strong> : vos annonces sont protégées</div>
         </div>
-        <button onclick="closeLoginRequiredModal();showPage('compte');" style="width:100%;padding:14px;border-radius:12px;border:none;background:#1b5e20;color:#fff;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;">🚀 Créer mon compte gratuit</button>
-        <button onclick="closeLoginRequiredModal();showPage('compte');" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid #1b5e20;background:#fff;color:#1b5e20;font-size:14px;font-weight:700;cursor:pointer;">J'ai déjà un compte — Me connecter</button>
+        <button onclick="closeLoginRequiredModal();showPage('compte');switchAuthTab('register');" style="width:100%;padding:14px;border-radius:12px;border:none;background:#1b5e20;color:#fff;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;">🚀 Créer mon compte gratuit</button>
+        <button onclick="closeLoginRequiredModal();showPage('compte');switchAuthTab('login');" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid #1b5e20;background:#fff;color:#1b5e20;font-size:14px;font-weight:700;cursor:pointer;">J'ai déjà un compte — Me connecter</button>
         <div style="margin-top:14px;font-size:11px;color:#aaa;">100% gratuit · Aucune carte bancaire requise</div>
       </div>
     `;
@@ -4385,6 +4424,38 @@ function closeLoginRequiredModal(){
 }
 window.showLoginRequiredModal = showLoginRequiredModal;
 window.closeLoginRequiredModal = closeLoginRequiredModal;
+// 🔑 v153 : vérifie (et rafraîchit si besoin) la connexion avant une publication.
+// Si elle est perdue : message clair + reconnexion, SANS effacer le formulaire.
+async function verifierSessionPublication(){
+  try {
+    const { data } = await sbClient.auth.getSession();
+    let session = data && data.session;
+    if(session && session.expires_at && session.expires_at * 1000 < Date.now() + 60000){
+      const r = await sbClient.auth.refreshSession();
+      session = r && r.data && r.data.session;
+    }
+    if(session && session.user){
+      if(!currentUser || currentUser.id !== session.user.id) currentUser = session.user;
+      return true;
+    }
+  } catch(e) {}
+  connexionPerduePublication();
+  return false;
+}
+window.verifierSessionPublication = verifierSessionPublication;
+function connexionPerduePublication(){
+  currentUser = null;
+  const errEl = document.getElementById("formError");
+  if(errEl){
+    errEl.innerHTML = "🔑 <strong>Votre connexion a expiré.</strong><br/>Reconnectez-vous puis cliquez à nouveau sur « Publier » : ce que vous avez rempli est gardé."
+      + '<button type="button" onclick="closePostModal();showPage(\'compte\');switchAuthTab(\'login\');" style="display:block;width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:14px;cursor:pointer;">🔑 Me reconnecter</button>';
+    errEl.classList.remove("hidden");
+    errEl.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+  toast("🔑 Votre connexion a expiré : reconnectez-vous pour publier.", "warning", 7000);
+}
+window.connexionPerduePublication = connexionPerduePublication;
+
 function closePostModal(){
   const m=document.getElementById("postModal");
   m.classList.add("hidden");
@@ -4695,6 +4766,9 @@ async function submitAnnonce(){
       return;
     }
   }
+
+  // 🔑 v153 : la connexion doit être encore valable, sinon tout serait refusé
+  if(!(await verifierSessionPublication())) return;
 
   // Vérifier limite d'annonces
   // 🔒 v132 : le compteur était lu une seule fois à la connexion et jamais mis à jour :
@@ -5482,6 +5556,7 @@ async function incrementViews(id){
   // (sinon un même visiteur qui rouvre l'annonce gonflerait le compteur).
   const idStr = String(id);
   if(!/^\d+$/.test(idStr)) return;
+  if(window.__immoSansVue) return; // 🛠️ v152 : consultation depuis l'admin
   try {
     const vues = JSON.parse(sessionStorage.getItem('immo_vues') || '[]');
     if(vues.includes(idStr)) return;
@@ -5595,7 +5670,7 @@ async function refreshMapMarkers(){
       iconAnchor:[0,0]
     });
     L.marker(jitter,{icon}).addTo(leafletMap)
-      .bindPopup(`<div style="min-width:160px;"><strong>${esc(l.kind)} — ${esc(l.city)}</strong><br/>${formatPrice(l.price,l.type)}<br/><span style="font-size:11px;color:#888;">${l.rooms>0?esc(l.rooms)+' ch. · ':''}${esc(l.surface)} m²</span><br/><button onclick="closeMapPopupAndOpen(${Number(l.id)})" style="margin-top:8px;padding:6px 12px;border-radius:8px;border:none;background:#1b5e20;color:#fff;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Voir l'annonce</button></div>`);
+      .bindPopup(`<div style="min-width:160px;"><strong>${esc(l.kind)} — ${esc(l.city)}</strong><br/>${formatPrice(l.price,l.type)}<br/><span style="font-size:11px;color:#888;">${[l.rooms>0?esc(l.rooms)+' ch.':'', +l.surface>0?esc(l.surface)+' m²':''].filter(Boolean).join(' · ')}</span><br/><button onclick="closeMapPopupAndOpen(${Number(l.id)})" style="margin-top:8px;padding:6px 12px;border-radius:8px;border:none;background:#1b5e20;color:#fff;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Voir l'annonce</button></div>`);
   });
 }
 
@@ -5616,8 +5691,12 @@ function switchAuthTab(tab){
   document.getElementById("tabLogin").style.color = tab==='login'?'#fff':'#666';
   document.getElementById("tabRegister").style.background = tab==='register'?'#1b5e20':'#fff';
   document.getElementById("tabRegister").style.color = tab==='register'?'#fff':'#666';
-  document.getElementById("authBtn").textContent = tab==='login'?'Se connecter':'Créer mon compte';
+  document.getElementById("authBtn").textContent = tab==='login' ? trAuth('Se connecter','Aanmelden') : trAuth('Créer mon compte','Account aanmaken');
   document.getElementById("authError").classList.add("hidden");
+  const pw = document.getElementById("authPassword");
+  if(pw) pw.setAttribute('autocomplete', tab==='login' ? 'current-password' : 'new-password');
+  const cb = document.getElementById('cguBox');
+  if(cb) cb.style.borderColor = '#c8e6c9';
 }
 window.switchAuthTab=switchAuthTab;
 
@@ -5626,14 +5705,31 @@ async function handleAuth(){
   const password = document.getElementById("authPassword").value;
   const errEl = document.getElementById("authError");
   errEl.classList.add("hidden");
+  errEl.style.cssText = "background:#ffebee;border:1px solid #ffcdd2;border-radius:10px;padding:12px;font-size:13px;color:#c62828;margin-bottom:14px;font-weight:600;";
   if(!email||!password){errEl.textContent="Veuillez remplir tous les champs.";errEl.classList.remove("hidden");return;}
+  const tab = currentAuthTab; // 🔧 v146 : lu avant l'attente (l'utilisateur peut changer d'onglet)
+  if(tab==='register' && !cguAcceptees()) return;
+  if(tab==='register' && password.length < 8){
+    errEl.textContent = trAuth("Le mot de passe doit contenir au moins 8 caractères.", "Het wachtwoord moet minstens 8 tekens bevatten.");
+    errEl.classList.remove("hidden"); return;
+  }
+  if(password.length > 72){
+    errEl.textContent = trAuth("Le mot de passe ne peut pas dépasser 72 caractères.", "Het wachtwoord mag niet langer zijn dan 72 tekens.");
+    errEl.classList.remove("hidden"); return;
+  }
   const btn = document.getElementById("authBtn");
   btn.textContent="...";btn.disabled=true;
-  const result = currentAuthTab==='login'
-    ? await sbClient.auth.signInWithPassword({email,password})
-    : await sbClient.auth.signUp({email,password});
-  btn.disabled=false;
-  btn.textContent = currentAuthTab==='login'?'Se connecter':'Créer mon compte';
+  let result;
+  try {
+    result = tab==='login'
+      ? await sbClient.auth.signInWithPassword({email,password})
+      : await sbClient.auth.signUp({email,password,options:{emailRedirectTo: window.location.origin + '/?confirme=1', data: metaCgu()}});
+  } catch(e){
+    result = { error: { message: 'Failed to fetch' } };
+  } finally {
+    btn.disabled=false;
+    btn.textContent = tab==='login' ? trAuth('Se connecter','Aanmelden') : trAuth('Créer mon compte','Account aanmaken');
+  }
   if(result.error){
     const msgs={"Invalid login credentials":"Email ou mot de passe incorrect.","User already registered":"Un compte existe déjà avec cet email.","Password should be at least 6 characters":"Le mot de passe doit faire au moins 6 caractères.",
       // 🔧 v124 : messages Supabase restés en anglais (vus dans les journaux d'inscription)
@@ -5644,15 +5740,93 @@ async function handleAuth(){
     const _attente = /only request this after (\d+) seconds?/i.exec(result.error.message||'');
     errEl.textContent = _attente
       ? `Un email vient déjà de vous être envoyé. Vérifiez votre boîte mail (et vos spams), ou réessayez dans ${_attente[1]} secondes.`
-      : (msgs[result.error.message]||result.error.message);
+      : (msgs[result.error.message] || messageAuthInconnu(result.error));
     errEl.classList.remove("hidden");
-  } else if(currentAuthTab==='register'){
-    errEl.style.cssText="background:#e8f5e9;border:1px solid #c8e6c9;border-radius:10px;padding:12px;font-size:13px;color:#2e7d32;margin-bottom:14px;font-weight:600;";
-    errEl.textContent="✅ Compte créé ! Vérifiez vos emails pour confirmer votre inscription.";
-    errEl.classList.remove("hidden");
+    // 🔧 v145 : email jamais confirmé → on propose de renvoyer le lien
+    if(result.error.message === 'Email not confirmed' || result.error.code === 'email_not_confirmed'){
+      afficherMessageAuth('orange',
+        trAuth("📧 <strong>Votre email n'est pas encore confirmé.</strong><br/>Cliquez sur le lien reçu à l'inscription (pensez à vos spams), ou recevez-en un nouveau :", "📧 <strong>Uw e-mailadres is nog niet bevestigd.</strong><br/>Klik op de link die u bij de registratie ontving (kijk ook in uw spam), of ontvang een nieuwe:"),
+        email, true);
+    }
+  } else if(tab==='register'){
+    // 🔧 v145 : Supabase ne renvoie pas d'erreur quand l'email est déjà inscrit (protection
+    // anti-énumération) : il renvoie un utilisateur SANS identité et n'envoie aucun email.
+    const u = result.data && result.data.user;
+    if(u && Array.isArray(u.identities) && u.identities.length === 0){
+      afficherMessageAuth('orange',
+        trAuth("👤 <strong>Un compte existe déjà avec cet email.</strong><br/>Connectez-vous, ou utilisez « Mot de passe oublié » si vous ne vous en souvenez plus.", "👤 <strong>Er bestaat al een account met dit e-mailadres.</strong><br/>Meld u aan, of gebruik « Wachtwoord vergeten » als u het niet meer weet."),
+        email, false, true);
+    } else {
+      afficherMessageAuth('vert',
+        trAuth("✅ <strong>Compte créé !</strong><br/>Cliquez sur le lien de confirmation envoyé à <strong>" + echapperHtmlAuth(email) + "</strong> (pensez à vos spams). Pas reçu ?", "✅ <strong>Account aangemaakt!</strong><br/>Klik op de bevestigingslink die naar <strong>" + echapperHtmlAuth(email) + "</strong> is gestuurd (kijk ook in uw spam). Niet ontvangen?"),
+        email, true);
+    }
   }
 }
 window.handleAuth=handleAuth;
+
+// 🔧 v145 : messages d'inscription/connexion avec actions
+function trAuth(fr, nl){ try { return (typeof currentLang !== 'undefined' && currentLang === 'nl') ? nl : fr; } catch(e){ return fr; } }
+const CGU_VERSION = '2026-11';
+function cguAcceptees(){
+  const c = document.getElementById('cguCheck');
+  if(c && c.checked) return true;
+  const errEl = document.getElementById("authError");
+  errEl.style.cssText = "background:#fff3e0;border:1px solid #ffcc80;border-radius:10px;padding:12px;font-size:13px;color:#e65100;margin-bottom:14px;font-weight:600;";
+  errEl.textContent = trAuth("Pour créer un compte, cochez la case « J'accepte les conditions générales ».", "Vink het vakje « Ik ga akkoord met de algemene voorwaarden » aan om een account aan te maken.");
+  errEl.classList.remove("hidden");
+  const box = document.getElementById('cguBox');
+  if(box){ box.style.borderColor = '#e65100'; box.scrollIntoView({ behavior:'smooth', block:'center' }); }
+  return false;
+}
+window.cguAcceptees = cguAcceptees;
+function metaCgu(){ return { cgu_version: CGU_VERSION }; }
+function messageAuthInconnu(err){
+  const m = String((err && err.message) || '');
+  const attente = /after (\d+) seconds?/i.exec(m);
+  if(attente) return trAuth(`Un email vient déjà d'être envoyé. Réessayez dans ${attente[1]} secondes.`, `Er is net een e-mail verzonden. Probeer opnieuw over ${attente[1]} seconden.`);
+  if(/failed to fetch|network/i.test(m)) return trAuth("Pas de connexion internet. Vérifiez votre réseau et réessayez.", "Geen internetverbinding. Controleer uw netwerk en probeer opnieuw.");
+  if(/72 characters/i.test(m)) return trAuth("Le mot de passe ne peut pas dépasser 72 caractères.", "Het wachtwoord mag niet langer zijn dan 72 tekens.");
+  if(/rate limit/i.test(m)) return trAuth("Trop de tentatives. Réessayez dans quelques minutes.", "Te veel pogingen. Probeer het over enkele minuten opnieuw.");
+  return trAuth("Une erreur est survenue. Réessayez dans un instant.", "Er is een fout opgetreden. Probeer het zo meteen opnieuw.") + (err && (err.code || err.status) ? ` (${err.code || err.status})` : '');
+}
+window.messageAuthInconnu = messageAuthInconnu;
+function echapperHtmlAuth(t){ return String(t||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function afficherMessageAuth(couleur, html, email, avecRenvoi, avecConnexion){
+  const errEl = document.getElementById("authError");
+  const styles = {
+    vert:   "background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32;",
+    orange: "background:#fff3e0;border:1px solid #ffcc80;color:#e65100;"
+  };
+  errEl.style.cssText = (styles[couleur]||styles.orange) + "border-radius:10px;padding:12px;font-size:13px;margin-bottom:14px;font-weight:600;line-height:1.6;";
+  let boutons = '';
+  if(avecRenvoi) boutons += '<button type="button" id="btnRenvoiConfirmation" onclick="renvoyerConfirmation()" style="margin-top:10px;width:100%;padding:10px;border-radius:10px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:13px;cursor:pointer;">📧 Renvoyer l\'email de confirmation</button>';
+  if(avecConnexion) boutons += '<button type="button" onclick="switchAuthTab(\'login\')" style="margin-top:10px;width:100%;padding:10px;border-radius:10px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:13px;cursor:pointer;">🔑 Se connecter</button>'
+                            + '<button type="button" onclick="handleForgotPassword()" style="margin-top:8px;width:100%;padding:10px;border-radius:10px;border:1.5px solid #1b5e20;background:#fff;color:#1b5e20;font-weight:800;font-size:13px;cursor:pointer;">Mot de passe oublié</button>';
+  errEl.innerHTML = html + boutons;
+  errEl.dataset.email = email || '';
+  errEl.classList.remove("hidden");
+}
+window.afficherMessageAuth = afficherMessageAuth;
+async function renvoyerConfirmation(){
+  const errEl = document.getElementById("authError");
+  const email = (errEl.dataset.email || document.getElementById("authEmail").value || '').trim();
+  if(!email){ document.getElementById("authEmail").focus(); return; }
+  const btn = document.getElementById("btnRenvoiConfirmation");
+  if(!email) return;
+  if(btn){ btn.disabled = true; btn.textContent = '⏳ Envoi…'; }
+  const { error } = await sbClient.auth.resend({ type: 'signup', email, options: { emailRedirectTo: window.location.origin } });
+  if(btn){
+    if(error){
+      const attente = /after (\d+) seconds?/i.exec(error.message || '');
+      btn.textContent = attente ? `⏳ Réessayez dans ${attente[1]} s` : '❌ Échec, réessayez plus tard';
+      setTimeout(() => { btn.disabled = false; btn.textContent = "📧 Renvoyer l'email de confirmation"; }, attente ? Number(attente[1]) * 1000 : 5000);
+    } else {
+      btn.textContent = '✅ Email renvoyé ! Vérifiez aussi vos spams';
+    }
+  }
+}
+window.renvoyerConfirmation = renvoyerConfirmation;
 
 // ✨ v54 : Connexion/inscription par lien magique (sans mot de passe)
 async function handleMagicLink(){
@@ -5677,6 +5851,7 @@ async function handleMagicLink(){
     return;
   }
 
+  if(!cguAcceptees()) return; // 📜 v147 : le lien magique crée un compte s'il n'existe pas
   const btn = document.getElementById("magicLinkBtn");
   const originalText = btn.textContent;
   btn.textContent = "⏳ Envoi en cours...";
@@ -5686,7 +5861,8 @@ async function handleMagicLink(){
     email: email,
     options: {
       emailRedirectTo: window.location.origin,
-      shouldCreateUser: true  // crée le compte automatiquement si l'email n'existe pas
+      shouldCreateUser: true,  // crée le compte automatiquement si l'email n'existe pas
+      data: metaCgu()          // 📜 v147 : trace de l'acceptation des CGU (recopiée dans profils)
     }
   });
 
@@ -5694,11 +5870,12 @@ async function handleMagicLink(){
   btn.textContent = originalText;
 
   if(error){
-    errEl.textContent = "Erreur : " + error.message;
+    errEl.textContent = messageAuthInconnu(error);
     errEl.style.cssText = "background:#ffebee;border:1px solid #ffcdd2;border-radius:10px;padding:12px;font-size:13px;color:#c62828;margin-bottom:14px;font-weight:600;";
     errEl.classList.remove("hidden");
   } else {
-    errEl.innerHTML = "✅ <strong>Lien envoyé !</strong><br/>Vérifiez votre boîte email <strong>" + email + "</strong> (et vos spams) et cliquez sur le lien pour vous connecter en 1 clic. ✨";
+    errEl.innerHTML = trAuth("✅ <strong>Lien envoyé !</strong><br/>Vérifiez votre boîte email <strong>" + echapperHtmlAuth(email) + "</strong> (et vos spams) et cliquez sur le lien pour vous connecter en 1 clic. ✨",
+                             "✅ <strong>Link verzonden!</strong><br/>Controleer uw mailbox <strong>" + echapperHtmlAuth(email) + "</strong> (ook uw spam) en klik op de link om u in 1 klik aan te melden. ✨");
     errEl.style.cssText = "background:#e8f5e9;border:1px solid #c8e6c9;border-radius:10px;padding:14px;font-size:13px;color:#2e7d32;margin-bottom:14px;font-weight:600;line-height:1.6;";
     errEl.classList.remove("hidden");
   }
@@ -5724,10 +5901,11 @@ async function handleForgotPassword(){
   });
 
   if(error){
-    errEl.textContent = "Erreur : " + error.message;
+    errEl.textContent = messageAuthInconnu(error);
     errEl.style.cssText = "background:#ffebee;border:1px solid #ffcdd2;border-radius:10px;padding:12px;font-size:13px;color:#c62828;margin-bottom:14px;font-weight:600;";
   } else {
-    errEl.innerHTML = "✅ Un email de réinitialisation a été envoyé à <strong>" + email + "</strong>.<br/>Vérifiez votre boîte (et vos spams) pour le lien.";
+    errEl.innerHTML = trAuth("✅ Un email de réinitialisation a été envoyé à <strong>" + echapperHtmlAuth(email) + "</strong>.<br/>Vérifiez votre boîte (et vos spams) pour le lien.",
+                             "✅ Er is een e-mail om uw wachtwoord te herstellen verzonden naar <strong>" + echapperHtmlAuth(email) + "</strong>.<br/>Controleer uw mailbox (en uw spam).");
     errEl.style.cssText = "background:#e8f5e9;border:1px solid #c8e6c9;border-radius:10px;padding:12px;font-size:13px;color:#2e7d32;margin-bottom:14px;font-weight:600;line-height:1.6;";
   }
   errEl.classList.remove("hidden");
@@ -6077,7 +6255,7 @@ async function loadMyAnnonces(){
     <div style="background:#fff;border-radius:14px;padding:14px 16px;border:1.5px solid ${a.boosted?'#ffcc02':'#e0e0e0'};margin-bottom:10px;${a.boosted?'box-shadow:0 2px 12px rgba(245,127,23,.15);':''}${status!=='disponible'?'opacity:.85;':''}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;">
         <div><div style="font-weight:800;font-size:14px;">${a.kind} — ${a.city}</div>
-        <div style="font-size:12px;color:#888;margin-top:2px;">${formatPrice(a.price,a.type)} · ${a.surface} m²</div>
+        <div style="font-size:12px;color:#888;margin-top:2px;">${formatPrice(a.price,a.type)}${+a.surface>0?' · '+a.surface+' m²':''}</div>
         <div style="font-size:11px;color:#aaa;margin-top:4px;">👁 ${a.views||0} vue${(a.views||0)>1?'s':''} · ${new Date(a.created_at).toLocaleDateString('fr-BE')}</div>
         <div style="font-size:11px;color:#1b5e20;margin-top:2px;font-weight:600;">📋 ID: <strong>#${esc(String(a.id||''))}</strong>${a.agency_ref ? ` · Réf. : <strong>${esc(a.agency_ref)}</strong>` : ''}</div></div>
         <span style="padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;background:${a.type==='vente'?'#1b5e20':'#0d47a1'};color:#fff;">${a.type.toUpperCase()}</span>
@@ -6347,6 +6525,8 @@ async function saveEdit() {
   closeEditModal();
   await loadAnnoncesFromDB();
   loadMyAnnonces();
+  const pAg = document.getElementById('adminAgences');
+  if(pAg && !pAg.classList.contains('hidden')) rafraichirAdminAgences(); // 🛠️ v152
 }
 window.saveEdit = saveEdit;
 
@@ -7137,6 +7317,18 @@ window.toggleLang = toggleLang;
 // Pour désactiver toute la couche : vider NL_DICT, NL_PREFIX et NL_RULES.
 // ══════════════════════════════════════════════════════════════════════════
 const NL_DICT = {
+"J'accepte les": "Ik ga akkoord met de",
+"conditions générales": "algemene voorwaarden",
+"et la": "en het",
+"politique de confidentialité": "privacybeleid",
+"Email ou mot de passe incorrect.": "E-mailadres of wachtwoord onjuist.",
+"Un compte existe déjà avec cet email.": "Er bestaat al een account met dit e-mailadres.",
+"Le mot de passe doit faire au moins 6 caractères.": "Het wachtwoord moet minstens 6 tekens bevatten.",
+"Ce mot de passe est trop courant (il figure dans des listes de mots de passe piratés). Choisissez-en un autre, par exemple avec des chiffres et une majuscule.": "Dit wachtwoord is te gangbaar (het staat in lijsten met gehackte wachtwoorden). Kies een ander, bijvoorbeeld met cijfers en een hoofdletter.",
+"Trop d'inscriptions en ce moment. Réessayez dans quelques minutes, ou utilisez « Recevoir mon lien magique ».": "Te veel registraties op dit moment. Probeer het over enkele minuten opnieuw, of gebruik « Mijn magische link ontvangen ».",
+"Votre email n'est pas encore confirmé. Cliquez sur le lien reçu par email (pensez à vérifier vos spams).": "Uw e-mailadres is nog niet bevestigd. Klik op de link die u per e-mail ontving (kijk ook in uw spam).",
+"Email invalide. Vérifiez le format (ex: votre@email.be).": "Ongeldig e-mailadres. Controleer het formaat (bv. uw@email.be).",
+"Minimum 8 caractères": "Minimum 8 tekens",
 "L'immobilier belge": "Belgisch vastgoed",
 "sans commission": "zonder commissie",
 "Acheter": "Kopen",
@@ -9250,14 +9442,53 @@ function renderAdminAgences(){
     const sorted = ag.annonces.slice().sort((a,b)=> new Date(b.created_at) - new Date(a.created_at));
     let html = `<button onclick="_adminAgencesSelectedIdx=null;renderAdminAgences();" style="padding:8px 14px;border-radius:10px;border:1.5px solid #1b5e20;background:#fff;color:#1b5e20;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:14px;">← Toutes les agences</button>`;
     html += `<div style="background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:12px;padding:14px;margin-bottom:14px;"><div style="font-weight:900;font-size:16px;">🏢 ${esc(ag.name)}</div><div style="font-size:12.5px;opacity:.92;margin-top:3px;">${ag.total} annonce${ag.total>1?'s':''}${ag.boosted>0?` · ⚡ ${ag.boosted} boostée${ag.boosted>1?'s':''}`:''}</div></div>`;
+    // 🛠️ v152 : gestion directe des annonces depuis la fiche agence
+    const nbStatut = st => ag.annonces.filter(a => (a.status||'disponible') === st).length;
+    const nbHL = nbStatut('hors_ligne'), nbEnLigne = ag.total - nbHL;
+    html += `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;font-weight:800;">
+      <span style="background:#e8f5e9;color:#1b5e20;padding:4px 10px;border-radius:20px;">🟢 ${nbStatut('disponible')} en ligne</span>
+      ${nbStatut('option')?`<span style="background:#fff3e0;color:#e65100;padding:4px 10px;border-radius:20px;">🟡 ${nbStatut('option')} sous option</span>`:''}
+      ${(nbStatut('loue')+nbStatut('vendu'))?`<span style="background:#ffebee;color:#c62828;padding:4px 10px;border-radius:20px;">🔴 ${nbStatut('loue')+nbStatut('vendu')} loué/vendu</span>`:''}
+      ${nbHL?`<span style="background:#eceff1;color:#37474f;padding:4px 10px;border-radius:20px;">⚫ ${nbHL} hors ligne</span>`:''}
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+      ${nbEnLigne?`<button onclick="adminAgenceToutStatut('hors_ligne')" style="flex:1;min-width:150px;padding:9px;border-radius:10px;border:1.5px solid #37474f;background:#fff;color:#37474f;font-size:12px;font-weight:800;cursor:pointer;">⚫ Tout mettre hors ligne (${nbEnLigne})</button>`:''}
+      ${nbHL?`<button onclick="adminAgenceToutStatut('disponible')" style="flex:1;min-width:150px;padding:9px;border-radius:10px;border:1.5px solid #1b5e20;background:#fff;color:#1b5e20;font-size:12px;font-weight:800;cursor:pointer;">🟢 Tout remettre en ligne (${nbHL})</button>`:''}
+    </div>
+    <input id="adminAgenceFiltre" type="search" placeholder="🔍 Filtrer (ville, #ID, réf., prix…)" oninput="adminAgenceFiltrer(this.value)" value="${esc(_adminAgenceFiltre)}" style="width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:16px;margin-bottom:10px;" />
+    <div id="adminAgenceCartes">`;
+    const btn = (couleur, fond) => `padding:8px 6px;border-radius:9px;border:1.5px solid ${couleur};background:${fond||'#fff'};color:${fond?'#fff':couleur};font-size:12px;font-weight:800;cursor:pointer;flex:1;min-width:70px;`;
     sorted.forEach(a => {
-      html += `<div style="background:#fff;border-radius:12px;padding:12px 14px;border:1.5px solid ${a.boosted?'#ffcc02':'#e0e0e0'};margin-bottom:8px;">
-        <div style="font-weight:800;font-size:13.5px;">${esc(a.kind||'Bien')} — ${esc(a.city||'')}</div>
-        <div style="font-size:12px;color:#888;margin-top:2px;">${formatPrice(a.price,a.type)} · ${a.surface||'?'} m²${a.boosted?' · ⚡ boostée':''}</div>
-        <div style="font-size:11px;color:#1b5e20;margin-top:3px;font-weight:600;">📋 #${esc(String(a.id||''))}${a.agency_ref?' · Réf. '+esc(a.agency_ref):''} · ${a.created_at?new Date(a.created_at).toLocaleDateString('fr-BE'):''}</div>
+      const st = a.status || 'disponible';
+      const id = escJsString(a.id);
+      const optFin = a.type === 'location' ? ['loue','🔴 Loué'] : ['vendu','🔴 Vendu'];
+      const options = [['disponible','🟢 En ligne'],['option','🟡 Sous option'],optFin,['hors_ligne','⚫ Hors ligne']];
+      if(!options.some(o => o[0] === st)) options.push([st, st]);
+      const bord = st==='hors_ligne' ? '#b0bec5' : (a.boosted ? '#ffcc02' : '#e0e0e0');
+      const recherche = [a.id, a.kind, a.city, a.zip, a.agency_ref, a.price, a.type].join(' ').toLowerCase();
+      html += `<div class="admin-ag-carte" data-recherche="${esc(recherche)}" style="background:${st==='hors_ligne'?'#f5f7f8':'#fff'};border-radius:12px;padding:12px 14px;border:1.5px solid ${bord};margin-bottom:8px;">
+        <div onclick="adminVoirAnnonce('${id}')" style="cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;">
+            <div style="font-weight:800;font-size:13.5px;${st==='hors_ligne'?'color:#78909c;':''}">${esc(a.kind||'Bien')} — ${esc(a.city||'')}</div>
+            ${Array.isArray(a.photos)&&a.photos.length===0?`<span style="font-size:10px;font-weight:800;color:#c62828;white-space:nowrap;">📸 0</span>`:''}
+          </div>
+          <div style="font-size:12px;color:#888;margin-top:2px;">${formatPrice(a.price,a.type)}${+a.surface>0?' · '+esc(a.surface)+' m²':''}${a.boosted?' · ⚡ boostée':''} · 👁 ${+a.views||0}</div>
+          <div style="font-size:11px;color:#1b5e20;margin-top:3px;font-weight:600;">📋 #${esc(String(a.id||''))}${a.agency_ref?' · Réf. '+esc(a.agency_ref):''} · ${a.created_at?new Date(a.created_at).toLocaleDateString('fr-BE'):''}</div>
+        </div>
+        <select aria-label="Statut de l'annonce" onchange="adminAgenceStatut('${id}', this.value, this)" style="width:100%;margin-top:10px;padding:9px;border-radius:9px;border:1.5px solid #c8e6c9;font-size:14px;font-weight:700;background:#fff;">
+          ${options.map(o => `<option value="${o[0]}"${o[0]===st?' selected':''}>${o[1]}</option>`).join('')}
+        </select>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+          <button onclick="adminVoirAnnonce('${id}')" style="${btn('#1b5e20')}">👁 Voir</button>
+          <button onclick="openEditModal('${id}')" style="${btn('#1565c0')}">✏️ Modifier</button>
+          <button onclick="adminAgenceBoost('${id}', ${!!a.boosted})" style="${btn('#f57f17', a.boosted?'':'#f57f17')}">${a.boosted?'⚡ Débooster':'⚡ Booster'}</button>
+          <button onclick="adminAgenceSupprimer('${id}')" style="${btn('#e53935')}">🗑️</button>
+        </div>
       </div>`;
     });
+    html += `</div><p id="adminAgenceAucun" class="hidden" style="text-align:center;color:#888;padding:16px;">Aucune annonce ne correspond.</p>`;
     container.innerHTML = html;
+    if(_adminAgenceFiltre) adminAgenceFiltrer(_adminAgenceFiltre);
     return;
   }
 
@@ -9265,10 +9496,10 @@ function renderAdminAgences(){
   const totalAnnonces = agences.reduce((s,a)=>s+a.total,0);
   let html = `<div style="background:#f1f8e9;border:1px solid #c8e6c9;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#1b5e20;font-weight:700;">📊 ${agences.length} agence${agences.length>1?'s':''} · ${totalAnnonces} annonce${totalAnnonces>1?'s':''} au total</div>`;
   agences.forEach((ag, idx) => {
-    html += `<div onclick="_adminAgencesSelectedIdx=${idx};renderAdminAgences();" style="background:#fff;border-radius:12px;padding:14px 16px;border:1.5px solid #e0e0e0;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onmouseover="this.style.borderColor='#1b5e20'" onmouseout="this.style.borderColor='#e0e0e0'">
+    html += `<div onclick="_adminAgencesSelectedIdx=${idx};_adminAgenceFiltre='';renderAdminAgences();" style="background:#fff;border-radius:12px;padding:14px 16px;border:1.5px solid #e0e0e0;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onmouseover="this.style.borderColor='#1b5e20'" onmouseout="this.style.borderColor='#e0e0e0'">
       <div>
         <div style="font-weight:800;font-size:14px;color:#1a1a1a;">🏢 ${esc(ag.name)}</div>
-        <div style="font-size:12px;color:#888;margin-top:2px;">${ag.total} annonce${ag.total>1?'s':''}${ag.boosted>0?` · ⚡ ${ag.boosted} boostée${ag.boosted>1?'s':''}`:''}</div>
+        <div style="font-size:12px;color:#888;margin-top:2px;">${ag.total} annonce${ag.total>1?'s':''}${ag.boosted>0?` · ⚡ ${ag.boosted} boostée${ag.boosted>1?'s':''}`:''}${(n => n ? ` · ⚫ ${n} hors ligne` : '')(ag.annonces.filter(a => a.status === 'hors_ligne').length)}</div>
       </div>
       <div style="font-size:20px;color:#ccc;">›</div>
     </div>`;
@@ -9276,6 +9507,94 @@ function renderAdminAgences(){
   container.innerHTML = html;
 }
 window.renderAdminAgences = renderAdminAgences;
+
+// 🛠️ v152 : actions depuis la fiche agence
+let _adminAgenceFiltre = '';
+function adminAgenceFiltrer(q){
+  _adminAgenceFiltre = q || '';
+  const mots = _adminAgenceFiltre.toLowerCase().replace('#','').split(/\s+/).filter(Boolean);
+  let visibles = 0;
+  document.querySelectorAll('#adminAgenceCartes .admin-ag-carte').forEach(c => {
+    const ok = mots.every(m => (c.dataset.recherche||'').includes(m));
+    c.style.display = ok ? '' : 'none';
+    if(ok) visibles++;
+  });
+  const vide = document.getElementById('adminAgenceAucun');
+  if(vide) vide.classList.toggle('hidden', visibles > 0);
+}
+window.adminAgenceFiltrer = adminAgenceFiltrer;
+
+async function rafraichirAdminAgences(){
+  const ouverte = (_adminAgencesSelectedIdx !== null && _adminAgencesData[_adminAgencesSelectedIdx]) ? _adminAgencesData[_adminAgencesSelectedIdx].name.toLowerCase() : null;
+  const y = window.scrollY;
+  await loadAdminAnnonces();
+  await loadAdminAgences();   // remet la sélection à zéro…
+  if(ouverte){                // …on rouvre la même agence
+    const i = _adminAgencesData.findIndex(g => g.name.toLowerCase() === ouverte);
+    _adminAgencesSelectedIdx = i >= 0 ? i : null;
+    renderAdminAgences();
+  }
+  window.scrollTo(0, y);
+  try { loadAnnoncesFromDB(); } catch(e){}
+}
+window.rafraichirAdminAgences = rafraichirAdminAgences;
+
+function adminAgenceAnnonce(id){ return (allAdminAnnonces||[]).find(a => String(a.id) === String(id)); }
+function adminAgenceNom(a){ return a ? `#${a.id} — ${a.kind||'Bien'} à ${a.city||'?'}` : ''; }
+
+async function adminVoirAnnonce(id){
+  window.__immoSansVue = true;   // l'admin qui regarde ne compte pas comme une vue
+  try { await openModal(id); } finally { setTimeout(() => { window.__immoSansVue = false; }, 1500); }
+}
+window.adminVoirAnnonce = adminVoirAnnonce;
+
+async function adminAgenceStatut(id, statut, sel){
+  if(sel) sel.disabled = true;
+  const { error } = await sbClient.from('annonces').update({ status: statut }).eq('id', id);
+  if(error){
+    toast("⚠️ " + (/LIMITE_ANNONCES/.test(error.message||'') ? "Limite d'annonces en ligne atteinte pour ce compte." : error.message), "error", 6000);
+  } else {
+    const noms = { disponible:'En ligne', option:'Sous option', loue:'Loué', vendu:'Vendu', hors_ligne:'Hors ligne' };
+    toast(`✅ #${id} : ${noms[statut]||statut}`, "success", 2500);
+  }
+  await rafraichirAdminAgences();
+}
+window.adminAgenceStatut = adminAgenceStatut;
+
+async function adminAgenceBoost(id, actuel){
+  const { data, error } = await sbClient.rpc('admin_toggle_boost', { p_annonce_id: id, p_boosted: !actuel });
+  if(error || !data || !data.success){ toast("⚠️ " + (error ? error.message : (data && data.error) || 'Erreur'), "error", 4000); return; }
+  toast(data.boosted ? `⚡ #${id} boostée` : `#${id} : boost retiré`, "success", 2500);
+  await rafraichirAdminAgences();
+}
+window.adminAgenceBoost = adminAgenceBoost;
+
+async function adminAgenceSupprimer(id){
+  const a = adminAgenceAnnonce(id);
+  if(!confirm(`🗑️ Supprimer DÉFINITIVEMENT l'annonce ${adminAgenceNom(a)} ?\n\nCette action est irréversible. Pour la retirer temporairement, choisissez plutôt « ⚫ Hors ligne ».`)) return;
+  const { error } = await sbClient.from('annonces').delete().eq('id', id);
+  if(error){ toast("⚠️ " + error.message, "error", 5000); return; }
+  toast(`🗑️ #${id} supprimée`, "success", 2500);
+  await rafraichirAdminAgences();
+  try { loadAdminStats(); } catch(e){}
+}
+window.adminAgenceSupprimer = adminAgenceSupprimer;
+
+async function adminAgenceToutStatut(statut){
+  const ag = _adminAgencesData[_adminAgencesSelectedIdx];
+  if(!ag) return;
+  const cibles = ag.annonces.filter(a => statut === 'hors_ligne' ? (a.status||'disponible') !== 'hors_ligne' : a.status === 'hors_ligne');
+  if(!cibles.length) return;
+  const msg = statut === 'hors_ligne'
+    ? `⚫ Mettre HORS LIGNE les ${cibles.length} annonces de « ${ag.name} » ?\n\nElles disparaissent du site pour les visiteurs (rien n'est effacé, vous pourrez les remettre en ligne).`
+    : `🟢 Remettre EN LIGNE les ${cibles.length} annonces hors ligne de « ${ag.name} » ?\n\nVérifiez que l'agence est d'accord et que les biens sont toujours disponibles.`;
+  if(!confirm(msg)) return;
+  const { error } = await sbClient.from('annonces').update({ status: statut }).in('id', cibles.map(a => a.id));
+  if(error) toast("⚠️ " + (/LIMITE_ANNONCES/.test(error.message||'') ? "Limite d'annonces en ligne atteinte pour ce compte." : error.message), "error", 6000);
+  else toast(`✅ ${cibles.length} annonce${cibles.length>1?'s':''} : ${statut==='hors_ligne'?'hors ligne':'en ligne'}`, "success", 3500);
+  await rafraichirAdminAgences();
+}
+window.adminAgenceToutStatut = adminAgenceToutStatut;
 
 async function loadAdminSignalements(){
   const { data } = await sbClient.from('signalements').select('*').order('created_at', {ascending:false});
@@ -9982,6 +10301,168 @@ if(window.IMMO_ANDROID_APP){
     return _switch(tab);
   };
 })();
+</script>
+
+<!-- 🗑️ v144 : suppression de compte en libre-service -->
+<div id="suppressionCompteModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#fff;border-radius:18px;max-width:420px;width:100%;padding:22px 20px;box-shadow:0 10px 40px rgba(0,0,0,.3);">
+    <div style="font-size:18px;font-weight:900;color:#c62828;margin-bottom:8px;" data-sc="titre">🗑️ Supprimer mon compte</div>
+    <div style="font-size:14px;color:#333;line-height:1.6;" data-sc="texte">Cette action est <strong>définitive</strong>. Seront supprimés : votre compte, vos annonces avec leurs photos, vos messages et vos alertes.</div>
+    <div style="font-size:13px;color:#555;margin:14px 0 6px;" data-sc="tapez">Pour confirmer, tapez <strong>SUPPRIMER</strong> :</div>
+    <input id="sc_input" type="text" autocomplete="off" autocapitalize="characters" style="width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:15px;box-sizing:border-box;" />
+    <div id="sc_err" style="display:none;color:#c62828;font-size:13px;margin-top:8px;line-height:1.5;"></div>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button onclick="fermerSuppressionCompte()" style="flex:1;padding:12px;border-radius:12px;border:1.5px solid #ccc;background:#fff;color:#333;font-weight:700;cursor:pointer;" data-sc="annuler">Annuler</button>
+      <button id="sc_btn" onclick="confirmerSuppressionCompte()" style="flex:1;padding:12px;border-radius:12px;border:none;background:#c62828;color:#fff;font-weight:800;cursor:pointer;" data-sc="btn">Supprimer</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var NL = {
+    titre: "🗑️ Mijn account verwijderen",
+    texte: "Deze actie is definitief. Worden verwijderd: uw account, uw zoekertjes met foto's, uw berichten en uw meldingen.",
+    tapez: "Typ SUPPRIMER om te bevestigen:",
+    annuler: "Annuleren",
+    btn: "Verwijderen"
+  };
+  function estNL(){ try { return typeof currentLang !== 'undefined' && currentLang === 'nl'; } catch(e){ return false; } }
+  function t(fr, nl){ return estNL() ? nl : fr; }
+  window.ouvrirSuppressionCompte = function(){
+    var m = document.getElementById('suppressionCompteModal');
+    if(estNL()) m.querySelectorAll('[data-sc]').forEach(function(el){ var k = el.getAttribute('data-sc'); if(NL[k]) el.textContent = NL[k]; });
+    document.getElementById('sc_input').value = '';
+    document.getElementById('sc_err').style.display = 'none';
+    m.style.display = 'flex';
+  };
+  window.fermerSuppressionCompte = function(){ document.getElementById('suppressionCompteModal').style.display = 'none'; };
+  window.confirmerSuppressionCompte = async function(){
+    var err = document.getElementById('sc_err'), btn = document.getElementById('sc_btn');
+    var val = (document.getElementById('sc_input').value || '').trim().toUpperCase();
+    err.style.display = 'none';
+    if(val !== 'SUPPRIMER'){
+      err.textContent = t("Tapez exactement SUPPRIMER pour confirmer.", "Typ precies SUPPRIMER om te bevestigen.");
+      err.style.display = 'block'; return;
+    }
+    btn.disabled = true; btn.textContent = '⏳';
+    var res;
+    try { res = await sbClient.functions.invoke('supprimer-mon-compte', { body: { confirmation: 'SUPPRIMER' } }); }
+    catch(e){ res = { error: e }; }
+    var code = (res && res.data && res.data.error) || '';
+    if(res && res.error && !code){
+      try { var ctx = res.error.context; if(ctx && typeof ctx.json === 'function'){ var j = await ctx.json(); code = (j && j.error) || ''; } } catch(e){}
+    }
+    if(res && res.data && res.data.ok){
+      try { await sbClient.auth.signOut(); } catch(e){}
+      fermerSuppressionCompte();
+      toast(t("✅ Votre compte et vos données ont été supprimés.", "✅ Uw account en gegevens zijn verwijderd."), 'success', 6000);
+      setTimeout(function(){ location.href = '/'; }, 2500);
+      return;
+    }
+    btn.disabled = false; btn.textContent = t('Supprimer', 'Verwijderen');
+    if(code === 'abonnement_actif'){
+      err.innerHTML = t("Vous avez un abonnement payant actif. Écrivez-nous à <a href=\"mailto:contact@immolibre.be\">contact@immolibre.be</a> : nous l'annulons puis supprimons votre compte.",
+                        "U hebt een actief betaald abonnement. Schrijf ons op <a href=\"mailto:contact@immolibre.be\">contact@immolibre.be</a>: wij zeggen het op en verwijderen daarna uw account.");
+    } else if(code === 'admin'){
+      err.textContent = "Un compte administrateur ne peut pas être supprimé ici.";
+    } else {
+      err.innerHTML = t("❌ La suppression n'a pas pu se faire. Réessayez, ou écrivez à <a href=\"mailto:contact@immolibre.be\">contact@immolibre.be</a>.",
+                        "❌ Verwijderen is mislukt. Probeer opnieuw of schrijf naar <a href=\"mailto:contact@immolibre.be\">contact@immolibre.be</a>.");
+      console.warn('supprimer-mon-compte', res);
+    }
+    err.style.display = 'block';
+  };
+})();
+</script>
+
+<!-- 🔑 v145 : choix du nouveau mot de passe après « mot de passe oublié » -->
+<div id="nouveauMdpModal" style="display:none;position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#fff;border-radius:18px;max-width:420px;width:100%;padding:22px 20px;box-shadow:0 10px 40px rgba(0,0,0,.3);">
+    <div style="font-size:18px;font-weight:900;color:#1b5e20;margin-bottom:8px;" data-np="titre">🔑 Choisissez un nouveau mot de passe</div>
+    <div style="font-size:13px;color:#555;margin-bottom:12px;" data-np="texte">Au moins 8 caractères.</div>
+    <input id="np_1" type="password" autocomplete="new-password" placeholder="Nouveau mot de passe" style="width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:15px;box-sizing:border-box;margin-bottom:8px;" />
+    <input id="np_2" type="password" autocomplete="new-password" placeholder="Confirmez le mot de passe" style="width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:15px;box-sizing:border-box;" />
+    <div id="np_err" style="display:none;color:#c62828;font-size:13px;margin-top:8px;"></div>
+    <button id="np_btn" onclick="enregistrerNouveauMotDePasse()" style="width:100%;margin-top:14px;padding:13px;border-radius:12px;border:none;background:#1b5e20;color:#fff;font-weight:800;font-size:15px;cursor:pointer;" data-np="btn">Enregistrer</button>
+  </div>
+</div>
+<script>
+(function(){
+  var NL = { titre: "🔑 Kies een nieuw wachtwoord", texte: "Minstens 8 tekens.", btn: "Opslaan" };
+  function estNL(){ try { return typeof currentLang !== 'undefined' && currentLang === 'nl'; } catch(e){ return false; } }
+  function t(fr, nl){ return estNL() ? nl : fr; }
+  window.ouvrirNouveauMotDePasse = function(){
+    var m = document.getElementById('nouveauMdpModal');
+    if(!m || m.style.display === 'flex') return;
+    if(estNL()){
+      m.querySelectorAll('[data-np]').forEach(function(el){ var k = el.getAttribute('data-np'); if(NL[k]) el.textContent = NL[k]; });
+      document.getElementById('np_1').placeholder = 'Nieuw wachtwoord';
+      document.getElementById('np_2').placeholder = 'Bevestig het wachtwoord';
+    }
+    var l = document.getElementById('appLoader'); if(l) l.style.display = 'none';
+    m.style.display = 'flex';
+    setTimeout(function(){ try { document.getElementById('np_1').focus(); } catch(e){} }, 100);
+  };
+  window.enregistrerNouveauMotDePasse = async function(){
+    var a = document.getElementById('np_1').value || '', b = document.getElementById('np_2').value || '';
+    var err = document.getElementById('np_err'), btn = document.getElementById('np_btn');
+    err.style.display = 'none';
+    if(a.length < 8){ err.textContent = t("Le mot de passe doit contenir au moins 8 caractères.", "Het wachtwoord moet minstens 8 tekens bevatten."); err.style.display = 'block'; return; }
+    if(a !== b){ err.textContent = t("Les deux mots de passe ne sont pas identiques.", "De twee wachtwoorden komen niet overeen."); err.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = '⏳';
+    var res;
+    try { res = await sbClient.auth.updateUser({ password: a }); } catch(e){ res = { error: e }; }
+    btn.disabled = false; btn.textContent = t('Enregistrer', 'Opslaan');
+    if(res && res.error){
+      var msg = String(res.error.message || '');
+      if(/different from the old|same/i.test(msg)) err.textContent = t("Choisissez un mot de passe différent de l'ancien.", "Kies een ander wachtwoord dan het oude.");
+      else if(/session|expired|invalid/i.test(msg)) err.textContent = t("Le lien a expiré. Redemandez « Mot de passe oublié » sur la page de connexion.", "De link is verlopen. Vraag opnieuw « Wachtwoord vergeten » aan.");
+      else err.textContent = t("Erreur : ", "Fout: ") + msg;
+      err.style.display = 'block';
+      return;
+    }
+    window.__IMMO_RECOVERY = false;
+    document.getElementById('nouveauMdpModal').style.display = 'none';
+    toast(t("✅ Mot de passe modifié ! Vous êtes connecté.", "✅ Wachtwoord gewijzigd! U bent aangemeld."), 'success', 5000);
+  };
+  // Filet de sécurité : si l'événement est passé avant que cette fenêtre existe
+  window.addEventListener('load', function(){
+    setTimeout(async function(){
+      if(!window.__IMMO_RECOVERY) return;
+      try { var s = await sbClient.auth.getSession(); if(s && s.data && s.data.session) window.ouvrirNouveauMotDePasse(); } catch(e){}
+    }, 1200);
+  });
+})();
+</script>
+
+<script>
+// 🔧 v146 : message après un lien de confirmation (réussi ou expiré)
+window.addEventListener('load', function(){
+  setTimeout(async function(){
+    try {
+      if(window.__IMMO_AUTH_ERREUR){
+        if(typeof showPage === 'function') showPage('compte');
+        if(typeof switchAuthTab === 'function') switchAuthTab('login');
+        const expire = /otp_expired|expired|invalid/i.test(String(window.__IMMO_AUTH_ERREUR));
+        afficherMessageAuth('orange',
+          expire
+            ? trAuth("⏰ <strong>Ce lien a expiré ou a déjà été utilisé.</strong><br/>Tapez votre email ci-dessus, puis recevez un nouveau lien de confirmation :", "⏰ <strong>Deze link is verlopen of al gebruikt.</strong><br/>Typ hierboven uw e-mailadres en ontvang een nieuwe bevestigingslink:")
+            : trAuth("⚠️ <strong>Le lien n'a pas fonctionné.</strong><br/>Tapez votre email ci-dessus et recevez un nouveau lien :", "⚠️ <strong>De link werkte niet.</strong><br/>Typ hierboven uw e-mailadres en ontvang een nieuwe link:"),
+          '', true);
+        try { history.replaceState(null, '', location.pathname); } catch(e){}
+        return;
+      }
+      if(window.__IMMO_CONFIRME){
+        const s = await sbClient.auth.getSession();
+        if(s && s.data && s.data.session){
+          if(typeof showPage === 'function') showPage('compte');
+          toast(trAuth("🎉 Bienvenue ! Votre compte est confirmé.", "🎉 Welkom! Uw account is bevestigd."), 'success', 6000);
+        }
+        try { history.replaceState(null, '', location.pathname); } catch(e){}
+      }
+    } catch(e){ console.warn('v146 auth url', e); }
+  }, 900);
+});
 </script>
 </body>
 </html>

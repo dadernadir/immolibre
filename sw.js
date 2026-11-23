@@ -1,4 +1,4 @@
-const CACHE_NAME = 'immolibre-v143';
+const CACHE_NAME = 'immolibre-v153';
 const OFFLINE_URL = '/index.html';
 
 const ASSETS_TO_CACHE = [

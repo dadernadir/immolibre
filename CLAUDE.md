@@ -27,9 +27,9 @@ Dernière mise à jour : 23/11/2026.
 5. Ne jamais mettre de secret (mot de passe, keystore, clé API privée) dans le site ou le dépôt.
    La clé Supabase publique (anon) présente dans `index.html` est normale.
 
-## Version actuelle : v143 (contrôlée le 11/11/2026, prête à déployer)
+## Version actuelle : v153 (déployée, en ligne le 23/11/2026)
 
-Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v143** (identiques au zip v143).
+Le dépôt GitHub (branche `ccr-f1381ce0-0y9wxt`) contient les fichiers du site en **v153** (identiques au zip v153).
 `tools/gen_annonces.py` est dans le dépôt (avec l'échappement `\u003c` du JSON-LD ajouté le 22/10).
 
 Historique récent :
@@ -77,6 +77,14 @@ Ne jamais écrire dans ce dépôt l'adresse e-mail d'un membre, d'un client ou d
 | v141 | Onglet admin **✉️ Contact** : « 📱 Testeurs Android : N / 12 » + « Copier tout », et messages du formulaire de contact. |
 | v142 | Compteur de vues réparé (RPC `increment_annonce_views`, 1 fois par annonce et par session) ; toasts de debug retirés. |
 | v143 | Photos compressées une par une (avant : en parallèle, des téléphones saturaient et envoyaient l'original de 4 Mo) + décodage de secours via `<img>` + type vide reconnu par l'extension. Annonces `hors_ligne` exclues de la liste, de la carte et de la page agence, même pour l'admin ; bandeau « ⚫ Hors ligne » dans « Mes annonces ». 404 pages d'annonce (bon générateur). |
+| v144 | Suppression de compte en libre-service : Mon compte → « Supprimer mon compte et mes données » → edge function `supprimer-mon-compte` (refuse admin et abonnement payant actif). |
+| v145 | Nouveau mot de passe + renvoi de l'e-mail de confirmation. |
+| v146 | Audit de l'inscription. |
+| v147 | Case CGU obligatoire à l'inscription. |
+| v148 | Correction du boost agence. |
+| v150 | Badge « Nouveau » limité à 7 jours ; « 0 m² » masqué. |
+| v152 | Gestion des annonces dans Admin → Agences. |
+| v153 | Session expirée : `verifierSessionPublication()` (avant l'envoi des photos, rafraîchit la session si besoin) et `connexionPerduePublication()` dans `submitAnnonce` ; erreurs 42501/RLS traduites dans `saveAnnonce`. |
 
 **Supabase**
 - `tri_visible(annonces)` : a des photos OU créée il y a moins de 7 jours.
@@ -125,10 +133,19 @@ quiconque devine l'adresse, avec leurs métadonnées éventuelles, dont la posit
   **juste après la confirmation de leur e-mail** : le site les affichait « connectés » mais leurs requêtes partaient
   sans session (rôle `anon`) → photos refusées (400) et annonce refusée (401). Ils ont réussi le lendemain après
   reconnexion. 3 autres refus (24, 25, 28/10, erreur PGRST204 colonne inconnue) rattrapés par le réessai automatique.
-- Correctif à faire (v144) : dans `submitAnnonce`, vérifier `sbClient.auth.getSession()` AVANT l'envoi des photos ;
+- ✅ Corrigé en v153. (Proposition initiale : dans `submitAnnonce`, vérifier `sbClient.auth.getSession()` AVANT l'envoi des photos ;
   sans session → message « Votre session a expiré, reconnectez-vous » + fenêtre de connexion. Traduire aussi les
-  erreurs 401 / 42501 / « row-level security » en ce même message.
+  erreurs 401 / 42501 / « row-level security » en ce même message.)
 - Les « photos sans annonce » (32 membres) sont surtout des annonces publiées puis supprimées : ce n'est pas un indicateur fiable.
+
+**Points relevés au contrôle de la v153 (23/11/2026)**
+- `supprimer-mon-compte` : le compte supprimé est bien lu dans le jeton (pas dans le corps) ✅. MAIS les suppressions
+  par e-mail utilisent `.ilike("guest_email", email)` et `.ilike("email", email)` : dans `ilike`, `_` et `%` sont des
+  jokers. Une adresse avec « _ » (20 comptes sur 571) peut effacer les messages-invités et alertes d'une AUTRE adresse
+  qui ne diffère que d'un caractère à cet endroit. → Échapper `\`, `%`, `_` avant `ilike` (ou comparer en minuscules exactes).
+- Les originaux de `photos/originaux/` (231 fichiers, 294 Mo) n'ont **aucun propriétaire** : la suppression de compte
+  ne les efface pas (RGPD) et ils restent publics. → Supprimer `originaux/` (OK de Nadir) ou les rattacher au membre.
+- 429 annonces en ligne pour 421 pages : 8 publiées depuis la génération (couvertes par `404.html`), à régénérer à la prochaine version.
 
 **Points relevés au contrôle de la v142 (session « Check-up complet », 11/11)**
 - Pages 275 et 615 : JSON-LD avec « < » brut → la v142 a été générée avec l'**ancien** `gen_annonces.py`.

@@ -2,7 +2,7 @@
 
 Fichier lu automatiquement par Claude Code au démarrage d'une session sur ce dépôt.
 À coller aussi en début de conversation Claude classique pour donner le contexte.
-Dernière mise à jour : 11/11/2026.
+Dernière mise à jour : 23/11/2026.
 
 ## Le projet
 
@@ -119,6 +119,16 @@ quiconque devine l'adresse, avec leurs métadonnées éventuelles, dont la posit
 → Une fois le résultat vérifié, supprimer `originaux/` (avec l'OK de Nadir) ou le déplacer dans un bucket privé.
 ⚠️ Un propriétaire peut remettre lui-même en « Disponible » une annonce passée `hors_ligne` par l'admin
 (sans conséquence tant que ce sont les annonces du compte admin ; à bloquer avant de retirer l'annonce d'un autre membre).
+
+**Check-up « publications ratées » (23/11/2026, journaux Supabase du 24/10 au 23/11)**
+- ≈ 110 annonces publiées ; **2 membres bloqués** (16/11 : 8 essais ; 19/11 : 4 essais), tous deux sur iPhone Safari,
+  **juste après la confirmation de leur e-mail** : le site les affichait « connectés » mais leurs requêtes partaient
+  sans session (rôle `anon`) → photos refusées (400) et annonce refusée (401). Ils ont réussi le lendemain après
+  reconnexion. 3 autres refus (24, 25, 28/10, erreur PGRST204 colonne inconnue) rattrapés par le réessai automatique.
+- Correctif à faire (v144) : dans `submitAnnonce`, vérifier `sbClient.auth.getSession()` AVANT l'envoi des photos ;
+  sans session → message « Votre session a expiré, reconnectez-vous » + fenêtre de connexion. Traduire aussi les
+  erreurs 401 / 42501 / « row-level security » en ce même message.
+- Les « photos sans annonce » (32 membres) sont surtout des annonces publiées puis supprimées : ce n'est pas un indicateur fiable.
 
 **Points relevés au contrôle de la v142 (session « Check-up complet », 11/11)**
 - Pages 275 et 615 : JSON-LD avec « < » brut → la v142 a été générée avec l'**ancien** `gen_annonces.py`.

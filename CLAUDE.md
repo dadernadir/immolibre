@@ -124,7 +124,7 @@ Meta : paiement refusé, compte pub suspendu (carte à mettre à jour + vérific
 **Allègement des photos existantes (11/11/2026)** : photos > 500 Ko réduites à 1600 px max (≈ 20× plus légères),
 même adresse. Originaux sauvegardés dans `photos/originaux/` (bucket **public** : ils restent téléchargeables par
 quiconque devine l'adresse, avec leurs métadonnées éventuelles, dont la position GPS des photos de téléphone).
-→ Une fois le résultat vérifié, supprimer `originaux/` (avec l'OK de Nadir) ou le déplacer dans un bucket privé.
+→ Décision de Nadir (23/11) : conserver `originaux/` comme sauvegarde (voir « contrôle de la v153 »).
 ⚠️ Un propriétaire peut remettre lui-même en « Disponible » une annonce passée `hors_ligne` par l'admin
 (sans conséquence tant que ce sont les annonces du compte admin ; à bloquer avant de retirer l'annonce d'un autre membre).
 
@@ -139,12 +139,12 @@ quiconque devine l'adresse, avec leurs métadonnées éventuelles, dont la posit
 - Les « photos sans annonce » (32 membres) sont surtout des annonces publiées puis supprimées : ce n'est pas un indicateur fiable.
 
 **Points relevés au contrôle de la v153 (23/11/2026)**
-- `supprimer-mon-compte` : le compte supprimé est bien lu dans le jeton (pas dans le corps) ✅. MAIS les suppressions
-  par e-mail utilisent `.ilike("guest_email", email)` et `.ilike("email", email)` : dans `ilike`, `_` et `%` sont des
-  jokers. Une adresse avec « _ » (20 comptes sur 571) peut effacer les messages-invités et alertes d'une AUTRE adresse
-  qui ne diffère que d'un caractère à cet endroit. → Échapper `\`, `%`, `_` avant `ilike` (ou comparer en minuscules exactes).
-- Les originaux de `photos/originaux/` (231 fichiers, 294 Mo) n'ont **aucun propriétaire** : la suppression de compte
-  ne les efface pas (RGPD) et ils restent publics. → Supprimer `originaux/` (OK de Nadir) ou les rattacher au membre.
+- ✅ `supprimer-mon-compte` v2 (23/11) : messages invités et alertes supprimés seulement si l'adresse est EXACTEMENT
+  la même (avant : `ilike`, où « _ » et « % » sont des jokers). Vérifié en production.
+- **`photos/originaux/` (231 fichiers, 294 Mo) : CONSERVÉ volontairement par Nadir comme sauvegarde** (une erreur passée
+  avait supprimé des photos d'annonces). **Ne pas supprimer ni déplacer sans son accord explicite.** Limites connues et
+  acceptées : fichiers publics (adresse devinable, métadonnées éventuelles) et non effacés par la suppression de compte
+  (pas de propriétaire) → à traiter à la main si un membre demande l'effacement de ses données.
 - 429 annonces en ligne pour 421 pages : 8 publiées depuis la génération (couvertes par `404.html`), à régénérer à la prochaine version.
 
 **Points relevés au contrôle de la v142 (session « Check-up complet », 11/11)**
